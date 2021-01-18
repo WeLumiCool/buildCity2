@@ -50,6 +50,10 @@ class DeskController extends Controller
         //
     }
 
+    public function publicShow($id)
+    {
+
+    }
     /**
      * Show the form for editing the specified resource.
      *
