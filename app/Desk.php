@@ -20,7 +20,7 @@ class Desk extends Model
 //    }
     public function program()
     {
-        return $this->hasMany(Program::class);
+        return $this->belongsTo(Program::class);
     }
     public function user()
     {
