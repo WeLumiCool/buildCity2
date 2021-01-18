@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Build;
 use App\Desk;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -42,12 +43,12 @@ class DeskController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Desk $desk
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Desk $desk)
     {
-        //
+        return view('admin.desks.show', compact('desk'));
     }
 
     public function publicShow($id)
