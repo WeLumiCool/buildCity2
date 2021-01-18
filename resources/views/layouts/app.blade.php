@@ -15,6 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    {{--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">--}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <!-- Styles -->
@@ -44,16 +45,22 @@
                                 <a class="nav-link text-dark"
                                    href="{{ route('cabinet') }}">{{ __('Личный кабинет') }}</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
+                        @endif
+                        <li class="nav-item mr-3">
+                            <a class="nav-link" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Выход') }}
-                                </a>
+                                {{ __('Выход') }}
+                            </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                        @if(Auth::user()->is_active)
+                            <li class="nav-item d-flex">
+                                <p class="pt-2">Баланс:&nbsp;</p>
+                                <p class="pt-2">{{ Auth::user()->balance }} $</p>
                             </li>
                         @endif
                     @endif

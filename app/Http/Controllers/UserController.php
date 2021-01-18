@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Desk;
-use App\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
-class DeskController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class DeskController extends Controller
      */
     public function index()
     {
-        return view('admin.desks.index');
+        //
     }
 
     /**
@@ -52,11 +52,6 @@ class DeskController extends Controller
         //
     }
 
-    public function publicShow($id)
-    {
-        return view('public.showDesk', compact('id'));
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -66,33 +61,6 @@ class DeskController extends Controller
     public function edit($id)
     {
         //
-    }
-
-    public function public_create()
-    {
-        $programs = Program::all();
-        return view('public.create_desk', compact('programs'));
-    }
-
-    public function public_store(Request $request)
-    {
-        $desk = new Desk();
-        $desk->program_id = $request->program_id;
-        $desk->user_id = Auth::user()->id;
-        $desk->balance = '0';
-        $desk->code = self::get_code();
-        $desk->is_closed = false;
-        $desk->save();
-        return redirect()->route('cabinet');
-    }
-
-    public static function get_code()
-    {
-        $str = '';
-        for ($i = 0; $i < 6; $i++) {
-            $str .= rand(0, 9);
-        }
-        return $str;
     }
 
     /**
@@ -107,11 +75,6 @@ class DeskController extends Controller
         //
     }
 
-    public function checkExistCode(Request $request)
-    {
-        return response()->json(Desk::where('code', $request->code)->exists());
-    }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -123,12 +86,40 @@ class DeskController extends Controller
         //
     }
 
-    public function datatableData()
+    public function profile()
     {
-        return DataTables::of(Desk::query())
-            ->addColumn('actions', function (Desk $desk) {
-                return view('admin.actions', ['type' => 'desks', 'model' => $desk]);
-            })
-            ->make(true);
+        return view('public.profile');
+    }
+
+    public function change_profile(Request $request)
+    {
+        $user = Auth::user();
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'phone' => ['required', 'max:25', Rule::unique('users')->ignore($user->id)],
+            'password' => ['confirmed'],
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()->withErrors($validator->errors());
+        }
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        if ($request->current_password != null) {
+            if ($user->password == Hash::make($request->current_password)) {
+                $user->password = Hash::make($request->password);
+            } else {
+                return back()->withInput()->withErrors(['current_password' => ['Пароль не верен']]);
+            }
+        }
+        $user->save();
+        return redirect()->route('cabinet');
+    }
+
+    public function wait()
+    {
+        return view('public.wait');
     }
 }

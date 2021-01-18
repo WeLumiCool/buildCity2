@@ -15,30 +15,38 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes(['register' => false]);
+Route::get('register/{code}', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register')->name('register.post');
+Route::get('check_code', 'DeskController@checkExistCode')->name('check.code');
+
+
 Route::middleware('access')->group(function () {
-    Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-    Route::post('register', 'Auth\RegisterController@register');
-    Route::get('cabinet', 'CabinetController@get_page')->name('cabinet');
     Route::get('/', function () {
         return view('public.home');
     });
+    Route::get('cabinet', 'CabinetController@get_page')->name('cabinet');
     Route::get('profile-settings', 'UserController@profile')->name('profile.settings');
-    Route::get('desk/show/{id}', 'DeskController@show')->name('desk.show');
+    Route::post('update_profile', 'UserController@change_profile')->name('update.profile');
+    Route::get('desk/show/{id}', 'DeskController@publicShow')->name('desk.show');
     //AJAX
     Route::get('/self_cabinet/datatable', 'CabinetController@datatableData')->name('self.cabinet.table');
+    Route::get('create_desk', 'DeskController@public_create')->name('create.desk');
+    Route::post('store_desk', 'DeskController@public_store')->name('store.desk');
 });
-
+Route::middleware('auth')->group(function () {
+    Route::get('wait', 'UserController@wait')->name('wait');
+});
 Route::prefix('admin')->name('admin.')/*->middleware('admin')*/
-    ->group(function () {
-        Route::get('/', 'AdminController@index')->name('admin');
-        Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
-        //CRUD for desks
-        Route::get('/desks/datatable', 'DeskController@datatableData')->name('desk.datatable.data');
-        Route::resource('desks', 'DeskController');
-        //CRUD for program
-        Route::get('/programs/datatable', 'ProgramController@datatableData')->name('program.datatable.data');
-        Route::resource('programs', 'ProgramController');
+->group(function () {
+    Route::get('/', 'AdminController@index')->name('admin');
+    Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
+    //CRUD for desks
+    Route::get('/desks/datatable', 'DeskController@datatableData')->name('desk.datatable.data');
+    Route::resource('desks', 'DeskController');
+    //CRUD for program
+    Route::get('/programs/datatable', 'ProgramController@datatableData')->name('program.datatable.data');
+    Route::resource('programs', 'ProgramController');
 
-    });
+});
     
 
