@@ -14,13 +14,16 @@ class Desk extends Model
     {
         return $this->belongsToMany(User::class, 'desk_users');
     }
-
     public function owners()
     {
-        return $this->hasMany()
+        return $this->hasMany();
     }
     public function programs()
     {
         return $this->hasMany(Program::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

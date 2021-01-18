@@ -13,8 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('public.welcome');
+
+Auth::routes(['register' => false]);
+Route::middleware('access')->group(function () {
+    Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+    Route::post('register', 'Auth\RegisterController@register');
+    Route::get('cabinet', 'CabinetController@get_page')->name('cabinet');
+    Route::get('/', function () {
+        return view('public.home');
+    });
+    Route::get('profile-settings', 'UserController@profile')->name('profile.settings');
+    Route::get('desk/show/{id}', 'DeskController@show')->name('desk.show');
+    //AJAX
+    Route::get('/self_cabinet/datatable', 'CabinetController@datatableData')->name('self.cabinet.table');
 });
 
 Route::prefix('admin')->name('admin.')/*->middleware('admin')*/
@@ -29,6 +40,5 @@ Route::prefix('admin')->name('admin.')/*->middleware('admin')*/
         Route::resource('programs', 'ProgramController');
 
     });
-
-Auth::routes();
+    
 
