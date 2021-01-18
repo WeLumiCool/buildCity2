@@ -46,7 +46,10 @@ Route::prefix('admin')->name('admin.')/*->middleware('admin')*/
     //CRUD for program
     Route::get('/programs/datatable', 'ProgramController@datatableData')->name('program.datatable.data');
     Route::resource('programs', 'ProgramController');
+    //CRUD for users
+    Route::get('/user/datatable', 'UserController@datatableData')->name('user.datatable.data');
+    Route::resource('users', 'UserController');
 
 });
-    
+
 

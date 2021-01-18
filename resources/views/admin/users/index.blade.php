@@ -16,7 +16,6 @@
                         <th scope="col">id</th>
                         <th scope="col">ФИО</th>
                         <th scope="col">Почта</th>
-                        <th scope="col">Роль</th>
                         <th scope="col">actions</th>
                     </tr>
                     </thead>
@@ -41,7 +40,6 @@
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
                     {data: 'email', name: 'email'},
-                    {data: 'role_id', name: 'role_id'},
                     {data: 'actions', name: 'actions', searchable: false, orderable: false},
                 ],
                 "language": {
