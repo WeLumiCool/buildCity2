@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,8 +9,8 @@ class Program extends Model
 
     protected $fillable = ['cost', 'closing_amount'];
 
-    public function desk()
+    public function desks()
     {
-        return $this->belongsTo(Desk::class);
+        return $this->hasMany(Desk::class);
     }
 }
