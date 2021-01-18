@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
+use App\Program;
 use Illuminate\Database\Eloquent\Model;
 
 class Desk extends Model
@@ -14,6 +15,10 @@ class Desk extends Model
         return $this->belongsToMany(User::class, 'desk_users');
     }
 
+    public function owners()
+    {
+        return $this->hasMany()
+    }
     public function programs()
     {
         return $this->hasMany(Program::class);
