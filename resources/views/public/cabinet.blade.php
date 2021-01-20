@@ -1,26 +1,32 @@
 @extends('layouts.app')
 @section('content')
-    <div class="p-3 bg-form card-body-admin">
-        <div class="row mx-1">
-            <div class="mb-3 d-flex">
-                <a href="{{ route('create.desk') }}" class="btn btn-success">Добавить стол</a>
-                <a href="{{ route('profile.settings') }}" class="btn btn-dark ml-auto">Изменить профиль</a>
-            </div>
-            <div class="col">
-                <table class="table table-striped display nowrap table-hover w-100" id="desks-table">
-                    <thead class="bg-primary text-light">
-                    <tr>
-                        <th></th>
-                        <th scope="col">Статус</th>
-                        <th scope="col">Участники</th>
-                        <th scope="col">Код стола</th>
-                        <th scope="col">дата создания</th>
-                        <th scope="col">Баланс</th>
-                        <th scope="col">Ставка</th>
-                        <th scope="col">Сумма закрытия</th>
-                    </tr>
-                    </thead>
-                </table>
+    <div class="container">
+        <div class="p-3 bg-form card-body-admin">
+            <div class="row mx-1">
+                <div class="mb-3 d-lg-flex justify-content-lg-between text-center">
+                    <div class="py-2">
+                        <a href="{{ route('create.desk') }}" class="btn btn-success">Добавить стол</a>
+                    </div>
+                    <div class="py-2">
+                        <a href="{{ route('profile.settings') }}" class="btn btn-dark ml-auto">Изменить профиль</a>
+                    </div>
+                </div>
+                <div class="col">
+                    <table class="table table-striped display nowrap table-hover w-100" id="desks-table">
+                        <thead class="bg-primary text-light">
+                        <tr>
+                            <th></th>
+                            <th scope="col">Статус</th>
+                            <th scope="col">Участники</th>
+                            <th scope="col">Код стола</th>
+                            <th scope="col">дата создания</th>
+                            <th scope="col">Баланс</th>
+                            <th scope="col">Ставка</th>
+                            <th scope="col">Сумма закрытия</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
