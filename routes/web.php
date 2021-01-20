@@ -53,7 +53,7 @@ Route::prefix('admin')->name('admin.')/*->middleware('admin')*/
 
     Route::get('user_activation', 'UserController@activation')->name('user.activation');
     Route::get('change_desk', 'DeskController@change_desk')->name('change.desk');
-
+    Route::get('replace', 'DeskController@replaceShow')->name('desks.replace');
 });
 
 
