@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"/>
-{{--    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">--}}
+    {{--    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">--}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -20,44 +20,44 @@
 <body style="background: #eeeeee">
 <div id="app">
     <header>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
-            <div class="container-fluid">
-
-
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'Laravel') }}
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class=" ml-auto navbar-nav nav-flex-icons">
-{{--                            <form action="{{ env('INSPECTION') }}" method="POST">--}}
-{{--                                <input type="hidden" name="auth_hash" value="{{ hash('sha256', Auth::user()->email) }}">--}}
-{{--                                <button class="nav-link btn text-light mr-3" style="background: #B63A22" type="submit">ГСН</button>--}}
-{{--                            </form>--}}
-{{--                        @if(Auth::user()->role->name=='Начальник')--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <button onclick="share_permission(this);"--}}
-{{--                                        class="nav-link btn text-light" style="background: #B63A22">--}}
-{{--                                    {{ $zam->is_admin?'Убрать доступ':'Дать доступ' }}--}}
-{{--                                </button>--}}
-{{--                            </li>--}}
-{{--                        @endif--}}
-{{--                        @if(Auth::check())--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a class="nav-link waves-effect"--}}
-{{--                                   target="_blank" href="{{ route('logout') }}"--}}
-{{--                                   onclick="event.preventDefault(); document.getElementById('logout-form-auth').submit();"--}}
-{{--                                ><i class="fas fa-sign-out-alt "></i>--}}
-{{--                                    {{ __('Выйти') }}--}}
-{{--                                </a>--}}
 
-{{--                                <form id="logout-form-auth" action="{{ route('logout') }}" method="POST"--}}
-{{--                                      style="display: none;">--}}
-{{--                                    {{ csrf_field() }}--}}
-{{--                                </form>--}}
-{{--                            </li>--}}
-{{--                        @endif--}}
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        @if(Auth::check())
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Выход') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                        @endif
+                        <li>
+                            <a href="{{ route('admin.users.index') }}"
+                               class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
+                                <i class="fas fa-building mr-3"></i>{{ __('Пользователи') }}</a>
+                        </li>
+
+                            <a href="{{ route('admin.desks.index') }}"
+                               class="nav-link {{ request()->is('admin/desk*') ? 'active' : '' }}">
+                                <i class="fas fa-building mr-3"></i>{{ __('Столы') }}</a>
                     </ul>
                 </div>
             </div>

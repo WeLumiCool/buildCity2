@@ -42,7 +42,8 @@ Route::prefix('admin')->name('admin.')/*->middleware('admin')*/
     Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
     //CRUD for desks
     Route::get('/desks/datatable', 'DeskController@datatableData')->name('desk.datatable.data');
-    Route::resource('desks', 'DeskController');
+    Route::resource('desks', 'DeskController')->only('index');
+    Route::get('/close-desk/{id}', 'DeskController@closeDesk')->name('close.desk');
     //CRUD for program
     Route::get('/programs/datatable', 'ProgramController@datatableData')->name('program.datatable.data');
     Route::resource('programs', 'ProgramController');

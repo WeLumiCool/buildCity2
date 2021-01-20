@@ -19,9 +19,6 @@ class CabinetController extends Controller
     {
         $desks = Desk::where('user_id', Auth::user()->id)->orderBy('is_closed')->get();
         return DataTables::of($desks)
-            ->addColumn('copy_btn', function (Desk $desk){
-                return '<button class="btn"><i class="fas fa-copy"></i></button>';
-            })
             ->editColumn('user_id', function (Desk $desk) {
                 return $desk->user->name;
             })
@@ -53,7 +50,7 @@ class CabinetController extends Controller
             ->editColumn('created_at', function (Desk $desk) {
                 return Carbon::createFromFormat('Y-m-d H:i:s', $desk->created_at)->format('d-m-Y');
             })
-            ->rawColumns(['Teilnehmers', 'is_closed','copy_btn'])
+            ->rawColumns(['Teilnehmers', 'is_closed'])
             ->make(true);
     }
 }
