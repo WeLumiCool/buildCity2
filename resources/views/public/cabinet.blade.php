@@ -145,7 +145,6 @@
 
             });
             $('#desks-table tbody').on('click', 'td', function () {
-                // console.log(this);
                 if (!this.classList.contains('control')) {
                     clickedRow = this.parentElement;
                     let data = table.row(this).data();

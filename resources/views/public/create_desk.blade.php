@@ -12,7 +12,7 @@
                     </select>
                 </div>
                 @csrf
-                <div class="row">
+                <div>
                     <button type="submit" title="{{ __('Добавить') }}"
                             class="btn btn-success">{{ __('Добавить') }}</button>
                 </div>

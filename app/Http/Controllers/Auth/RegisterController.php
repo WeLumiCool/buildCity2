@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Desk;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -65,14 +68,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
-            'balance'=>'0',
-            'is_active'=>'0',
-
             'password' => Hash::make($data['password']),
+            'email_verified_at'=>Carbon::now()->format('Y-m-d H:i:s'),
         ]);
+    }
+
+    protected function registered(Request $request, $user)
+    {
+//        dd($request);
+        $desk = Desk::where('code', $request->code)->first();
+//        dd($desk);
+        $desk->users()->attach($user->id);
     }
 }

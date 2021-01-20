@@ -84,7 +84,7 @@
                                            name="password_confirmation" required autocomplete="new-password">
                                 </div>
                             </div>
-                            <input id="input_code" type="hidden">
+                            <input id="input_code" name="code" type="hidden">
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
@@ -119,7 +119,7 @@
                 },
                 success: function (data) {
                     if (!data) {
-                        alert('Не действильная ссылка');
+                        alert('Ссылка не действильна или стол переполнен');
                         window.location.href = window.location.origin + '/login';
                     }
                 }

@@ -79,7 +79,7 @@
                                name="password_confirmation">
                     </div>
                 </div>
-                <div class="row">
+                <div>
                     <button type="submit" title="{{ __('Сохранить') }}"
                             class="btn n btn-success mx-auto">{{ __('Сохранить') }}</button>
                 </div>

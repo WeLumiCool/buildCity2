@@ -54,7 +54,8 @@ class DeskController extends Controller
 
     public function publicShow($id)
     {
-        return view('public.showDesk', compact('id'));
+        $desk = Desk::find($id);
+        return view('public.showDesk', compact('desk'));
     }
 
     /**
@@ -81,7 +82,6 @@ class DeskController extends Controller
         $desk->user_id = Auth::user()->id;
         $desk->balance = '0';
         $desk->code = self::get_code();
-        $desk->is_closed = false;
         $desk->save();
         return redirect()->route('cabinet');
     }
@@ -109,7 +109,15 @@ class DeskController extends Controller
 
     public function checkExistCode(Request $request)
     {
-        return response()->json(Desk::where('code', $request->code)->exists());
+
+        $desk = Desk::where('code', $request->code)->first();
+        if (!$desk) {
+            return response()->json(false);
+        }
+        if ($desk->is_closed) {
+            return response()->json(false);
+        }
+        return response()->json(true);
     }
 
     /**

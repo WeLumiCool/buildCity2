@@ -13,7 +13,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'phone', 'email_verified_at',
     ];
 
     /**
@@ -36,6 +36,6 @@ class User extends Authenticatable
 
     public function desks()
     {
-        return $this->hasMany(Desk::class);
+        return $this->belongsToMany(Desk::class, 'task_users');
     }
 }
