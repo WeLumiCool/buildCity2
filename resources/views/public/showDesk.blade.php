@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-12 col-lg-6 mb-5">
+            <div class="col-12 mb-5">
                 <div class="border p-2 shadow-sm">
                     <p class="justify-content-between d-flex"><span class="font-weight-bold">Баланс:</span><span
                             class="text-muted">{{ $desk->balance }}</span></p>
@@ -12,9 +12,9 @@
                             class="text-muted">{{ $desk->program->closing_amount }}</span></p>
                     <p class="justify-content-between d-flex"><span class="font-weight-bold">Дата открытия стола:</span><span
                             class="text-muted">{{ $desk->created_at->format('d.m.y G:i') }}</span></p>
-                    <div>
-                        <button class="btn btn-secondary" id="copy_btn">Скопировать ссыклу</button>
-                        <input class="" id="linkEvent" type="text" readonly>
+                    <div class="form-group">
+                        <button class="btn btn-secondary mb-3" id="copy_btn">Скопировать ссыклу</button>
+                        <input class="form-control" id="linkEvent" type="text" readonly>
                     </div>
                 </div>
             </div>

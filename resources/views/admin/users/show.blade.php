@@ -6,16 +6,19 @@
                     class="btn n btn-success" id="activation_btn" data-user="{{$user->id }}"
                     onclick="activation(this)">{{ __('Активировать') }}</button>
         @endif
-        <div class="row p-5" id="show_articles">
-            <div class="col-2">ФИО:</div>
-            <div class="col-10">{{ $user->name }}</div>
-            <div class="col-2">Почта:</div>
-            <div class="col-10">{{ $user->email }}</div>
-            <div class="col-2">Телефон:</div>
-            <div class="col-10">{{ $user->phone }}</div>
-            <div class="col-2">Баланс:</div>
-            <div class="col-10">{{ $user->balance }}</div>
-
+        <div class="row" id="show_articles">
+            <div class="col-12 mb-5">
+                <div class="border p-2 shadow-sm">
+                    <p class="justify-content-between d-flex"><span class="font-weight-bold">ФИО:</span><span
+                                class="text-muted">{{ $user->name }}</span></p>
+                    <p class="justify-content-between d-flex"><span class="font-weight-bold">Почта:</span><span
+                                class="text-muted">{{ $user->email }}</span></p>
+                    <p class="justify-content-between d-flex"><span class="font-weight-bold">Телефон:</span><span
+                                class="text-muted">{{ $user->phone }}</span></p>
+                    <p class="justify-content-between d-flex"><span class="font-weight-bold">Баланс:</span><span
+                                class="text-muted">{{ $user->balance }}</span></p>
+                </div>
+            </div>
         </div>
         <h3 class="text-center font-weight-bold">Столы</h3>
 
@@ -32,34 +35,29 @@
     border-bottom: 0;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;">
-                                <div class="card-header d-flex justify-content-between align-items-center border-0"
-                                     style="background: white"
-                                     role="tab" id="Desk-{{ $desk->id }}">
-                                    <a class="text-left w-100 collapsed text-decoration-none" data-toggle="collapse"
-                                       data-parent="#accordionStages"
-                                       href="#user-{{ $desk->user_id }}desk-{{ $desk->id }}"
-                                       aria-expanded="true"
-                                       aria-controls="user-{{ $desk->user_id }}desk-{{ $desk->id }}">
-                                        <h6 class="mt-1 mb-0">
-                                            <div class="row">
-                                                <div class="col-7">
-                                                    <div
-                                                            class="p-3 mb-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
-                                                        <span>Программа: {{ $desk->program->cost }}</span>
-                                                        <span class="ml-3">Баланс: {{ $desk->balance }}</span>
-                                                        <span class="ml-3">Статус: Участник стола</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-2 offset-3"><i
-                                                            class="fas fa-angle-down mr-3 rotate-icon"
-                                                            style="margin-top: 2px;"></i></div>
+                                <a class="text-left collapsed text-decoration-none" data-toggle="collapse"
+                                   data-parent="#accordionStages"
+                                   href="#user-{{ $desk->user_id }}desk-{{ $desk->id }}"
+                                   aria-expanded="true"
+                                   aria-controls="user-{{ $desk->user_id }}desk-{{ $desk->id }}">
+                                    <div class="card-header d-flex justify-content-between align-items-center border-0"
+                                         style="background: white"
+                                         role="tab" id="Desk-{{ $desk->id }}">
+                                        <div>
+                                            <div class="p-3 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
+                                                <h6 class="mt-1 mb-0">
+                                                    <span style="white-space:nowrap;">Программа: {{ $desk->program->cost }}</span>
+                                                    <span style="white-space:nowrap;">Баланс: {{ $desk->balance }}</span>
+                                                    <span style="white-space:nowrap;">Статус: Участник</span>
+                                                </h6>
                                             </div>
-
-
-                                        </h6>
-                                    </a>
-
-                                </div>
+                                        </div>
+                                        <div class="offset-1">
+                                            <i class="fas fa-angle-down mr-1 rotate-icon"
+                                                    style="margin-top: 2px;"></i>
+                                        </div>
+                                    </div>
+                                </a>
 
                                 <div id="user-{{ $desk->user_id }}desk-{{ $desk->id }}" class="collapse"
                                      role="tabpanel" aria-labelledby="Desk-{{ $desk->id }}"
@@ -97,34 +95,29 @@
     border-bottom: 0;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;">
-                                <div class="card-header d-flex justify-content-between align-items-center border-0"
-                                     style="background: white"
-                                     role="tab" id="Desk-{{ $desk->id }}">
-                                    <a class="text-left w-100 collapsed text-decoration-none" data-toggle="collapse"
-                                       data-parent="#accordionStages"
-                                       href="#user-{{ $desk->user_id }}desk-{{ $desk->id }}"
-                                       aria-expanded="true"
-                                       aria-controls="user-{{ $desk->user_id }}desk-{{ $desk->id }}">
-                                        <h6 class="mt-1 mb-0">
-                                            <div class="row">
-                                                <div class="col-7">
-                                                    <div
-                                                            class="p-3 mb-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
-                                                        <span>Программа: {{ $desk->program->cost }}</span>
-                                                        <span class="ml-3">Баланс: {{ $desk->balance }}</span>
-                                                        <span class="ml-3">Статус: Владелец стола</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-2 offset-3"><i
-                                                            class="fas fa-angle-down mr-3 rotate-icon"
-                                                            style="margin-top: 2px;"></i></div>
+                                <a class="text-left collapsed text-decoration-none" data-toggle="collapse"
+                                   data-parent="#accordionStages"
+                                   href="#user-{{ $desk->user_id }}desk-{{ $desk->id }}"
+                                   aria-expanded="true"
+                                   aria-controls="user-{{ $desk->user_id }}desk-{{ $desk->id }}">
+                                    <div class="card-header d-flex justify-content-between align-items-center border-0"
+                                         style="background: white"
+                                         role="tab" id="Desk-{{ $desk->id }}">
+                                        <div>
+                                            <div class="p-3 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
+                                                <h6 class="mt-1 mb-0">
+                                                    <span style="white-space:nowrap;">Программа: {{ $desk->program->cost }}</span>
+                                                    <span style="white-space:nowrap;">Баланс: {{ $desk->balance }}</span>
+                                                    <span style="white-space:nowrap;">Статус: Владелец</span>
+                                                </h6>
                                             </div>
-
-
-                                        </h6>
-                                    </a>
-
-                                </div>
+                                        </div>
+                                        <div class="offset-1"><i
+                                                    class="fas fa-angle-down mr-1 rotate-icon"
+                                                    style="margin-top: 2px;"></i>
+                                        </div>
+                                    </div>
+                                </a>
 
                                 <div id="user-{{ $desk->user_id }}desk-{{ $desk->id }}" class="collapse"
                                      role="tabpanel" aria-labelledby="Desk-{{ $desk->id }}"
