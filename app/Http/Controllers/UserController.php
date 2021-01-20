@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Desk;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,6 +55,25 @@ class UserController extends Controller
         return view('admin.users.show', compact('user'));
     }
 
+
+    public function activation(Request $request)
+    {
+        $user = User::find($request->id);
+        $user->is_active = true;
+        $user->save();
+        foreach ($user->desks as $desk) {
+            $desk->balance += $desk->program->cost;
+            if ($desk->balance == $desk->program->closing_amount)
+            {
+                $desk->is_closed = true;
+            }
+            $desk->save();
+
+            Desk::public_store($desk->program->id, $user->id);
+        }
+
+
+    }
     /**
      * Show the form for editing the specified resource.
      *

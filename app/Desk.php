@@ -4,6 +4,8 @@ namespace App;
 
 use App\Program;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Desk extends Model
 {
@@ -21,5 +23,26 @@ class Desk extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+
+
+    public static function public_store($program_id, $user_id)
+    {
+        $desk = new Desk();
+        $desk->program_id = $program_id;
+        $desk->user_id = $user_id;
+        $desk->balance = '0';
+        $desk->code = self::get_code();
+        $desk->is_closed = false;
+        $desk->save();
+    }
+    public static function get_code()
+    {
+        $str = '';
+        for ($i = 0; $i < 6; $i++) {
+            $str .= rand(0, 9);
+        }
+        return $str;
     }
 }
