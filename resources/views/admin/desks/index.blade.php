@@ -93,7 +93,6 @@
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.18/i18n/Russian.json"
                 },
-
             });
             $('#desks-table').on('click', 'tbody td:not(.child)', function () {
                 if (this.classList.contains('opened')) {

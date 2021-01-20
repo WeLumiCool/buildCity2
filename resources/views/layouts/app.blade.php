@@ -51,13 +51,13 @@
                                        href="{{ route('admin.desks.index') }}">{{ __('Админ. панель') }}</a>
                                 </li>
                             @endif
-                            <li class="nav-item mr-3">
+                            <li class="nav-item mr-5">
                                 <a class="nav-link text-dark"
                                    href="{{ route('cabinet') }}">{{ __('Личный кабинет') }}</a>
                             </li>
                         @endif
                         <li class="nav-item mr-3">
-                            <a class="nav-link" href="{{ route('logout') }}"
+                            <a class="nav-link text-dark" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      if(confirm('вы действительно хотите выйти?')){
                                        document.getElementById('logout-form').submit();
@@ -70,7 +70,7 @@
                             </form>
                         </li>
                         @if(Auth::user()->is_active)
-                            <li class="nav-item d-flex">
+                            <li class="nav-item d-flex" style="color: #7f7f7f">
                                 <p class="pt-2">Баланс:&nbsp;</p>
                                 <p class="pt-2">{{ Auth::user()->balance }} $</p>
                             </li>

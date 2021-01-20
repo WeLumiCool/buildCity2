@@ -86,7 +86,12 @@ class DeskController extends Controller
 
     public function change_desk(Request $request)
     {
-//        $desk = Desk::find($request->desk);
+//        dd($request);
+        $from_desk = Desk::find($request->from_desk);
+        $to_desk = Desk::find($request->to_desk);
+        $from_desk->users()->detach($request->user);
+        $to_desk->users()->attach($request->user);
+        return redirect()->route('admin.desks.index');
     }
 
     /**
@@ -128,6 +133,17 @@ class DeskController extends Controller
     public function replaceShow()
     {
         $desks = Desk::where('is_closed', false)->get();
+        $desks->map(function ($desk) {
+            $result_array = [];
+            foreach ($desk->users as $user) {
+                if ($user->is_active == true) {
+                    $result_array[] = $user;
+                }
+            }
+            $desk['active_user'] = $result_array;
+            return $desk;
+        });
+//        dd($desks);
         return view('admin.desks.replace', compact('desks'));
     }
 
@@ -137,6 +153,17 @@ class DeskController extends Controller
         $desk->is_closed = true;
         $desk->save();
         return redirect()->route('admin.desks.index');
+    }
+
+    public function get_users(Request $request)
+    {
+        $users = [];
+        foreach (Desk::find($request->id)->users as $user){
+            if($user->is_active){
+            $users[] = $user;
+            }
+        }
+        return response()->json(['users' => $users]);
     }
 
     public function datatableData()
@@ -149,12 +176,20 @@ class DeskController extends Controller
                 return $desk->program->cost;
             })
             ->addColumn('Teilnehmers', function (Desk $desk) {
-                if (!$desk->users->count()) {
+                $counter_active_users = 0;
+                foreach ($desk->users as $user) {
+                    if ($user->is_active) {
+                        $counter_active_users++;
+                    }
+                }
+                if (!$counter_active_users) {
                     return 'Отсутствуют';
                 } else {
                     $html_text = '<ul>';
                     foreach ($desk->users as $user) {
-                        $html_text .= '<li>' . $user->name . '</li>';
+                        if ($user->is_active) {
+                            $html_text .= '<li>' . $user->name . '</li>';
+                        }
                     }
                     $html_text .= '</ul>';
                     return $html_text;

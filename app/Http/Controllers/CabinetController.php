@@ -29,12 +29,20 @@ class CabinetController extends Controller
                 return $desk->program->closing_amount;
             })
             ->addColumn('Teilnehmers', function (Desk $desk) {
-                if (!$desk->users->count()) {
+                $counter_active_users = 0;
+                foreach ($desk->users as $user) {
+                    if ($user->is_active) {
+                        $counter_active_users++;
+                    }
+                }
+                if (!$counter_active_users) {
                     return 'Отсутствуют';
                 } else {
                     $html_text = '<ul>';
                     foreach ($desk->users as $user) {
-                        $html_text .= '<li>' . $user->name . '</li>';
+                        if ($user->is_active) {
+                            $html_text .= '<li>' . $user->name . '</li>';
+                        }
                     }
                     $html_text .= '</ul>';
                     return $html_text;

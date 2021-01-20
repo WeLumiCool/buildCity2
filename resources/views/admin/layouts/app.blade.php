@@ -34,14 +34,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
+                        <li class="nav-item text">
                             <a href="{{ route('admin.desks.replace') }}"
-                               class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
+                               class="nav-link  {{ request()->is('admin/replace*') ? 'active' : '' }}">
                                 {{ __('Поменять пользователя') }}</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.users.index') }}"
-                               class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
+                               class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
                                 {{ __('Пользователи') }}</a>
                         </li>
                         <li class="nav-item mr-5">

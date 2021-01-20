@@ -5,22 +5,26 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class AccessMiddleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if(!Auth::check()){
+
+        if (!Auth::check()) {
             return redirect()->route('login');
         }
-        if(!Auth::user()->is_active){
+        if (!Auth::user()->is_active) {
             return redirect()->route('wait');
+        }
+        if (!Auth::user()->role) {
+            return redirect()->route('main');
         }
         return $next($request);
     }

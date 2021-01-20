@@ -12,35 +12,35 @@
                 </ul>
 
                 <div class="form-group">
-                    <label for="name-input">ФИО:</label>
+                    <label for="name-input">ФИО:<span style="color: red">*</span></label>
                     <input type="text" id="name-input" class="form-control" name="name" value="{{ old('name') }}"
                            required>
                 </div>
                 <div class="form-group">
-                    <label for="mail-input">Почта:</label>
-                    <input type="text" id="mail-input" class="form-control" name="email" value="{{ old('email') }}"
+                    <label for="mail-input">Почта:<span style="color: red">*</span></label>
+                    <input type="email" id="mail-input" class="form-control" name="email" value="{{ old('email') }}"
                            required>
                 </div>
                 <div class="form-group">
-                    <label for="mail-input">Пароль:</label>
+                    <label for="phone-input">Телефон:<span style="color: red">*</span></label>
+                    <input type="text" id="phone-input" class="form-control" name="phone" value="{{ old('phone') }}"
+                           required>
+                </div>
+                <div class="form-group">
+                    <input id="admin_checkbox" type="checkbox" name="is_admin">
+                    <label for="admin_checkbox">Является ли админом</label>
+                </div>
+                <div class="form-group">
+                    <label for="password-input">Пароль:<span style="color: red">*</span></label>
                     <input type="password"
                            class="form-control"
                            name="password"
                            required autocomplete="new-password" id="password">
                 </div>
                 <div class="form-group">
-                    <label for="mail-input">Повторите пароль:</label>
+                    <label for="password-confirm">Повторите пароль:<span style="color: red">*</span></label>
                     <input type="password" class="form-control" id="password-confirm" name="password_confirmation" required
                            autocomplete="new-password">
-                </div>
-
-                <div class="form-group">
-                    <label for="role-select">Роль:</label>
-                    <select name="role_id" id="role-select" class="form-control">
-                        @foreach($roles as $role)
-                            <option value="{{ $role->id }}" {{ $role->id == old('role_id') ?'selected':'' }}>{{ $role->name }}</option>
-                        @endforeach
-                    </select>
                 </div>
                 <button type="submit" title="{{ __('Добавить') }}"
                         class="btn n btn-success ">{{ __('Добавить') }}</button>
