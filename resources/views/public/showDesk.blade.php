@@ -34,17 +34,15 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
-            $('#linkEvent').val(window.location.hostname + '/register/{{ $desk->code }}');
-            $('#copy_btn').click(function () {
-                copyToClipboard(document.getElementById("linkEvent"));
-                $(this).removeClass('btn-secondary');
-                $(this).addClass('btn-success');
-                setTimeout(function () {
-                    console.log('work timer');
-                    $(this).removeClass('btn-success');
-                    $(this).addClass('btn-secondary');
-                }, 2000);
-            });
+            if ('1' === '{{ $desk->is_closed }}') {
+                $('#linkEvent').remove();
+                $('#copy_btn').remove();
+            } else {
+                $('#linkEvent').val(window.location.hostname + '/register/{{ $desk->code }}');
+                $('#copy_btn').click(function () {
+                    copyToClipboard(document.getElementById("linkEvent"));
+                });
+            }
         });
 
         function copyToClipboard(elem) {
