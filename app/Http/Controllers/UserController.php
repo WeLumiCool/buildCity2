@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Desk;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -41,7 +42,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'string', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+        $user = User::create($request->all());
+        $user->role = $request->exists('is_admin');
+        $user->is_active = true;
+        $user->password = Hash::make($request->password);
+        $user->email_verified_at = Carbon::now()->format('Y-m-d H:i:s');
+        $user->save();
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -64,8 +80,7 @@ class UserController extends Controller
         $user->save();
         foreach ($user->desks as $desk) {
             $desk->balance += $desk->program->cost;
-            if ($desk->balance == $desk->program->closing_amount)
-            {
+            if ($desk->balance == $desk->program->closing_amount) {
                 $desk->is_closed = true;
             }
             $desk->save();
@@ -75,6 +90,7 @@ class UserController extends Controller
 
 
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -90,10 +106,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return void
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -101,10 +117,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
     }
@@ -152,6 +168,13 @@ class UserController extends Controller
         return DataTables::of(User::query())
             ->addColumn('actions', function (User $user) {
                 return view('admin.actions', ['type' => 'users', 'model' => $user]);
+            })
+            ->editColumn('is_active', function (User $user) {
+                if ($user->is_active) {
+                    return 'Да';
+                } else {
+                    return 'Нет';
+                }
             })
             ->make(true);
     }

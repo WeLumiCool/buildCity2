@@ -14,6 +14,7 @@ class CreateDeskUsersTable extends Migration
     public function up()
     {
         Schema::create('desk_users', function (Blueprint $table) {
+            $table->id();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('desk_id');
         });

@@ -23,7 +23,7 @@ Route::get('check_code', 'DeskController@checkExistCode')->name('check.code');
 Route::middleware('access')->group(function () {
     Route::get('/', function () {
         return view('public.home');
-    });
+    })->name('main');
     Route::get('cabinet', 'CabinetController@get_page')->name('cabinet');
     Route::get('profile-settings', 'UserController@profile')->name('profile.settings');
     Route::post('update_profile', 'UserController@change_profile')->name('update.profile');
@@ -36,7 +36,7 @@ Route::middleware('access')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('wait', 'UserController@wait')->name('wait');
 });
-Route::prefix('admin')->name('admin.')/*->middleware('admin')*/
+Route::prefix('admin')->name('admin.')->middleware('admin')
 ->group(function () {
     Route::get('/', 'AdminController@index')->name('admin');
     Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
@@ -54,6 +54,8 @@ Route::prefix('admin')->name('admin.')/*->middleware('admin')*/
     Route::get('user_activation', 'UserController@activation')->name('user.activation');
     Route::get('change_desk', 'DeskController@change_desk')->name('change.desk');
     Route::get('replace', 'DeskController@replaceShow')->name('desks.replace');
+    Route::post('can_replace', 'DeskController@change_desk')->name('desks.make.replace');
+    Route::get('get_users_for_replace', 'DeskController@get_users')->name('get_users.replace');
 });
 
 

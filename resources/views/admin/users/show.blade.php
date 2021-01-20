@@ -7,16 +7,15 @@
                     onclick="activation(this)">{{ __('Активировать') }}</button>
         @endif
         <div class="row p-5" id="show_articles">
-            <div class="col-2">id</div>
-            <div class="col-10">{{ $user->id }}</div>
             <div class="col-2">ФИО:</div>
             <div class="col-10">{{ $user->name }}</div>
             <div class="col-2">Почта:</div>
             <div class="col-10">{{ $user->email }}</div>
-            <div class="col-2">Дата создания:</div>
-            <div class="col-10">{{ $user->created_at }}</div>
-            <div class="col-2">Дата обновления:</div>
-            <div class="col-10">{{ $user->updated_at }}</div>
+            <div class="col-2">Телефон:</div>
+            <div class="col-10">{{ $user->phone }}</div>
+            <div class="col-2">Баланс:</div>
+            <div class="col-10">{{ $user->balance }}</div>
+
         </div>
         <h3 class="text-center font-weight-bold">Столы</h3>
 
@@ -76,7 +75,7 @@
                                                             <ul>
                                                                 @foreach($desk->users as $value)
                                                                     <li>
-                                                                    <span class="tf-nc {{ $value->name === $user->name ? "colored" : "" }} rounded">{{ $value->name }}</span>
+                                                                        <span class="tf-nc {{ $value->name === $user->name ? "colored" : "" }} rounded">{{ $value->name }}</span>
                                                                     </li>
                                                                 @endforeach
                                                             </ul>
@@ -112,7 +111,7 @@
                                                     <div
                                                             class="p-3 mb-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
                                                         <span>Программа: {{ $desk->program->cost }}</span>
-                                                         <span class="ml-3">Баланс: {{ $desk->balance }}</span>
+                                                        <span class="ml-3">Баланс: {{ $desk->balance }}</span>
                                                         <span class="ml-3">Статус: Владелец стола</span>
                                                     </div>
                                                 </div>
