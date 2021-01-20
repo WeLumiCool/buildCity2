@@ -45,15 +45,15 @@
                                             <div class="row">
                                                 <div class="col-7">
                                                     <div
-                                                        class="p-3 mb-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
+                                                            class="p-3 mb-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
                                                         <span>Программа: {{ $desk->program->cost }}</span>
                                                         <span class="ml-3">Баланс: {{ $desk->balance }}</span>
                                                         <span class="ml-3">Статус: Участник стола</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-2 offset-3"><i
-                                                        class="fas fa-angle-down mr-3 rotate-icon"
-                                                        style="margin-top: 2px;"></i></div>
+                                                            class="fas fa-angle-down mr-3 rotate-icon"
+                                                            style="margin-top: 2px;"></i></div>
                                             </div>
 
 
@@ -72,12 +72,11 @@
                                                     <ul>
                                                         <li>
                                                         <span
-                                                            class="tf-nc {{ $desk->user->name == $user->name ? "colored" : "" }} rounded">{{$desk->user->name}}</span>
+                                                                class="tf-nc {{ $desk->user->name == $user->name ? "colored" : "" }} rounded">{{$desk->user->name}}</span>
                                                             <ul>
                                                                 @foreach($desk->users as $value)
                                                                     <li>
-                                                                    <span
-                                                                        class="tf-nc {{ $value->name === $user->name ? "colored" : "" }} rounded">{{ $value->name }}</span>
+                                                                    <span class="tf-nc {{ $value->name === $user->name ? "colored" : "" }} rounded">{{ $value->name }}</span>
                                                                     </li>
                                                                 @endforeach
                                                             </ul>
@@ -111,15 +110,15 @@
                                             <div class="row">
                                                 <div class="col-7">
                                                     <div
-                                                        class="p-3 mb-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
+                                                            class="p-3 mb-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
                                                         <span>Программа: {{ $desk->program->cost }}</span>
-                                                        <span class="ml-3">Баланс: {{ $desk->balance }}</span>
+                                                         <span class="ml-3">Баланс: {{ $desk->balance }}</span>
                                                         <span class="ml-3">Статус: Владелец стола</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-2 offset-3"><i
-                                                        class="fas fa-angle-down mr-3 rotate-icon"
-                                                        style="margin-top: 2px;"></i></div>
+                                                            class="fas fa-angle-down mr-3 rotate-icon"
+                                                            style="margin-top: 2px;"></i></div>
                                             </div>
 
 
@@ -135,33 +134,15 @@
                                         <div class="table-ui  mb-3">
                                             @if($desk->users)
                                                 <div class="tf-tree tf-gap-lg">
-
-                                                    <div class="form-group pl-3 pr-5 pb-3">
-                                                        <label for="exampleFormControlSelect1">Выьерите стол в которуб
-                                                            хотите пересадить пользователя</label>
-                                                        <select class="form-control form-control-sm user-desk"
-                                                                id="exampleFormControlSelect1">
-                                                            @foreach($desks as $item)
-                                                                <option value="{{ $item->id }}">{{ $item->id }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
                                                     <ul>
                                                         <li>
                                                         <span
-                                                            class="tf-nc {{ $desk->user->name == $user->name ? "colored" : "" }} rounded">{{$desk->user->name}}</span>
+                                                                class="tf-nc {{ $desk->user->name == $user->name ? "colored" : "" }} rounded">{{$desk->user->name}}</span>
                                                             <ul>
                                                                 @foreach($desk->users as $value)
                                                                     <li>
-
-                                                                    <span
-                                                                        class="tf-nc {{ $value->name === $user->name ? "colored" : "" }} rounded">
+                                                                    <span class="tf-nc {{ $value->name === $user->name ? "colored" : "" }} rounded">
                                                                          <div class="form-check">
-                                                                              <input
-                                                                                  class="form-check-input mt-1 user-selected"
-                                                                                  type="radio" name="user" data-desk="{{ $desk->id }}"
-                                                                                  id="{{$value->id}}"
-                                                                                  value="{{$value->id}}">
                                                                               <label class="form-check-label ml-3"
                                                                                      for="{{ $value->id }}">
                                                                                 {{ $value->name }}
@@ -227,7 +208,7 @@
 @push('scripts')
     <script>
         function activation(user) {
-            let id = user.getAttribute("data-user")
+            let id = user.getAttribute("data-user");
             $.ajax({
                 url: "{{ route('admin.user.activation') }}",
                 method: 'get',
@@ -241,25 +222,4 @@
             })
         }
     </script>
-    <script>
-        $(document).on('change', '.user-desk', function () {
-            let user = $("input[type='radio'][name='user']:checked").val();
-            let desk = $(this).children("option:selected").val();
-            let current_desk = $("input[type='radio'][name='user']:checked").data("desk");
-            console.log(current_desk);
-            $.ajax({
-                url: "{{ route('admin.change.desk') }}",
-                method: 'GET',
-                data: {
-                    user: user,
-                    desk: desk,
-                    current_desk: current_desk,
-                },
-                success: function (data) {
-                    $('#main').html(data.view);
-                }
-            })
-        })
-    </script>
-
 @endpush

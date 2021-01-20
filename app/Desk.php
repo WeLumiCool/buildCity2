@@ -16,15 +16,16 @@ class Desk extends Model
     {
         return $this->belongsToMany(User::class, 'desk_users');
     }
+
     public function program()
     {
         return $this->belongsTo(Program::class);
     }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
 
 
     public static function public_store($program_id, $user_id)
@@ -32,17 +33,20 @@ class Desk extends Model
         $desk = new Desk();
         $desk->program_id = $program_id;
         $desk->user_id = $user_id;
-        $desk->balance = '0';
         $desk->code = self::get_code();
         $desk->is_closed = false;
         $desk->save();
     }
+
     public static function get_code()
     {
         $str = '';
-        for ($i = 0; $i < 6; $i++) {
-            $str .= rand(0, 9);
-        }
+        do {
+            $str = '';
+            for ($i = 0; $i < 6; $i++) {
+                $str .= rand(0, 9);
+            }
+        } while (Desk::where('code', $str)->exists());
         return $str;
     }
 }

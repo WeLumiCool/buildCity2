@@ -31,18 +31,26 @@
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
+            @if(Auth::check())
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            @endif
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @if(Auth::check())
                         @if(Auth::user()->is_active)
+                            @if(Auth::user()->role)
+                                <li class="nav-item mr-3">
+                                    <a class="nav-link text-dark"
+                                       href="{{ route('admin.desks.index') }}">{{ __('Админ. панель') }}</a>
+                                </li>
+                            @endif
                             <li class="nav-item mr-3">
                                 <a class="nav-link text-dark"
                                    href="{{ route('cabinet') }}">{{ __('Личный кабинет') }}</a>
@@ -51,7 +59,9 @@
                         <li class="nav-item mr-3">
                             <a class="nav-link" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                     if(confirm('вы действительно хотите выйти?')){
+                                       document.getElementById('logout-form').submit();
+                                   }">
                                 {{ __('Выход') }}
                             </a>
 

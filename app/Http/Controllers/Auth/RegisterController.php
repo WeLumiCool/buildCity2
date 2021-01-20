@@ -80,9 +80,7 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     {
-//        dd($request);
         $desk = Desk::where('code', $request->code)->first();
-//        dd($desk);
         $desk->users()->attach($user->id);
     }
 }
