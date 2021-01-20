@@ -36,6 +36,11 @@ class User extends Authenticatable
 
     public function desks()
     {
+        return $this->belongsToMany(Desk::class, 'desk_users');
+    }
+
+    public function owners()
+    {
         return $this->hasMany(Desk::class);
     }
 }

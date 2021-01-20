@@ -76,24 +76,13 @@ class DeskController extends Controller
 
     public function public_store(Request $request)
     {
-        $desk = new Desk();
-        $desk->program_id = $request->program_id;
-        $desk->user_id = Auth::user()->id;
-        $desk->balance = '0';
-        $desk->code = self::get_code();
-        $desk->is_closed = false;
-        $desk->save();
+        $id = $request->program_id;
+        $user_id = Auth::user()->id;
+        Desk::public_store($id, $user_id);
         return redirect()->route('cabinet');
     }
 
-    public static function get_code()
-    {
-        $str = '';
-        for ($i = 0; $i < 6; $i++) {
-            $str .= rand(0, 9);
-        }
-        return $str;
-    }
+
 
     /**
      * Update the specified resource in storage.

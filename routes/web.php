@@ -50,6 +50,8 @@ Route::prefix('admin')->name('admin.')/*->middleware('admin')*/
     Route::get('/user/datatable', 'UserController@datatableData')->name('user.datatable.data');
     Route::resource('users', 'UserController');
 
+    Route::get('user_activation', 'UserController@activation')->name('user.activation');
+
 });
 
 
