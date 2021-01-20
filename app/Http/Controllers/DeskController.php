@@ -86,7 +86,7 @@ class DeskController extends Controller
 
     public function change_desk(Request $request)
     {
-        $desk = Desk::find($request->desk);
+//        $desk = Desk::find($request->desk);
     }
 
     /**
@@ -123,6 +123,12 @@ class DeskController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function replaceShow()
+    {
+        $desks = Desk::where('is_closed', false)->get();
+        return view('admin.desks.replace', compact('desks'));
     }
 
     public function closeDesk($id)
@@ -167,7 +173,7 @@ class DeskController extends Controller
             ->addColumn('actions', function (Desk $desk) {
                 return '<a class="btn btn-danger ml-1" href="' . route('admin.close.desk', $desk->id) . '"><i class="fas fa-door-closed"></i></a>';
             })
-            ->rawColumns(['Teilnehmers', 'is_closed','actions'])
+            ->rawColumns(['Teilnehmers', 'is_closed', 'actions'])
             ->make(true);
     }
 }

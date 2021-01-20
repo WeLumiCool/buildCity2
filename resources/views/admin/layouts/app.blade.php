@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"/>
     {{--    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">--}}
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
@@ -35,12 +34,28 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
+                        <li class="nav-item">
+                            <a href="{{ route('admin.desks.replace') }}"
+                               class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
+                                {{ __('Поменять пользователя') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.users.index') }}"
+                               class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
+                                {{ __('Пользователи') }}</a>
+                        </li>
+                        <li class="nav-item mr-5">
+                            <a href="{{ route('admin.desks.index') }}"
+                               class="nav-link {{ request()->is('admin/desk*') ? 'active' : '' }}">
+                                {{ __('Столы') }}</a>
+                        </li>
                         @if(Auth::check())
-                            <li class="nav-item mr-3">
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                   if(confirm('вы действительно хотите выйти?')){
+                                       document.getElementById('logout-form').submit();
+                                   }">
                                     {{ __('Выход') }}
                                 </a>
 
@@ -49,15 +64,6 @@
                                 </form>
                             </li>
                         @endif
-                        <li>
-                            <a href="{{ route('admin.users.index') }}"
-                               class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
-                                <i class="fas fa-building mr-3"></i>{{ __('Пользователи') }}</a>
-                        </li>
-
-                            <a href="{{ route('admin.desks.index') }}"
-                               class="nav-link {{ request()->is('admin/desk*') ? 'active' : '' }}">
-                                <i class="fas fa-building mr-3"></i>{{ __('Столы') }}</a>
                     </ul>
                 </div>
             </div>
