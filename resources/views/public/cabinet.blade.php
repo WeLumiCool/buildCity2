@@ -1,18 +1,18 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <div class="p-3 bg-form card-body-admin">
+        <div class="p-lg-3 bg-form card-body-admin">
             <div class="row mx-1">
                 <div class="mb-3 d-lg-flex justify-content-lg-between text-center">
                     <div class="py-2">
-                        <a href="{{ route('create.desk') }}" class="btn btn-success">Добавить стол</a>
+                        <a href="{{ route('create.desk') }}" class="btn btn-success" style="width: 100%;">Добавить стол</a>
                     </div>
                     <div class="py-2">
-                        <a href="{{ route('profile.settings') }}" class="btn btn-dark ml-auto">Изменить профиль</a>
+                        <a href="{{ route('profile.settings') }}" class="btn btn-dark ml-auto" style="width: 100%;">Изменить профиль</a>
                     </div>
                 </div>
-                <div class="col">
-                    <table class="table table-striped display nowrap table-hover w-100" id="desks-table">
+                <div class="table-responsive">
+                    <table class="table table-striped  display nowrap table-hover w-100" id="desks-table">
                         <thead class="bg-primary text-light">
                         <tr>
                             <th></th>
