@@ -84,7 +84,10 @@ class DeskController extends Controller
         return redirect()->route('cabinet');
     }
 
-
+    public function change_desk(Request $request)
+    {
+        $desk = Desk::find($request->desk);
+    }
 
     /**
      * Update the specified resource in storage.

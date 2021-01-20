@@ -52,7 +52,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('admin.users.show', compact('user'));
+        $desks = Desk::where('is_closed', false)->get();
+        return view('admin.users.show', compact('user', 'desks'));
     }
 
 
