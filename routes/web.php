@@ -37,25 +37,25 @@ Route::middleware('auth')->group(function () {
     Route::get('wait', 'UserController@wait')->name('wait');
 });
 Route::prefix('admin')->name('admin.')->middleware('admin')
-->group(function () {
-    Route::get('/', 'AdminController@index')->name('admin');
-    Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
-    //CRUD for desks
-    Route::get('/desks/datatable', 'DeskController@datatableData')->name('desk.datatable.data');
-    Route::resource('desks', 'DeskController')->only('index');
-    Route::get('/close-desk/{id}', 'DeskController@closeDesk')->name('close.desk');
-    //CRUD for program
-    Route::get('/programs/datatable', 'ProgramController@datatableData')->name('program.datatable.data');
-    Route::resource('programs', 'ProgramController');
-    //CRUD for users
-    Route::get('/user/datatable', 'UserController@datatableData')->name('user.datatable.data');
-    Route::resource('users', 'UserController');
+    ->group(function () {
+        Route::get('/', 'AdminController@index')->name('admin');
+        Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
+        //CRUD for desks
+        Route::get('/desks/datatable', 'DeskController@datatableData')->name('desk.datatable.data');
+        Route::resource('desks', 'DeskController')->only('index', 'show');
+        Route::get('/close-desk/{id}', 'DeskController@closeDesk')->name('close.desk');
+        //CRUD for program
+        Route::get('/programs/datatable', 'ProgramController@datatableData')->name('program.datatable.data');
+        Route::resource('programs', 'ProgramController');
+        //CRUD for users
+        Route::get('/user/datatable', 'UserController@datatableData')->name('user.datatable.data');
+        Route::resource('users', 'UserController');
 
-    Route::get('user_activation', 'UserController@activation')->name('user.activation');
-    Route::get('change_desk', 'DeskController@change_desk')->name('change.desk');
-    Route::get('replace', 'DeskController@replaceShow')->name('desks.replace');
-    Route::post('can_replace', 'DeskController@change_desk')->name('desks.make.replace');
-    Route::get('get_users_for_replace', 'DeskController@get_users')->name('get_users.replace');
-});
+        Route::get('user_activation', 'UserController@activation')->name('user.activation');
+        Route::get('change_desk', 'DeskController@change_desk')->name('change.desk');
+        Route::get('replace', 'DeskController@replaceShow')->name('desks.replace');
+        Route::post('can_replace', 'DeskController@change_desk')->name('desks.make.replace');
+        Route::get('get_users_for_replace', 'DeskController@get_users')->name('get_users.replace');
+    });
 
 

@@ -218,7 +218,12 @@ class DeskController extends Controller
                 return Carbon::createFromFormat('Y-m-d H:i:s', $desk->created_at)->format('d-m-Y');
             })
             ->addColumn('actions', function (Desk $desk) {
-                return '<a class="btn btn-danger ml-1" href="' . route('admin.close.desk', $desk->id) . '"><i class="fas fa-door-closed"></i></a>';
+                if (!$desk->is_closed) {
+                    return '<a class="btn btn-success ml-1" href="http://city/admin/desks/' . $desk->id . '"><i class="fas fa-eye"></i></a>' .
+                        '<button class="close_desk btn btn-danger ml-1" data-id="' . $desk->id . '"><i class="fas fa-door-closed"></i></button>';
+                } else {
+                    return '<a class="btn btn-success ml-1" href="http://city/admin/desks/' . $desk->id . '"><i class="fas fa-eye"></i></a>';
+                }
             })
             ->rawColumns(['Teilnehmers', 'is_closed', 'actions'])
             ->make(true);

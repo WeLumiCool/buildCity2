@@ -68,7 +68,7 @@
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     <script>
         $(function () {
-           $('#desks-table').DataTable({
+            $('#desks-table').DataTable({
                 responsive: true,
                 processing: true,
                 serverSide: true,
@@ -103,5 +103,13 @@
                 }
             });
         });
+    </script>
+    <script>
+        $(document).on('click', '.close_desk', function () {
+            let id = $(this).data('id');
+            if (confirm('Вы дествительно хотите закрыть стол')) {
+                window.location.href = 'http://'+window.location.hostname + '/admin/close-desk/' + id;
+            }
+        })
     </script>
 @endpush
