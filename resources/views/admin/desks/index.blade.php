@@ -108,7 +108,7 @@
         $(document).on('click', '.close_desk', function () {
             let id = $(this).data('id');
             if (confirm('Вы дествительно хотите закрыть стол')) {
-                window.location.href = 'http://'+window.location.hostname + '/admin/close-desk/' + id;
+                window.location.href = 'http://' + window.location.hostname + '/admin/close-desk/' + id;
             }
         })
     </script>

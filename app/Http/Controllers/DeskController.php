@@ -219,10 +219,10 @@ class DeskController extends Controller
             })
             ->addColumn('actions', function (Desk $desk) {
                 if (!$desk->is_closed) {
-                    return '<a class="btn btn-success ml-1" href="http://city/admin/desks/' . $desk->id . '"><i class="fas fa-eye"></i></a>' .
+                    return '<a class="btn btn-success ml-1" href="' . route('admin.desks.show', $desk->id) . '"><i class="fas fa-eye"></i></a>' .
                         '<button class="close_desk btn btn-danger ml-1" data-id="' . $desk->id . '"><i class="fas fa-door-closed"></i></button>';
                 } else {
-                    return '<a class="btn btn-success ml-1" href="http://city/admin/desks/' . $desk->id . '"><i class="fas fa-eye"></i></a>';
+                    return '<a class="btn btn-success ml-1" href="' . route('admin.desks.show', $desk->id) . '"><i class="fas fa-eye"></i></a>';
                 }
             })
             ->rawColumns(['Teilnehmers', 'is_closed', 'actions'])
