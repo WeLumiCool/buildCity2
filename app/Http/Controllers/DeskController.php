@@ -88,9 +88,21 @@ class DeskController extends Controller
     {
 //        dd($request);
         $from_desk = Desk::find($request->from_desk);
+        $from_desk->balance = $from_desk->balance - $from_desk->program->cost;
         $to_desk = Desk::find($request->to_desk);
+        $to_desk->balance = $to_desk->balance + $to_desk->program->cost;
         $from_desk->users()->detach($request->user);
         $to_desk->users()->attach($request->user);
+        $counter = 0;
+        foreach ($to_desk->users as $user) {
+            if ($user->is_active)
+                $counter++;
+        }
+        if ($counter > 5) {
+            $to_desk->is_closed = true;
+        }
+        $to_desk->save();
+        $from_desk->save();
         return redirect()->route('admin.desks.index');
     }
 
@@ -158,9 +170,9 @@ class DeskController extends Controller
     public function get_users(Request $request)
     {
         $users = [];
-        foreach (Desk::find($request->id)->users as $user){
-            if($user->is_active){
-            $users[] = $user;
+        foreach (Desk::find($request->id)->users as $user) {
+            if ($user->is_active) {
+                $users[] = $user;
             }
         }
         return response()->json(['users' => $users]);
