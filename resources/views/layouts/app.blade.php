@@ -14,6 +14,8 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     {{--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">--}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -29,6 +31,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
+{{--                <img src="{{ asset('img/logo.png') }}" alt="" class="logo">--}}
                 {{ config('app.name', 'Laravel') }}
             </a>
             @if(Auth::check())
