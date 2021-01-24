@@ -17,7 +17,7 @@
                             class="text-muted">{{ $desk->program->closing_amount }}</span></p>
                     <p class="justify-content-between d-flex"><span class="font-weight-bold">Дата открытия стола:</span><span
                             class="text-muted">{{ $desk->created_at->format('d.m.y G:i') }}</span></p>
-                    <div class="form-group">
+                    <div class="form-group" id="note">
                         <button class="btn btn-secondary mb-3" id="copy_btn">Скопировать ссыклу</button>
                         <input class="form-control" id="linkEvent" type="text" readonly>
                     </div>
@@ -85,7 +85,7 @@
                                 <a href="javascript:void(0);">
                                     <div class="member-view-box">
                                         <div class="member-image">
-                                            <img src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                            <img src="{{ asset('img/owner.svg') }}"
                                                  alt="Member">
                                             <div class="member-details ">
                                                 <h5 class="pt-2">{{ $desk->user->name }}</h5>
@@ -101,7 +101,7 @@
                                                     <div class="member-view-box">
                                                         <div class="member-image">
                                                             <img
-                                                                src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                src="{{ asset('img/person.svg') }}"
                                                                 alt="Member">
                                                             <div class="member-details ">
                                                                 <h5 class="pt-2">{{ $user->name }}</h5>
@@ -109,6 +109,7 @@
                                                         </div>
                                                     </div>
                                                 </a>
+
                                             </li>
                                         @endif
                                     @endforeach
@@ -155,7 +156,14 @@
             if ('1' === '{{ $desk->is_closed }}') {
                 $('#linkEvent').remove();
                 $('#copy_btn').remove();
-            } else {
+            }
+            else if ('0' === '{{ $desk->is_active }}') {
+                let span = '<span class="text-danger">Примечание: стол находится на рассмотрении или ожидает оплаты!</span>';
+                $('#linkEvent').remove();
+                $('#copy_btn').remove();
+                $('#note').html(span);
+            }
+            else {
                 $('#linkEvent').val(window.location.hostname + '/register/{{ $desk->code }}');
                 $('#copy_btn').click(function () {
                     copyToClipboard(document.getElementById("linkEvent"));

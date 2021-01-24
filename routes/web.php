@@ -52,6 +52,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')
         Route::resource('users', 'UserController');
 
         Route::get('user_activation', 'UserController@activation')->name('user.activation');
+        Route::get('desk_activation', 'DeskController@activation')->name('desk.activation');
         Route::get('change_desk', 'DeskController@change_desk')->name('change.desk');
         Route::get('replace', 'DeskController@replaceShow')->name('desks.replace');
         Route::post('can_replace', 'DeskController@change_desk')->name('desks.make.replace');

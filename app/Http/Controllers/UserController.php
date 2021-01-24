@@ -85,7 +85,7 @@ class UserController extends Controller
             }
             $desk->save();
 
-            Desk::public_store($desk->program->id, $user->id);
+            Desk::public_store($desk->program->id, $user->id, $active = true);
         }
 
 
