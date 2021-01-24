@@ -104,7 +104,7 @@
                                                                 src="https://image.flaticon.com/icons/svg/145/145867.svg"
                                                                 alt="Member">
                                                             <div class="member-details ">
-                                                                <h5 class="pt-2">{{ $user->name }}</h5>
+                                                                <h6 class="pt-2" style="">{{ $user->name }}</h6>
                                                             </div>
                                                         </div>
                                                     </div>
