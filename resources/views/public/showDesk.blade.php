@@ -88,6 +88,7 @@
                         </ul>
                     </div>
                 </div>
+
             @elseif($agent->isDesktop())
                 <div class="body genealogy-body genealogy-scroll d-flex justify-content-center">
                     <div class="genealogy-tree">
@@ -96,7 +97,7 @@
                                 <a href="javascript:void(0);">
                                     <div class="member-view-box">
                                         <div class="member-image">
-                                            <img src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                            <img src="{{ asset('img/owner.svg') }}"
                                                  alt="Member">
                                             <div class="member-details ">
                                                 <h6 class="pt-2" style="white-space: normal;">{{ $desk->user->name }}</h6>
@@ -112,7 +113,7 @@
                                                     <div class="member-view-box">
                                                         <div class="member-image">
                                                             <img
-                                                                src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                src="{{ asset('img/person.svg') }}"
                                                                 alt="Member">
                                                             <div class="member-details ">
                                                                 <h6 class="pt-2" style="white-space: normal;">{{ $user->name }}</h6>
@@ -120,6 +121,7 @@
                                                         </div>
                                                     </div>
                                                 </a>
+
                                             </li>
                                         @endif
                                     @endforeach
@@ -165,7 +167,14 @@
             if ('1' === '{{ $desk->is_closed }}') {
                 $('#linkEvent').remove();
                 $('#copy_btn').remove();
-            } else {
+            }
+            else if ('0' === '{{ $desk->is_active }}') {
+                let span = '<span class="text-danger">Примечание: стол находится на рассмотрении или ожидает оплаты!</span>';
+                $('#linkEvent').remove();
+                $('#copy_btn').remove();
+                $('#note').html(span);
+            }
+            else {
                 $('#linkEvent').val(window.location.hostname + '/register/{{ $desk->code }}');
                 $('#copy_btn').click(function () {
                     copyToClipboard(document.getElementById("linkEvent"));

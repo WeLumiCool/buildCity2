@@ -34,6 +34,11 @@
                             </div>
                         </div>
                     @endif
+                    @if($desk->is_active == false)
+                    <button type="submit" title="{{ __('Активировать стол') }}"
+                            class="btn n btn-success" id="activation_btn" data-desk="{{$desk->id }}"
+                            onclick="activation(this)">{{ __('Активировать стол') }}</button>
+                        @endif
                 </div>
             </div>
             @if($agent->isMobile())
@@ -125,4 +130,21 @@
             });
         });
     </script>
+    <script>
+        function activation(desk) {
+            let id = desk.getAttribute("data-desk");
+            $.ajax({
+                url: "{{ route('admin.desk.activation') }}",
+                method: 'get',
+                data: {
+                    id: id,
+                },
+                success: function () {
+                    $('#activation_btn').hide();
+                    alert('Стол активен!')
+                }
+            })
+        }
+    </script>
 @endpush
+

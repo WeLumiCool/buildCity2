@@ -80,7 +80,7 @@ class DeskController extends Controller
     {
         $id = $request->program_id;
         $user_id = Auth::user()->id;
-        Desk::public_store($id, $user_id);
+        Desk::public_store($id, $user_id, $active = false);
         return redirect()->route('cabinet');
     }
 
@@ -126,6 +126,9 @@ class DeskController extends Controller
             return response()->json(false);
         }
         if ($desk->is_closed) {
+            return response()->json(false);
+        }
+        if ($desk->is_active == false) {
             return response()->json(false);
         }
         return response()->json(true);
@@ -230,5 +233,12 @@ class DeskController extends Controller
             })
             ->rawColumns(['Teilnehmers', 'is_closed', 'actions'])
             ->make(true);
+    }
+
+    public function activation(Request $request)
+    {
+        $desk = Desk::find($request->id);
+        $desk->is_active = true;
+        $desk->save();
     }
 }

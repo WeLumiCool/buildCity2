@@ -354,7 +354,7 @@
                 },
                 success: function () {
                     $('#activation_btn').hide();
-                    alert('Пользователь актвиен!')
+                    alert('Пользователь активен!')
                 }
             })
         }

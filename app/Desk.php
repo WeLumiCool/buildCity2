@@ -28,13 +28,14 @@ class Desk extends Model
     }
 
 
-    public static function public_store($program_id, $user_id)
+    public static function public_store($program_id, $user_id, $active)
     {
         $desk = new Desk();
         $desk->program_id = $program_id;
         $desk->user_id = $user_id;
         $desk->code = self::get_code();
         $desk->is_closed = false;
+        $desk->is_active = $active;
         $desk->save();
     }
 
