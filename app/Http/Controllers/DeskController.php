@@ -184,8 +184,11 @@ class DeskController extends Controller
             ->editColumn('user_id', function (Desk $desk) {
                 return $desk->user->name;
             })
+            ->editColumn('balance',function (Desk $desk){
+                return $desk->balance.' $';
+            })
             ->addColumn('cost', function (Desk $desk) {
-                return $desk->program->cost;
+                return $desk->program->cost.' $';
             })
             ->addColumn('Teilnehmers', function (Desk $desk) {
                 $counter_active_users = 0;
@@ -220,7 +223,7 @@ class DeskController extends Controller
             ->addColumn('actions', function (Desk $desk) {
                 if (!$desk->is_closed) {
                     return '<a class="btn btn-success ml-1" href="' . route('admin.desks.show', $desk->id) . '"><i class="fas fa-eye"></i></a>' .
-                        '<button class="close_desk btn btn-danger ml-1" data-id="' . $desk->id . '"><i class="fas fa-door-closed"></i></button>';
+                        '<button class="close_desk btn btn-danger ml-1" data-id="' . $desk->id . '"><i class="fas fa-external-link-alt"></i></button>';
                 } else {
                     return '<a class="btn btn-success ml-1" href="' . route('admin.desks.show', $desk->id) . '"><i class="fas fa-eye"></i></a>';
                 }

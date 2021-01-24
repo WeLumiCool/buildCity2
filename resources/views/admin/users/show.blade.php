@@ -1,29 +1,51 @@
 @extends('admin.layouts.dashboard')
 @section('dashboard_content')
+    <?php
+    use Jenssegers\Agent\Agent;
+
+    $agent = new Agent();
+    ?>
     <div class="container bg-form card-body-admin py-4">
         @if($user->is_active == false)
             <button type="submit" title="{{ __('Активировать') }}"
                     class="btn n btn-success" id="activation_btn" data-user="{{$user->id }}"
                     onclick="activation(this)">{{ __('Активировать') }}</button>
         @endif
-        <div class="row" id="show_articles">
-            <div class="col-12 mb-5">
+        <div class="row justify-content-center" id="show_articles">
+            <div class="col-12 col-lg-7 mb-5">
                 <div class="border p-2 shadow-sm">
-                    <p class="justify-content-between d-flex"><span class="font-weight-bold">ФИО:</span><span
+                    @if($agent->isMobile())
+                        <p class="justify-content-between d-flex"><span class="font-weight-bold">ФИО:</span><span
                                 class="text-muted">{{ $user->name }}</span></p>
-                    <p class="justify-content-between d-flex"><span class="font-weight-bold">Почта:</span><span
+                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Почта:</span><span
                                 class="text-muted">{{ $user->email }}</span></p>
-                    <p class="justify-content-between d-flex"><span class="font-weight-bold">Телефон:</span><span
+                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Телефон:</span><span
                                 class="text-muted">{{ $user->phone }}</span></p>
-                    <p class="justify-content-between d-flex"><span class="font-weight-bold">Баланс:</span><span
-                                class="text-muted">{{ $user->balance }}</span></p>
+                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Баланс:</span><span
+                                class="text-muted">{{ $user->balance }} $</span></p>
+                    @elseif($agent->isDesktop())
+                        <div class="row p-2">
+                            <div class="col-6 border-right">
+                                <p class="font-weight-bold">ФИО:</p>
+                                <p class="font-weight-bold">Почта:</p>
+                                <p class="font-weight-bold">Телефон:</p>
+                                <p class="font-weight-bold">Баланс:</p>
+                            </div>
+                            <div class="col-6 border-left">
+                                <p class="text-muted">{{ $user->name }} </p>
+                                <p class="text-muted">{{ $user->email }} </p>
+                                <p class="text-muted">{{ $user->phone }} </p>
+                                <p class="text-muted">{{ $user->balance }} $</p>
+                            </div>
+                        </div>
+                    @endif
+
                 </div>
             </div>
         </div>
         <h3 class="text-center font-weight-bold">Столы</h3>
-
-        <div class="row mt-4 mb-2 ">
-            <div class="col-12">
+        <div class="row justify-content-center mt-4 mb-2 ">
+            <div class="col-lg-9 col-12">
                 <div id="main">
                     <div class="accordion md-accordion accordion-blocks border-0" id="accordionStages" role="tablist"
                          aria-multiselectable="true">
@@ -44,7 +66,7 @@
                                          style="background: white"
                                          role="tab" id="Desk-{{ $desk->id }}">
                                         <div>
-                                            <div class="p-3 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
+                                            <div class="p-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
                                                 <h6 class="mt-1 mb-0">
                                                     <span style="white-space:nowrap;">Программа: {{ $desk->program->cost }}</span>
                                                     <span style="white-space:nowrap;">Баланс: {{ $desk->balance }}</span>
@@ -65,6 +87,61 @@
                                     <div class="card-body p-0">
                                         <div class="table-ui  mb-3">
                                             @if($desk->users)
+                                                @if($agent->isMobile())
+                                                    <div class="p-3 ">
+                                                        <div class="treeview w-100 border  shadow-sm">
+                                                            <ul class="my-1 pl-3 py-2">
+                                                                <li>
+                                                                    <span class="caret" {{ $desk->user->name == $user->name ? "colored" : "" }}><i class="fas fa-users mx-2"></i>{{ $desk->user->name }}</span>
+                                                                    <ul class="nested">
+                                                                        @foreach($desk->users as $value)
+                                                                                <li {{ $value->name === $user->name ? "colored" : "" }}  for="{{ $value->id }}"><i class="fas fa-user-alt mr-2"></i>{{ $value->name }}</li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                @elseif($agent->isDesktop())
+                                                    <div class="body genealogy-body genealogy-scroll d-flex justify-content-center">
+                                                        <div class="genealogy-tree">
+                                                            <ul>
+                                                                <li>
+                                                                    <a href="javascript:void(0);">
+                                                                        <div class="member-view-box">
+                                                                            <div class="member-image">
+                                                                                <img src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                                     alt="Member">
+                                                                                <div class="member-details ">
+                                                                                    <h6 {{ $desk->user->name == $user->name ? "colored" : "" }} class="pt-2" style="white-space: normal;">{{ $desk->user->name }}</h6>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                    <ul class="active">
+                                                                        @foreach($desk->users as $value)
+                                                                                <li>
+                                                                                    <a href="javascript:void(0);">
+                                                                                        <div class="member-view-box">
+                                                                                            <div class="member-image">
+                                                                                                <img
+                                                                                                    src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                                                    alt="Member">
+                                                                                                <div class="member-details ">
+                                                                                                    <h6 {{ $value->name === $user->name ? "colored" : "" }} class="pt-2" style="white-space: normal;">{{ $value->name }}</h6>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </a>
+                                                                                </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                                 <div class="tf-tree tf-gap-lg">
                                                     <ul>
                                                         <li>
@@ -104,7 +181,7 @@
                                          style="background: white"
                                          role="tab" id="Desk-{{ $desk->id }}">
                                         <div>
-                                            <div class="p-3 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
+                                            <div class="p-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
                                                 <h6 class="mt-1 mb-0">
                                                     <span style="white-space:nowrap;">Программа: {{ $desk->program->cost }}</span>
                                                     <span style="white-space:nowrap;">Баланс: {{ $desk->balance }}</span>
@@ -125,28 +202,83 @@
                                     <div class="card-body p-0">
                                         <div class="table-ui  mb-3">
                                             @if($desk->users)
-                                                <div class="tf-tree tf-gap-lg">
-                                                    <ul>
-                                                        <li>
-                                                        <span
-                                                                class="tf-nc {{ $desk->user->name == $user->name ? "colored" : "" }} rounded">{{$desk->user->name}}</span>
-                                                            <ul>
-                                                                @foreach($desk->users as $value)
-                                                                    <li>
-                                                                    <span class="tf-nc {{ $value->name === $user->name ? "colored" : "" }} rounded">
-                                                                         <div class="form-check">
-                                                                              <label class="form-check-label ml-3"
-                                                                                     for="{{ $value->id }}">
-                                                                                {{ $value->name }}
-                                                                              </label>
-                                                                            </div>
-                                                                        </span>
-                                                                    </li>
-                                                                @endforeach
+                                                @if($agent->isMobile())
+                                                    <div class="p-3 ">
+                                                        <div class="treeview w-100 border  shadow-sm">
+                                                            <ul class="my-1 pl-3 py-2">
+                                                                <li>
+                                                                    <span {{ $desk->user->name == $user->name ? "colored" : "" }} class="caret"><i class="fas fa-users mx-2"></i>{{ $desk->user->name }}</span>
+                                                                    <ul class="nested">
+                                                                        @foreach($desk->users as $value)
+                                                                                <li {{ $value->name === $user->name ? "colored" : "" }}  for="{{ $value->id }}"><i class="fas fa-user-alt mr-2"></i>{{ $value->name }}</li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </li>
+
                                                             </ul>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                        </div>
+                                                    </div>
+                                                @elseif($agent->isDesktop())
+                                                    <div class="body genealogy-body genealogy-scroll d-flex justify-content-center">
+                                                        <div class="genealogy-tree">
+                                                            <ul>
+                                                                <li>
+                                                                    <a href="javascript:void(0);">
+                                                                        <div class="member-view-box">
+                                                                            <div class="member-image">
+                                                                                <img src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                                     alt="Member">
+                                                                                <div class="member-details ">
+                                                                                    <h6 {{ $desk->user->name == $user->name ? "colored" : "" }} rounded class="pt-2" style="white-space: normal;">{{ $desk->user->name }}</h6>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                    <ul class="active">
+                                                                        @foreach($desk->users as $value)
+                                                                                <li>
+                                                                                    <a href="javascript:void(0);">
+                                                                                        <div class="member-view-box">
+                                                                                            <div class="member-image">
+                                                                                                <img
+                                                                                                    src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                                                    alt="Member">
+                                                                                                <div class="member-details ">
+                                                                                                    <h6 {{ $value->name === $user->name ? "colored" : "" }} class="pt-2" for="{{ $value->id }}" style="white-space: normal;">{{ $value->name }}</h6>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </a>
+                                                                                </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                @endif
+{{--                                                <div class="tf-tree tf-gap-lg">--}}
+{{--                                                    <ul>--}}
+{{--                                                        <li>--}}
+{{--                                                        <span--}}
+{{--                                                                class="tf-nc {{ $desk->user->name == $user->name ? "colored" : "" }} rounded">{{$desk->user->name}}</span>--}}
+{{--                                                            <ul>--}}
+{{--                                                                @foreach($desk->users as $value)--}}
+{{--                                                                    <li>--}}
+{{--                                                                    <span class="tf-nc {{ $value->name === $user->name ? "colored" : "" }} rounded">--}}
+{{--                                                                         <div class="form-check">--}}
+{{--                                                                              <label class="form-check-label ml-3"--}}
+{{--                                                                                     for="{{ $value->id }}">--}}
+{{--                                                                                {{ $value->name }}--}}
+{{--                                                                              </label>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        </span>--}}
+{{--                                                                    </li>--}}
+{{--                                                                @endforeach--}}
+{{--                                                            </ul>--}}
+{{--                                                        </li>--}}
+{{--                                                    </ul>--}}
+{{--                                                </div>--}}
                                             @endif
                                         </div>
                                     </div>
@@ -199,6 +331,19 @@
 
 @push('scripts')
     <script>
+        $(document).ready(function () {
+            let toggler = document.getElementsByClassName("caret");
+            let i;
+
+            for (i = 0; i < toggler.length; i++) {
+                toggler[i].addEventListener("click", function () {
+                    this.parentElement.querySelector(".nested").classList.toggle("active");
+                    this.classList.toggle("caret-down");
+                });
+            }
+        });
+    </script>
+    <script>
         function activation(user) {
             let id = user.getAttribute("data-user");
             $.ajax({
@@ -213,5 +358,18 @@
                 }
             })
         }
+    </script>
+    <script>
+        $(function () {
+            $('.genealogy-tree ul').hide();
+            $('.genealogy-tree>ul').show();
+            $('.genealogy-tree ul.active').show();
+            $('.genealogy-tree li').on('click', function (e) {
+                var children = $(this).find('> ul');
+                if (children.is(":visible")) children.hide('fast').removeClass('active');
+                else children.show('fast').addClass('active');
+                e.stopPropagation();
+            });
+        });
     </script>
 @endpush

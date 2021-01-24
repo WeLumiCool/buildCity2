@@ -19,7 +19,7 @@
                             <th scope="col">Статус</th>
                             <th scope="col">Участники</th>
                             <th scope="col">Код стола</th>
-                            <th scope="col">дата создания</th>
+                            <th scope="col">Дата создания</th>
                             <th scope="col">Баланс</th>
                             <th scope="col">Ставка</th>
                             <th scope="col">Сумма закрытия</th>

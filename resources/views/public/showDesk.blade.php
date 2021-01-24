@@ -6,21 +6,34 @@
     $agent = new Agent();
     ?>
     <div class="container">
-        <div class="row">
-            <div class="col-12 mb-3">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-5 mb-3">
                 <div class="border p-2 shadow-sm">
-                    <p class="justify-content-between d-flex"><span class="font-weight-bold">Баланс:</span><span
-                            class="text-muted">{{ $desk->balance }}</span></p>
-                    <p class="justify-content-between d-flex"><span class="font-weight-bold">Ставка:</span><span
-                            class="text-muted">{{ $desk->program->cost }}</span></p>
-                    <p class="justify-content-between d-flex"><span class="font-weight-bold">Сумма Закрытия:</span><span
-                            class="text-muted">{{ $desk->program->closing_amount }}</span></p>
-                    <p class="justify-content-between d-flex"><span class="font-weight-bold">Дата открытия стола:</span><span
-                            class="text-muted">{{ $desk->created_at->format('d.m.y G:i') }}</span></p>
-                    <div class="form-group">
-                        <button class="btn btn-secondary mb-3" id="copy_btn">Скопировать ссыклу</button>
-                        <input class="form-control" id="linkEvent" type="text" readonly>
-                    </div>
+                    @if($agent->isMobile())
+                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Баланс:</span><span
+                                class="text-muted">{{ $desk->balance }} $</span></p>
+                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Ставка:</span><span
+                                class="text-muted">{{ $desk->program->cost }} $</span></p>
+                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Сумма Закрытия:</span><span
+                                class="text-muted">{{ $desk->program->closing_amount }} $</span></p>
+                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Дата открытия стола:</span><span
+                                class="text-muted">{{ $desk->created_at->format('d.m.y G:i') }}</span></p>
+                    @elseif($agent->isDesktop())
+                        <div class="row p-2">
+                            <div class="col-6 border-right">
+                                <p class="font-weight-bold">Баланс:</p>
+                                <p class="font-weight-bold">Ставка:</p>
+                                <p class="font-weight-bold">Сумма Закрытия:</p>
+                                <p class="font-weight-bold">Дата открытия стола:</p>
+                            </div>
+                            <div class="col-6 border-left">
+                                <p class="text-muted">{{ $desk->balance }} $</p>
+                                <p class="text-muted">{{ $desk->program->cost }} $</p>
+                                <p class="text-muted">{{ $desk->program->closing_amount }} $</p>
+                                <p class="text-muted">{{ $desk->created_at->format('d.m.y G:i') }}</p>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
             {{--            <div class="tf-tree genealogy-scroll">--}}
@@ -58,7 +71,6 @@
                 {{--                        </ul>--}}
                 {{--                    </li>--}}
                 {{--                </ul>--}}
-
                 <div class="p-3 ">
                     <div class="treeview w-100 border  shadow-sm">
                         <ul class="my-1 pl-3 py-2">
@@ -76,9 +88,8 @@
                         </ul>
                     </div>
                 </div>
-
             @elseif($agent->isDesktop())
-                <div class="body genealogy-body genealogy-scroll">
+                <div class="body genealogy-body genealogy-scroll d-flex justify-content-center">
                     <div class="genealogy-tree">
                         <ul>
                             <li>
@@ -88,7 +99,7 @@
                                             <img src="https://image.flaticon.com/icons/svg/145/145867.svg"
                                                  alt="Member">
                                             <div class="member-details ">
-                                                <h5 class="pt-2">{{ $desk->user->name }}</h5>
+                                                <h6 class="pt-2" style="white-space: normal;">{{ $desk->user->name }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -104,7 +115,7 @@
                                                                 src="https://image.flaticon.com/icons/svg/145/145867.svg"
                                                                 alt="Member">
                                                             <div class="member-details ">
-                                                                <h6 class="pt-2" style="">{{ $user->name }}</h6>
+                                                                <h6 class="pt-2" style="white-space: normal;">{{ $user->name }}</h6>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -118,7 +129,6 @@
                     </div>
                 </div>
             @endif
-
         </div>
     </div>
 @endsection

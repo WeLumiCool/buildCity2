@@ -22,11 +22,14 @@ class CabinetController extends Controller
             ->editColumn('user_id', function (Desk $desk) {
                 return $desk->user->name;
             })
+            ->editColumn('balance',function (Desk $desk){
+                return $desk->balance.' $';
+            })
             ->editColumn('cost', function (Desk $desk) {
-                return $desk->program->cost;
+                return $desk->program->cost.' $';
             })
             ->addColumn('closing_amount', function (Desk $desk) {
-                return $desk->program->closing_amount;
+                return $desk->program->closing_amount.' $';
             })
             ->addColumn('Teilnehmers', function (Desk $desk) {
                 $counter_active_users = 0;
