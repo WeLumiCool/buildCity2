@@ -49,6 +49,13 @@
                 <div id="main">
                     <div class="accordion md-accordion accordion-blocks border-0" id="accordionStages" role="tablist"
                          aria-multiselectable="true">
+                        @if($user->desks)
+{{--                        <span>Владелец:</span>--}}
+{{--                        @elseif()--}}
+                            <span>Участники:</span>
+                        @endif
+{{--                        <div>--}}
+
                         @foreach($user->desks as $desk)
                             <div class="card" style="margin-bottom: 0.4rem;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
@@ -69,7 +76,7 @@
                                             <div class="p-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
                                                 <h6 class="mt-1 mb-0">
                                                     <span style="white-space:nowrap;">Программа: {{ $desk->program->cost }}</span>
-                                                    <span style="white-space:nowrap;">Баланс: {{ $desk->balance }}</span>
+                                                    <span style="white-space:nowrap;">Баланс: {{ $desk->balance }} $</span>
                                                     <span style="white-space:nowrap;">Статус: Участник</span>
                                                 </h6>
                                             </div>
@@ -80,7 +87,6 @@
                                         </div>
                                     </div>
                                 </a>
-
                                 <div id="user-{{ $desk->user_id }}desk-{{ $desk->id }}" class="collapse"
                                      role="tabpanel" aria-labelledby="Desk-{{ $desk->id }}"
                                      data-parent="#accordionStages">
@@ -142,29 +148,18 @@
                                                         </div>
                                                     </div>
                                                 @endif
-                                                <div class="tf-tree tf-gap-lg">
-                                                    <ul>
-                                                        <li>
-                                                        <span
-                                                                class="tf-nc {{ $desk->user->name == $user->name ? "colored" : "" }} rounded">{{$desk->user->name}}</span>
-                                                            <ul>
-                                                                @foreach($desk->users as $value)
-                                                                    <li>
-                                                                        <span class="tf-nc {{ $value->name === $user->name ? "colored" : "" }} rounded">{{ $value->name }}</span>
-                                                                    </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </div>
                                             @endif
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         @endforeach
+{{--                        </div>--}}
+{{--                        <div>--}}
+                        <span>Владелец:</span>
+
                         @foreach($user->owners as $desk)
+
                             <div class="card" style="margin-bottom: 0.4rem;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
@@ -172,6 +167,7 @@
     border-bottom: 0;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;">
+
                                 <a class="text-left collapsed text-decoration-none" data-toggle="collapse"
                                    data-parent="#accordionStages"
                                    href="#user-{{ $desk->user_id }}desk-{{ $desk->id }}"
@@ -257,41 +253,17 @@
                                                         </div>
                                                     </div>
                                                 @endif
-{{--                                                <div class="tf-tree tf-gap-lg">--}}
-{{--                                                    <ul>--}}
-{{--                                                        <li>--}}
-{{--                                                        <span--}}
-{{--                                                                class="tf-nc {{ $desk->user->name == $user->name ? "colored" : "" }} rounded">{{$desk->user->name}}</span>--}}
-{{--                                                            <ul>--}}
-{{--                                                                @foreach($desk->users as $value)--}}
-{{--                                                                    <li>--}}
-{{--                                                                    <span class="tf-nc {{ $value->name === $user->name ? "colored" : "" }} rounded">--}}
-{{--                                                                         <div class="form-check">--}}
-{{--                                                                              <label class="form-check-label ml-3"--}}
-{{--                                                                                     for="{{ $value->id }}">--}}
-{{--                                                                                {{ $value->name }}--}}
-{{--                                                                              </label>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </span>--}}
-{{--                                                                    </li>--}}
-{{--                                                                @endforeach--}}
-{{--                                                            </ul>--}}
-{{--                                                        </li>--}}
-{{--                                                    </ul>--}}
-{{--                                                </div>--}}
                                             @endif
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         @endforeach
+{{--                        </div>--}}
                     </div>
                 </div>
             </div>
-
         </div>
-    </div>
     </div>
 @endsection
 @push('styles')

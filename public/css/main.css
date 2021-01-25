@@ -300,6 +300,18 @@ transform: rotate(90deg);
 .fa-angle-right:before {
     content: "\f105";
 }
+.btns-header{
+    background: #000!important;
+    color: white!important;
+    border: 1px solid!important;
+    border-radius: 25px!important;
+    margin: 5px!important;
+}
+.btn-header{
+    background: #000!important;
+    color: white!important;
+    margin: 0px 5px!important;
+}
 @media screen and (max-width: 769px) {
     .tf-tree {
         overflow: auto!important;
