@@ -52,12 +52,24 @@
                                 <ul class="nested">
                                     @foreach($desk->users as $user)
                                         @if($user->is_active)
-                                            <li><i class="fas fa-user-alt mr-2"></i>{{ $user->name }}</li>
+                                            <li>
+                                                <span class="caret">
+                                                    <i class="fas fa-user-friends mr-2"></i>{{ $user->name }}
+                                                </span>
+                                                <ul class="nested">
+                                                    @foreach($user->children as $item)
+                                                        @if($item->is_active)
+                                                            <li>
+                                                                <i class="fas fa-user-alt mr-2"></i>{{ $item->name }}
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </li>
                                         @endif
                                     @endforeach
                                 </ul>
                             </li>
-
                         </ul>
                     </div>
                 </div>
@@ -69,7 +81,7 @@
                                 <a href="javascript:void(0);">
                                     <div class="member-view-box">
                                         <div class="member-image">
-                                            <img src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                            <img src="{{ asset('img/owner.svg') }}"
                                                  alt="Member">
                                             <div class="member-details ">
                                                 <h6 class="pt-2"
@@ -86,7 +98,7 @@
                                                     <div class="member-view-box">
                                                         <div class="member-image">
                                                             <img
-                                                                src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                src="{{ asset('img/person.svg') }}"
                                                                 alt="Member">
                                                             <div class="member-details ">
                                                                 <h6 class="pt-2"
@@ -96,27 +108,27 @@
                                                     </div>
                                                 </a>
 
-                                            <ul class="active">
-                                                @foreach($user->children as $item)
-                                                    @if($item->is_active)
-                                                        <li>
-                                                            <a href="javascript:void(0);">
-                                                                <div class="member-view-box">
-                                                                    <div class="member-image">
-                                                                        <img
-                                                                            src="https://image.flaticon.com/icons/svg/145/145867.svg"
-                                                                            alt="Member">
-                                                                        <div class="member-details ">
-                                                                            <h6 class="pt-2"
-                                                                                style="white-space: normal;">{{ $item->name }}</h6>
+                                                <ul class="active">
+                                                    @foreach($user->children as $item)
+                                                        @if($item->is_active)
+                                                            <li>
+                                                                <a href="javascript:void(0);">
+                                                                    <div class="member-view-box">
+                                                                        <div class="member-image">
+                                                                            <img
+                                                                                src="{{ asset('img/person.svg') }}"
+                                                                                alt="Member">
+                                                                            <div class="member-details ">
+                                                                                <h6 class="pt-2"
+                                                                                    style="white-space: normal;">{{ $item->name }}</h6>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                    @endif
-                                                @endforeach
-                                            </ul>
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
                                             </li>
                                         @endif
                                     @endforeach

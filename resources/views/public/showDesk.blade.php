@@ -40,41 +40,7 @@
                     @endif
                 </div>
             </div>
-            {{--            <div class="tf-tree genealogy-scroll">--}}
-            {{--                <ul>--}}
-            {{--                    <li>--}}
-            {{--                        <span class="tf-nc">{{ $desk->user->name }}</span>--}}
-            {{--                        <ul>--}}
-            {{--                            @foreach($desk->users as $user)--}}
-            {{--                                @if($user->is_active)--}}
-            {{--                                    <li>--}}
-            {{--                                        <span class="tf-nc">{{ $user->name }}</span>--}}
-            {{--                                    </li>--}}
-            {{--                                @endif--}}
-            {{--                            @endforeach--}}
-            {{--                        </ul>--}}
-            {{--                    </li>--}}
-            {{--                </ul>--}}
-            {{--            </div>--}}
-
-            {{--            @if($agent->isMobile())--}}
-            {{--                --}}
-            {{--            @elseif($agent->isDesktop())--}}
-            {{--                --}}
-            {{--            @endif--}}
             @if($agent->isMobile())
-                {{--                <ul id="myUL" class="list-group">--}}
-                {{--                    <li class="list-group-item">--}}
-                {{--                        <span class="caret">{{ $desk->user->name }}</span>--}}
-                {{--                        <ul class="nested">--}}
-                {{--                            @foreach($desk->users as $user)--}}
-                {{--                                @if($user->is_active)--}}
-                {{--                                    <li>{{ $user->name }}</li>--}}
-                {{--                                @endif--}}
-                {{--                            @endforeach--}}
-                {{--                        </ul>--}}
-                {{--                    </li>--}}
-                {{--                </ul>--}}
                 <div class="p-3 ">
                     <div class="treeview w-100 border  shadow-sm">
                         <ul class="my-1 pl-3 py-2">
@@ -83,7 +49,20 @@
                                 <ul class="nested">
                                     @foreach($desk->users as $user)
                                         @if($user->is_active)
-                                            <li><i class="fas fa-user-alt mr-2"></i>{{ $user->name }}</li>
+                                            <li>
+                                                <span class="caret">
+                                                    <i class="fas fa-user-friends mr-2"></i>{{ $user->name }}
+                                                </span>
+                                                <ul class="nested">
+                                                    @foreach($user->children as $item)
+                                                        @if($item->is_active)
+                                                            <li>
+                                                                <i class="fas fa-user-alt mr-2"></i>{{ $item->name }}
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </li>
                                         @endif
                                     @endforeach
                                 </ul>
@@ -92,7 +71,6 @@
                         </ul>
                     </div>
                 </div>
-
             @elseif($agent->isDesktop())
                 <div class="body genealogy-body genealogy-scroll d-flex justify-content-center">
                     <div class="genealogy-tree">
@@ -125,7 +103,6 @@
                                                         </div>
                                                     </div>
                                                 </a>
-
                                             </li>
                                         @endif
                                     @endforeach

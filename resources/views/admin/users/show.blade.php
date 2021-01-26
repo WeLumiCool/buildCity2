@@ -102,10 +102,23 @@
                                                                     <span class="caret" {{ $desk->user->name == $user->name ? "colored" : "" }}><i
                                                                             class="fas fa-users mx-2"></i>{{ $desk->user->name }}</span>
                                                                     <ul class="nested">
-                                                                        @foreach($desk->users as $value)
-                                                                            <li {{ $value->name === $user->name ? "colored" : "" }}  for="{{ $value->id }}">
-                                                                                <i class="fas fa-user-alt mr-2"></i>{{ $value->name }}
-                                                                            </li>
+                                                                        @foreach($desk->users as $user)
+                                                                            @if($user->is_active)
+                                                                                <li>
+                                                                                        <span class="caret">
+                                                                                            <i class="fas fa-user-friends mr-2"></i>{{ $user->name }}
+                                                                                        </span>
+                                                                                    <ul class="nested">
+                                                                                        @foreach($user->children as $item)
+                                                                                            @if($item->is_active)
+                                                                                                <li>
+                                                                                                    <i class="fas fa-user-alt mr-2"></i>{{ $item->name }}
+                                                                                                </li>
+                                                                                            @endif
+                                                                                        @endforeach
+                                                                                    </ul>
+                                                                                </li>
+                                                                            @endif
                                                                         @endforeach
                                                                     </ul>
                                                                 </li>
@@ -123,8 +136,8 @@
                                                                         <div class="member-view-box">
                                                                             <div class="member-image">
                                                                                 <img
-                                                                                    src="https://image.flaticon.com/icons/svg/145/145867.svg"
-                                                                                    alt="Member">
+                                                                                    src="{{ asset('img/owner.svg') }}"
+                                                                                    alt="Owner">
                                                                                 <div class="member-details ">
                                                                                     <h6 {{ $desk->user->name == $user->name ? "colored" : "" }} class="pt-2"
                                                                                         style="white-space: normal;">{{ $desk->user->name }}</h6>
@@ -139,7 +152,7 @@
                                                                                     <div class="member-view-box">
                                                                                         <div class="member-image">
                                                                                             <img
-                                                                                                src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                                                src="{{ asset('img/person.svg') }}"
                                                                                                 alt="Member">
                                                                                             <div
                                                                                                 class="member-details ">
@@ -239,7 +252,7 @@
                                                                         <div class="member-view-box">
                                                                             <div class="member-image">
                                                                                 <img
-                                                                                    src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                                    src="{{ asset('img/owner.svg') }}"
                                                                                     alt="Member">
                                                                                 <div class="member-details ">
                                                                                     <h6 {{ $desk->user->name == $user->name ? "colored" : "" }} rounded
@@ -256,7 +269,7 @@
                                                                                     <div class="member-view-box">
                                                                                         <div class="member-image">
                                                                                             <img
-                                                                                                src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                                                src="{{ asset('img/person.svg') }}"
                                                                                                 alt="Member">
                                                                                             <div
                                                                                                 class="member-details ">
