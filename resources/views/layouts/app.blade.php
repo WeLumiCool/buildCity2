@@ -28,61 +28,63 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-{{--                <img src="{{ asset('img/logo.png') }}" alt="" class="logo">--}}
-                {{ config('app.name', 'Laravel') }}
-            </a>
-            @if(Auth::check())
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            @endif
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
-                    <!-- Authentication Links -->
-                    @if(Auth::check())
-                        @if(Auth::user()->is_active)
-                            @if(Auth::user()->role)
-                                <li class="nav-item mr-3">
+    <header class="container-fluid bg-white shadow-sm px-0">
+        <div class="container px-0">
+            <nav class="navbar navbar-expand-lg navbar-light ">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="{{ asset('img/logo2.png') }}" alt="" style="width:96px; height:auto;">
+                </a>
+                @if(Auth::check())
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                            aria-label="{{ __('Toggle navigation') }}">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                @endif
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        @if(Auth::check())
+                            @if(Auth::user()->is_active)
+                                @if(Auth::user()->role)
+                                    <li class="nav-item mr-3">
+                                        <a class="nav-link text-dark"
+                                           href="{{ route('admin.desks.index') }}">{{ __('Админ. панель') }}</a>
+                                    </li>
+                                @endif
+                                <li class="nav-item mr-5">
                                     <a class="nav-link text-dark"
-                                       href="{{ route('admin.desks.index') }}">{{ __('Админ. панель') }}</a>
+                                       href="{{ route('cabinet') }}">{{ __('Личный кабинет') }}</a>
                                 </li>
                             @endif
-                            <li class="nav-item mr-5">
-                                <a class="nav-link text-dark"
-                                   href="{{ route('cabinet') }}">{{ __('Личный кабинет') }}</a>
-                            </li>
-                        @endif
-                        <li class="nav-item mr-3">
-                            <a class="nav-link text-dark" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
+                            <li class="nav-item mr-3">
+                                <a class="nav-link text-dark" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
                                                      if(confirm('вы действительно хотите выйти?')){
                                        document.getElementById('logout-form').submit();
                                    }">
-                                {{ __('Выход') }}
-                            </a>
+                                    {{ __('Выход') }}
+                                </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
-                        @if(Auth::user()->is_active)
-                            <li class="nav-item d-flex" style="color: #7f7f7f">
-                                <p class="pt-2">Баланс:&nbsp;</p>
-                                <p class="pt-2">{{ Auth::user()->balance }} $</p>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </li>
+                            @if(Auth::user()->is_active)
+                                <li class="nav-item d-flex" style="color: #7f7f7f">
+                                    <p class="pt-2">Баланс:&nbsp;</p>
+                                    <p class="pt-2">{{ Auth::user()->balance }} $</p>
+                                </li>
+                            @endif
                         @endif
-                    @endif
-                </ul>
-            </div>
+                    </ul>
+                </div>
+            </nav>
         </div>
-    </nav>
+    </header>
+
 
     <main class="py-4">
         @yield('content')
