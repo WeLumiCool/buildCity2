@@ -18,11 +18,11 @@
 </head>
 <body style="background: #eeeeee">
 <div id="app">
-    <header>
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+    <header class="container-fluid bg-white shadow-sm px-0">
+        <div class="container px-0">
+            <nav class="navbar navbar-expand-lg navbar-light" >
+                <a class="navbar-brand" href="{{ url('/') }}" >
+                    <img src="{{ asset('img/logo2.png') }}" class="logo" alt="" style="width:96px; height:auto;">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent"
@@ -34,28 +34,28 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item text">
+                        <li class="nav-item text btns-header">
                             <a href="{{ route('admin.desks.replace') }}"
-                               class="nav-link  {{ request()->is('admin/replace*') ? 'active' : '' }}">
+                               class="nav-link btn-header {{ request()->is('admin/replace*') ? 'active' : '' }}">
                                 {{ __('Поменять пользователя') }}</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item btns-header">
                             <a href="{{ route('admin.users.index') }}"
-                               class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
+                               class="nav-link btn-header {{ request()->is('admin/user*') ? 'active' : '' }}">
                                 {{ __('Пользователи') }}</a>
                         </li>
-                        <li class="nav-item mr-5">
+                        <li class="nav-item btns-header mr-5">
                             <a href="{{ route('admin.desks.index') }}"
-                               class="nav-link {{ request()->is('admin/desk*') ? 'active' : '' }}">
+                               class="nav-link btn-header  {{ request()->is('admin/desk*') ? 'active' : '' }}">
                                 {{ __('Столы') }}</a>
                         </li>
                         @if(Auth::check())
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('logout') }}"
+                            <li class="nav-item btns-exit">
+                                <a class="nav-link btn-header-exit" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                    if(confirm('вы действительно хотите выйти?')){
                                        document.getElementById('logout-form').submit();
-                                   }">
+                                   }" style="margin: 0px 5px;">
                                     {{ __('Выход') }}
                                 </a>
 
@@ -66,8 +66,8 @@
                         @endif
                     </ul>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
     </header>
     @yield('content')
 </div>

@@ -49,6 +49,11 @@
                 <div id="main">
                     <div class="accordion md-accordion accordion-blocks border-0" id="accordionStages" role="tablist"
                          aria-multiselectable="true">
+                        @if(!$user->desks == null)
+                            <span>Участники:</span>
+                        @else
+
+                        @endif
                         @foreach($user->desks as $desk)
                             <div class="card" style="margin-bottom: 0.4rem;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
@@ -66,21 +71,23 @@
                                          style="background: white"
                                          role="tab" id="Desk-{{ $desk->id }}">
                                         <div>
-                                            <div class="p-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
+                                            <div
+                                                class="p-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
                                                 <h6 class="mt-1 mb-0">
-                                                    <span style="white-space:nowrap;">Программа: {{ $desk->program->cost }}</span>
-                                                    <span style="white-space:nowrap;">Баланс: {{ $desk->balance }}</span>
+                                                    <span
+                                                        style="white-space:nowrap;">Программа: {{ $desk->program->cost }}</span>
+                                                    <span
+                                                        style="white-space:nowrap;">Баланс: {{ $desk->balance }} $</span>
                                                     <span style="white-space:nowrap;">Статус: Участник</span>
                                                 </h6>
                                             </div>
                                         </div>
                                         <div class="offset-1">
                                             <i class="fas fa-angle-down mr-1 rotate-icon"
-                                                    style="margin-top: 2px;"></i>
+                                               style="margin-top: 2px;"></i>
                                         </div>
                                     </div>
                                 </a>
-
                                 <div id="user-{{ $desk->user_id }}desk-{{ $desk->id }}" class="collapse"
                                      role="tabpanel" aria-labelledby="Desk-{{ $desk->id }}"
                                      data-parent="#accordionStages">
@@ -92,10 +99,13 @@
                                                         <div class="treeview w-100 border  shadow-sm">
                                                             <ul class="my-1 pl-3 py-2">
                                                                 <li>
-                                                                    <span class="caret" {{ $desk->user->name == $user->name ? "colored" : "" }}><i class="fas fa-users mx-2"></i>{{ $desk->user->name }}</span>
+                                                                    <span class="caret" {{ $desk->user->name == $user->name ? "colored" : "" }}><i
+                                                                            class="fas fa-users mx-2"></i>{{ $desk->user->name }}</span>
                                                                     <ul class="nested">
                                                                         @foreach($desk->users as $value)
-                                                                                <li {{ $value->name === $user->name ? "colored" : "" }}  for="{{ $value->id }}"><i class="fas fa-user-alt mr-2"></i>{{ $value->name }}</li>
+                                                                            <li {{ $value->name === $user->name ? "colored" : "" }}  for="{{ $value->id }}">
+                                                                                <i class="fas fa-user-alt mr-2"></i>{{ $value->name }}
+                                                                            </li>
                                                                         @endforeach
                                                                     </ul>
                                                                 </li>
@@ -104,37 +114,42 @@
                                                         </div>
                                                     </div>
                                                 @elseif($agent->isDesktop())
-                                                    <div class="body genealogy-body genealogy-scroll d-flex justify-content-center">
+                                                    <div
+                                                        class="body genealogy-body genealogy-scroll d-flex justify-content-center">
                                                         <div class="genealogy-tree">
                                                             <ul>
                                                                 <li>
                                                                     <a href="javascript:void(0);">
                                                                         <div class="member-view-box">
                                                                             <div class="member-image">
-                                                                                <img src="https://image.flaticon.com/icons/svg/145/145867.svg"
-                                                                                     alt="Member">
+                                                                                <img
+                                                                                    src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                                    alt="Member">
                                                                                 <div class="member-details ">
-                                                                                    <h6 {{ $desk->user->name == $user->name ? "colored" : "" }} class="pt-2" style="white-space: normal;">{{ $desk->user->name }}</h6>
+                                                                                    <h6 {{ $desk->user->name == $user->name ? "colored" : "" }} class="pt-2"
+                                                                                        style="white-space: normal;">{{ $desk->user->name }}</h6>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </a>
                                                                     <ul class="active">
                                                                         @foreach($desk->users as $value)
-                                                                                <li>
-                                                                                    <a href="javascript:void(0);">
-                                                                                        <div class="member-view-box">
-                                                                                            <div class="member-image">
-                                                                                                <img
-                                                                                                    src="https://image.flaticon.com/icons/svg/145/145867.svg"
-                                                                                                    alt="Member">
-                                                                                                <div class="member-details ">
-                                                                                                    <h6 {{ $value->name === $user->name ? "colored" : "" }} class="pt-2" style="white-space: normal;">{{ $value->name }}</h6>
-                                                                                                </div>
+                                                                            <li>
+                                                                                <a href="javascript:void(0);">
+                                                                                    <div class="member-view-box">
+                                                                                        <div class="member-image">
+                                                                                            <img
+                                                                                                src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                                                alt="Member">
+                                                                                            <div
+                                                                                                class="member-details ">
+                                                                                                <h6 {{ $value->name === $user->name ? "colored" : "" }} class="pt-2"
+                                                                                                    style="white-space: normal;">{{ $value->name }}</h6>
                                                                                             </div>
                                                                                         </div>
-                                                                                    </a>
-                                                                                </li>
+                                                                                    </div>
+                                                                                </a>
+                                                                            </li>
                                                                         @endforeach
                                                                     </ul>
                                                                 </li>
@@ -142,29 +157,17 @@
                                                         </div>
                                                     </div>
                                                 @endif
-                                                <div class="tf-tree tf-gap-lg">
-                                                    <ul>
-                                                        <li>
-                                                        <span
-                                                                class="tf-nc {{ $desk->user->name == $user->name ? "colored" : "" }} rounded">{{$desk->user->name}}</span>
-                                                            <ul>
-                                                                @foreach($desk->users as $value)
-                                                                    <li>
-                                                                        <span class="tf-nc {{ $value->name === $user->name ? "colored" : "" }} rounded">{{ $value->name }}</span>
-                                                                    </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </div>
                                             @endif
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         @endforeach
+                        @if(!$user->owners == null)
+                            <span>Владелец:</span>
+                        @endif
                         @foreach($user->owners as $desk)
+
                             <div class="card" style="margin-bottom: 0.4rem;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
@@ -172,6 +175,7 @@
     border-bottom: 0;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;">
+
                                 <a class="text-left collapsed text-decoration-none" data-toggle="collapse"
                                    data-parent="#accordionStages"
                                    href="#user-{{ $desk->user_id }}desk-{{ $desk->id }}"
@@ -181,17 +185,20 @@
                                          style="background: white"
                                          role="tab" id="Desk-{{ $desk->id }}">
                                         <div>
-                                            <div class="p-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
+                                            <div
+                                                class="p-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
                                                 <h6 class="mt-1 mb-0">
-                                                    <span style="white-space:nowrap;">Программа: {{ $desk->program->cost }}</span>
-                                                    <span style="white-space:nowrap;">Баланс: {{ $desk->balance }}</span>
+                                                    <span
+                                                        style="white-space:nowrap;">Программа: {{ $desk->program->cost }}</span>
+                                                    <span
+                                                        style="white-space:nowrap;">Баланс: {{ $desk->balance }}</span>
                                                     <span style="white-space:nowrap;">Статус: Владелец</span>
                                                 </h6>
                                             </div>
                                         </div>
                                         <div class="offset-1"><i
-                                                    class="fas fa-angle-down mr-1 rotate-icon"
-                                                    style="margin-top: 2px;"></i>
+                                                class="fas fa-angle-down mr-1 rotate-icon"
+                                                style="margin-top: 2px;"></i>
                                         </div>
                                     </div>
                                 </a>
@@ -207,10 +214,14 @@
                                                         <div class="treeview w-100 border  shadow-sm">
                                                             <ul class="my-1 pl-3 py-2">
                                                                 <li>
-                                                                    <span {{ $desk->user->name == $user->name ? "colored" : "" }} class="caret"><i class="fas fa-users mx-2"></i>{{ $desk->user->name }}</span>
+                                                                    <span
+                                                                        {{ $desk->user->name == $user->name ? "colored" : "" }} class="caret"><i
+                                                                            class="fas fa-users mx-2"></i>{{ $desk->user->name }}</span>
                                                                     <ul class="nested">
                                                                         @foreach($desk->users as $value)
-                                                                                <li {{ $value->name === $user->name ? "colored" : "" }}  for="{{ $value->id }}"><i class="fas fa-user-alt mr-2"></i>{{ $value->name }}</li>
+                                                                            <li {{ $value->name === $user->name ? "colored" : "" }}  for="{{ $value->id }}">
+                                                                                <i class="fas fa-user-alt mr-2"></i>{{ $value->name }}
+                                                                            </li>
                                                                         @endforeach
                                                                     </ul>
                                                                 </li>
@@ -219,37 +230,44 @@
                                                         </div>
                                                     </div>
                                                 @elseif($agent->isDesktop())
-                                                    <div class="body genealogy-body genealogy-scroll d-flex justify-content-center">
+                                                    <div
+                                                        class="body genealogy-body genealogy-scroll d-flex justify-content-center">
                                                         <div class="genealogy-tree">
                                                             <ul>
                                                                 <li>
                                                                     <a href="javascript:void(0);">
                                                                         <div class="member-view-box">
                                                                             <div class="member-image">
-                                                                                <img src="https://image.flaticon.com/icons/svg/145/145867.svg"
-                                                                                     alt="Member">
+                                                                                <img
+                                                                                    src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                                    alt="Member">
                                                                                 <div class="member-details ">
-                                                                                    <h6 {{ $desk->user->name == $user->name ? "colored" : "" }} rounded class="pt-2" style="white-space: normal;">{{ $desk->user->name }}</h6>
+                                                                                    <h6 {{ $desk->user->name == $user->name ? "colored" : "" }} rounded
+                                                                                        class="pt-2"
+                                                                                        style="white-space: normal;">{{ $desk->user->name }}</h6>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </a>
                                                                     <ul class="active">
                                                                         @foreach($desk->users as $value)
-                                                                                <li>
-                                                                                    <a href="javascript:void(0);">
-                                                                                        <div class="member-view-box">
-                                                                                            <div class="member-image">
-                                                                                                <img
-                                                                                                    src="https://image.flaticon.com/icons/svg/145/145867.svg"
-                                                                                                    alt="Member">
-                                                                                                <div class="member-details ">
-                                                                                                    <h6 {{ $value->name === $user->name ? "colored" : "" }} class="pt-2" for="{{ $value->id }}" style="white-space: normal;">{{ $value->name }}</h6>
-                                                                                                </div>
+                                                                            <li>
+                                                                                <a href="javascript:void(0);">
+                                                                                    <div class="member-view-box">
+                                                                                        <div class="member-image">
+                                                                                            <img
+                                                                                                src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                                                alt="Member">
+                                                                                            <div
+                                                                                                class="member-details ">
+                                                                                                <h6 {{ $value->name === $user->name ? "colored" : "" }} class="pt-2"
+                                                                                                    for="{{ $value->id }}"
+                                                                                                    style="white-space: normal;">{{ $value->name }}</h6>
                                                                                             </div>
                                                                                         </div>
-                                                                                    </a>
-                                                                                </li>
+                                                                                    </div>
+                                                                                </a>
+                                                                            </li>
                                                                         @endforeach
                                                                     </ul>
                                                                 </li>
@@ -257,41 +275,17 @@
                                                         </div>
                                                     </div>
                                                 @endif
-{{--                                                <div class="tf-tree tf-gap-lg">--}}
-{{--                                                    <ul>--}}
-{{--                                                        <li>--}}
-{{--                                                        <span--}}
-{{--                                                                class="tf-nc {{ $desk->user->name == $user->name ? "colored" : "" }} rounded">{{$desk->user->name}}</span>--}}
-{{--                                                            <ul>--}}
-{{--                                                                @foreach($desk->users as $value)--}}
-{{--                                                                    <li>--}}
-{{--                                                                    <span class="tf-nc {{ $value->name === $user->name ? "colored" : "" }} rounded">--}}
-{{--                                                                         <div class="form-check">--}}
-{{--                                                                              <label class="form-check-label ml-3"--}}
-{{--                                                                                     for="{{ $value->id }}">--}}
-{{--                                                                                {{ $value->name }}--}}
-{{--                                                                              </label>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </span>--}}
-{{--                                                                    </li>--}}
-{{--                                                                @endforeach--}}
-{{--                                                            </ul>--}}
-{{--                                                        </li>--}}
-{{--                                                    </ul>--}}
-{{--                                                </div>--}}
                                             @endif
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         @endforeach
+                        {{--                        </div>--}}
                     </div>
                 </div>
             </div>
-
         </div>
-    </div>
     </div>
 @endsection
 @push('styles')

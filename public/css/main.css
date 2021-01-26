@@ -300,6 +300,7 @@ transform: rotate(90deg);
 .fa-angle-right:before {
     content: "\f105";
 }
+
 @media screen and (max-width: 769px) {
     .tf-tree {
         overflow: auto!important;
