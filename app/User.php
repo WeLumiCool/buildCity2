@@ -13,7 +13,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone', 'email_verified_at',
+        'name', 'email', 'password', 'phone', 'email_verified_at', 'parent_id',
     ];
 
     /**
@@ -42,5 +42,13 @@ class User extends Authenticatable
     public function owners()
     {
         return $this->hasMany(Desk::class);
+    }
+    public function parent()
+    {
+        return $this->belongsTo(User::class,'parent_id');
+    }
+    public function children()
+    {
+        return $this->hasMany(User::class,'parent_id');
     }
 }

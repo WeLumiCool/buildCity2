@@ -50,6 +50,7 @@ class DeskController extends Controller
      */
     public function show(Desk $desk)
     {
+
         return view('admin.desks.show', compact('desk'));
     }
 
@@ -80,13 +81,18 @@ class DeskController extends Controller
     {
         $id = $request->program_id;
         $user_id = Auth::user()->id;
-        Desk::public_store($id, $user_id, $active = false);
+        if (Auth::user()->role == 1)
+        {
+            Desk::public_store($id, $user_id, $active = true);
+        }
+        else{
+            Desk::public_store($id, $user_id, $active = false);
+        }
         return redirect()->route('cabinet');
     }
 
     public function change_desk(Request $request)
     {
-//        dd($request);
         $from_desk = Desk::find($request->from_desk);
         $from_desk->balance = $from_desk->balance - $from_desk->program->cost;
         $to_desk = Desk::find($request->to_desk);
@@ -126,6 +132,9 @@ class DeskController extends Controller
             return response()->json(false);
         }
         if ($desk->is_closed) {
+            return response()->json(false);
+        }
+        if ($desk->users->count() == 3) {
             return response()->json(false);
         }
         if ($desk->is_active == false) {

@@ -32,6 +32,10 @@
                                 <p class="text-muted">{{ $desk->program->closing_amount }} $</p>
                                 <p class="text-muted">{{ $desk->created_at->format('d.m.y G:i') }}</p>
                             </div>
+                            <div class="form-group" id="note">
+                                <button class="btn btn-secondary mb-3" id="copy_btn">Скопировать ссыклу</button>
+                                <input class="form-control" id="linkEvent" type="text" readonly>
+                            </div>
                         </div>
                     @endif
                 </div>
@@ -170,6 +174,13 @@
             }
             else if ('0' === '{{ $desk->is_active }}') {
                 let span = '<span class="text-danger">Примечание: стол находится на рассмотрении или ожидает оплаты!</span>';
+                $('#linkEvent').remove();
+                $('#copy_btn').remove();
+                $('#note').html(span);
+            }
+            else if ('{{ $desk->users->count() }}' === '3')
+            {
+                let span = '<span class="text-danger">Примечание: Вы больше не можете приглашать новых пользователей!</span>';
                 $('#linkEvent').remove();
                 $('#copy_btn').remove();
                 $('#note').html(span);

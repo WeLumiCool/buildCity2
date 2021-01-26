@@ -81,6 +81,8 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         $desk = Desk::where('code', $request->code)->first();
+        $user->parent_id = $desk->user_id;
+        $user->save();
         $desk->users()->attach($user->id);
     }
 }

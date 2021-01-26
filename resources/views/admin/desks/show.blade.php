@@ -14,9 +14,11 @@
                                 class="text-muted">{{ $desk->balance }} $</span></p>
                         <p class="justify-content-between d-flex"><span class="font-weight-bold">Ставка:</span><span
                                 class="text-muted">{{ $desk->program->cost }} $</span></p>
-                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Сумма Закрытия:</span><span
+                        <p class="justify-content-between d-flex"><span
+                                class="font-weight-bold">Сумма Закрытия:</span><span
                                 class="text-muted">{{ $desk->program->closing_amount }} $</span></p>
-                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Дата открытия стола:</span><span
+                        <p class="justify-content-between d-flex"><span
+                                class="font-weight-bold">Дата открытия стола:</span><span
                                 class="text-muted">{{ $desk->created_at->format('d.m.y G:i') }}</span></p>
                     @elseif($agent->isDesktop())
                         <div class="row p-2">
@@ -35,10 +37,10 @@
                         </div>
                     @endif
                     @if($desk->is_active == false)
-                    <button type="submit" title="{{ __('Активировать стол') }}"
-                            class="btn n btn-success" id="activation_btn" data-desk="{{$desk->id }}"
-                            onclick="activation(this)">{{ __('Активировать стол') }}</button>
-                        @endif
+                        <button type="submit" title="{{ __('Активировать стол') }}"
+                                class="btn n btn-success" id="activation_btn" data-desk="{{$desk->id }}"
+                                onclick="activation(this)">{{ __('Активировать стол') }}</button>
+                    @endif
                 </div>
             </div>
             @if($agent->isMobile())
@@ -70,7 +72,8 @@
                                             <img src="https://image.flaticon.com/icons/svg/145/145867.svg"
                                                  alt="Member">
                                             <div class="member-details ">
-                                                <h6 class="pt-2" style="white-space: normal;">{{ $desk->user->name }}</h6>
+                                                <h6 class="pt-2"
+                                                    style="white-space: normal;">{{ $desk->user->name }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -86,11 +89,34 @@
                                                                 src="https://image.flaticon.com/icons/svg/145/145867.svg"
                                                                 alt="Member">
                                                             <div class="member-details ">
-                                                                <h6 class="pt-2" style="white-space: normal;">{{ $user->name }}</h6>
+                                                                <h6 class="pt-2"
+                                                                    style="white-space: normal;">{{ $user->name }}</h6>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </a>
+
+                                            <ul class="active">
+                                                @foreach($user->children as $item)
+                                                    @if($item->is_active)
+                                                        <li>
+                                                            <a href="javascript:void(0);">
+                                                                <div class="member-view-box">
+                                                                    <div class="member-image">
+                                                                        <img
+                                                                            src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                                                            alt="Member">
+                                                                        <div class="member-details ">
+                                                                            <h6 class="pt-2"
+                                                                                style="white-space: normal;">{{ $item->name }}</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
                                             </li>
                                         @endif
                                     @endforeach
