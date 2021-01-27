@@ -16,6 +16,7 @@
     @stack('styles')
 
 </head>
+<<<<<<< Updated upstream
 <body style="background: #eeeeee">
 <div id="app">
     <header>
@@ -71,6 +72,69 @@
     </header>
     @yield('content')
 </div>
+=======
+<body style="background: #ffffff">
+
+
+<div id="app">
+    <div id="loader"></div>
+        <header class="container-fluid bg-white shadow-sm px-0">
+            <div class="container px-0">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        <img src="{{ asset('img/logo2.png') }}" class="logo" alt="" style="width:96px; height:auto;">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                            aria-label="{{ __('Toggle navigation') }}">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <!-- Right Side Of Navbar -->
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item text">
+                                <a href="{{ route('admin.desks.replace') }}"
+                                   class="nav-link {{ request()->is('admin/replace*') ? 'active' : '' }}">
+                                    {{ __('Поменять пользователя') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.users.index') }}"
+                                   class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
+                                    {{ __('Пользователи') }}</a>
+                            </li>
+                            <li class="nav-item mr-5">
+                                <a href="{{ route('admin.desks.index') }}"
+                                   class="nav-link  {{ request()->is('admin/desk*') ? 'active' : '' }}">
+                                    {{ __('Столы') }}</a>
+                            </li>
+
+                        </ul>
+                        <ul class="navbar-nav">
+                            @if(Auth::check())
+                                <li class="nav-item">
+                                    <a class="nav-link " href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                   if(confirm('вы действительно хотите выйти?')){
+                                       document.getElementById('logout-form').submit();
+                                   }" style="margin: 0px 5px;">
+                                        {{ __('Выход') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            @endif
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        @yield('content')
+    </div>
+>>>>>>> Stashed changes
 <script src="https://api-maps.yandex.ru/2.1/?apikey=a2435f91-837f-4a88-87c0-7ac7813eb317&lang=ru_RU"
         type="text/javascript"></script>
 
@@ -85,6 +149,13 @@
 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+
+    var preloader = document.getElementById('loader');
+    function preLoaderHandler(){
+        preloader.style.display = 'none';
+    }
+</script>
 @stack('scripts')
 </body>
 </html>

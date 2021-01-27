@@ -1,6 +1,7 @@
 /*//admin*/
 body {
     font-family: 'Roboto', sans-serif !important;
+
 }
 
 table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc {
@@ -490,6 +491,74 @@ transform: rotate(90deg);
 .fa-angle-right:before {
     content: "\f105";
 }
+<<<<<<< Updated upstream
+=======
+.btns-header{
+    background: #c3c3c3!important;
+    color: white!important;
+    border: 1px solid!important;
+    border-radius: 10px!important;
+    margin: 5px!important;
+    text-align: center;
+}
+
+.btn-header{
+    color: #ffffff!important;
+    margin: 0px 5px!important;
+}
+.btns-exit{
+    background: #3c3c3c!important;
+    color: white!important;
+    border: 1px solid!important;
+    border-radius: 10px!important;
+    margin: 5px!important;
+    text-align: center;
+}
+.btn-header-exit{
+    color: #ffffff!important;
+    margin: 0px 5px!important;
+}
+.btn-dangerr{
+    background-color: #3c3c3c!important;
+    color: white!important;
+    border-color: #3c3c3c!important;
+}
+
+.btn-successs{
+    background-color: #c3c3c3!important;
+    color: white!important;
+    border-color: #c3c3c3!important;
+}
+a.nav-link{
+    color: #3c3c3c;
+    text-decoration: none;
+
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+
+    transition: background-size .6s;
+}
+a.nav-link:hover, a.nav-link:focus {
+    background-size: 100% 2px;
+}
+.nav-link.active {
+    background-size: 100% 2px;
+
+}
+#loader{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #ffffff url('../img/loader.gif') no-repeat center;
+    z-index: 999;
+    opacity: 0.7;
+    display: none;
+}
+
+
+>>>>>>> Stashed changes
 @media screen and (max-width: 769px) {
     .tf-tree {
         overflow: auto!important;

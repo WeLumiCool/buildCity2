@@ -87,32 +87,33 @@ class UserController extends Controller
             if ($desk->users->count() == 1) {
                 $user->parent->balance += $desk->program->cost;
                 $user->parent->save();
-            }
-            else {
+            } else {
                 if ($desk->parent == null) {
                     $admin->balance += $desk->program->cost;
                     $admin->save();
-                }
-                else{
+                } else {
                     $desk->parent->balance += $desk->program->cost;
                     $desk->parent->save();
                 }
             }
-            if ($desk->parent->balance == $desk->program->closing_amount) {
-                $desk->parent->is_closed = true;
-                $desk->parent->save();
-                $user = $desk->parent->user;
-                if ($user->role == 1) {
-                    $admin->balance += $desk->program->closing_amount;
-                    $admin->save();
-                }
-                else{
-                    $user->balance += ($desk->program->closing_amount - $desk->program->cost);
-                    $user->save();
-                    $admin->balance += $desk->program->cost;
-                    $admin->save();
+            if (!$desk->parent == false) {
+
+                if ($desk->parent->balance == $desk->program->closing_amount) {
+                    $desk->parent->is_closed = true;
+                    $desk->parent->save();
+                    $user = $desk->parent->user;
+                    if ($user->role == 1) {
+                        $admin->balance += $desk->program->closing_amount;
+                        $admin->save();
+                    } else {
+                        $user->balance += ($desk->program->closing_amount - $desk->program->cost);
+                        $user->save();
+                        $admin->balance += $desk->program->cost;
+                        $admin->save();
+                    }
                 }
             }
+
             $desk->save();
             Desk::public_store($desk->program->id, $user->id, $active = true, $desk->id);
         }
@@ -151,7 +152,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('admin.users.index');
     }
 
     public function profile()

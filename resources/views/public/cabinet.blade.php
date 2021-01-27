@@ -22,7 +22,7 @@
                             <th scope="col">Дата создания</th>
                             <th scope="col">Баланс</th>
                             <th scope="col">Ставка</th>
-                            <th scope="col">Сумма закрытия</th>
+                            <th scope="col">Сумма выплаты</th>
                         </tr>
                         </thead>
                     </table>

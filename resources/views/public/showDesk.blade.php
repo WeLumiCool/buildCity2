@@ -14,7 +14,7 @@
                                 class="text-muted">{{ $desk->balance }} $</span></p>
                         <p class="justify-content-between d-flex"><span class="font-weight-bold">Ставка:</span><span
                                 class="text-muted">{{ $desk->program->cost }} $</span></p>
-                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Сумма Закрытия:</span><span
+                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Сумма выплаты:</span><span
                                 class="text-muted">{{ $desk->program->closing_amount }} $</span></p>
                         <p class="justify-content-between d-flex"><span class="font-weight-bold">Дата открытия стола:</span><span
                                 class="text-muted">{{ $desk->created_at->format('d.m.y G:i') }}</span></p>
@@ -23,7 +23,7 @@
                             <div class="col-6 border-right">
                                 <p class="font-weight-bold">Баланс:</p>
                                 <p class="font-weight-bold">Ставка:</p>
-                                <p class="font-weight-bold">Сумма Закрытия:</p>
+                                <p class="font-weight-bold">Сумма выплаты:</p>
                                 <p class="font-weight-bold">Дата открытия стола:</p>
                             </div>
                             <div class="col-6 border-left">

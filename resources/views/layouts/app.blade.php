@@ -27,6 +27,7 @@
     @stack('styles')
 </head>
 <body>
+
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
@@ -59,7 +60,14 @@
                                    href="{{ route('cabinet') }}">{{ __('Личный кабинет') }}</a>
                             </li>
                         @endif
+<<<<<<< Updated upstream
                         <li class="nav-item mr-3">
+=======
+                    </ul>
+                    @if(Auth::check())
+                    <ul class="navbar-nav">
+                        <li class="nav-item mr-3 pb-2">
+>>>>>>> Stashed changes
                             <a class="nav-link text-dark" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      if(confirm('вы действительно хотите выйти?')){
@@ -72,6 +80,7 @@
                                 @csrf
                             </form>
                         </li>
+<<<<<<< Updated upstream
                         @if(Auth::user()->is_active)
                             <li class="nav-item d-flex" style="color: #7f7f7f">
                                 <p class="pt-2">Баланс:&nbsp;</p>
@@ -81,6 +90,12 @@
                     @endif
                 </ul>
             </div>
+=======
+                    </ul>
+                    @endif
+                </div>
+            </nav>
+>>>>>>> Stashed changes
         </div>
     </nav>
 

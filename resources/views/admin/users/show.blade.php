@@ -6,11 +6,6 @@
     $agent = new Agent();
     ?>
     <div class="container bg-form card-body-admin py-4">
-{{--        @if($user->is_active == false)--}}
-            <button type="submit" title="{{ __('Активировать') }}"
-                    class="btn n btn-success" id="activation_btn" data-user="{{$user->id }}"
-                    onclick="activation(this)">{{ __('Активировать') }}</button>
-{{--        @endif--}}
         <div class="row justify-content-center" id="show_articles">
             <div class="col-12 col-lg-7 mb-5">
                 <div class="border p-2 shadow-sm">
@@ -39,6 +34,11 @@
                             </div>
                         </div>
                     @endif
+                        @if($user->is_active == false)
+                            <button type="submit" title="{{ __('Активировать') }}"
+                                    class="btn n btn-success" id="activation_btn" data-user="{{$user->id }}"
+                                    onclick="activation(this)">{{ __('Активировать пользователя') }}</button>
+                        @endif
 
                 </div>
             </div>
@@ -344,7 +344,13 @@
         });
     </script>
     <script>
+        function preLoaderHandler(){
+
+        }
         function activation(user) {
+            var preloader = document.getElementById('loader');
+            preloader.style.display = 'block';
+            document.body.style.overflow = "hidden";
             let id = user.getAttribute("data-user");
             $.ajax({
                 url: "{{ route('admin.user.activation') }}",
@@ -353,8 +359,10 @@
                     id: id,
                 },
                 success: function () {
-                    // $('#activation_btn').hide();
-                    // alert('Пользователь активен!')
+                    $('#activation_btn').hide();
+                    location.reload();
+                    preloader.style.display = 'none';
+                    document.body.style.overflow = "visible";
                 }
             })
         }

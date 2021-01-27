@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Telegram\Bot\Api;
 
 class RegisterController extends Controller
 {
@@ -84,5 +85,12 @@ class RegisterController extends Controller
         $user->parent_id = $desk->user_id;
         $user->save();
         $desk->users()->attach($user->id);
+
+        $telegram = new Api('1511098073:AAHi-7hA7JkRoQYWL71KVEwcmDLBjDr7MDY');
+        $text = "Был зарегистрирован новый пользователь!\nИмя пользователя: " . $user->name . ",\nПочта пользователя: " . $user->email ."";
+        $telegram->sendMessage(['chat_id' => '533372516', 'text' => $text]);
+//        return response()->json([
+//            'user' => $user,
+//        ]);
     }
 }

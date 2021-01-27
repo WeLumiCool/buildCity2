@@ -1,7 +1,23 @@
 <div class="row justify-content-center">
     <a class="btn btn-success ml-1" href="{{ route('admin.' . $type . '.show', $model) }}"><i
+<<<<<<< Updated upstream
                 class="fas fa-eye"></i></a>
+=======
+            class="fas fa-eye"></i></a>
+    @if($model->is_active == false)
+        <form id="form-{{ $model->id }}" name="delete-form" method="POST"
+              action="{{ route('admin.'.$type.'.destroy', $model) }}">
+            @csrf
+            @method('DELETE')
+            <button type="button" onclick="deleteConfirm(this)" data-id="{{ $model->id }}" title="{{ __('Удалить') }}"
+                    class="btn n btn-danger">
+                <i class="fas fa-trash"></i>
+            </button>
+        </form>
+    @endif
+>>>>>>> Stashed changes
 </div>
+
 
 <script>
     function deleteConfirm(me) {

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
+use Telegram\Bot\Api;
 
 class DeskController extends Controller
 {
@@ -256,5 +257,12 @@ class DeskController extends Controller
             'desk' => $desk->code,
         ];
         Mail::to($desk->user->email)->send(new DeskCity($details));
+
+        $telegram = new Api('1511098073:AAHi-7hA7JkRoQYWL71KVEwcmDLBjDr7MDY');
+        $text = "Создан новый стол!\nИмя владельца: " . $desk->user->name . ",\nКод стола: " . $desk->code ."";
+        $telegram->sendMessage(['chat_id' => '533372516', 'text' => $text]);
+        return response()->json([
+            'desk' => $desk,
+        ]);
     }
 }

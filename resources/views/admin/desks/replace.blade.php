@@ -5,17 +5,6 @@
            <div class="col-12 col-sm-10 col-lg-12 col-md-10 bg-form card-body-admin py-4 px-5">
                <form action="{{ route('admin.desks.make.replace') }}" method="POST">
                    @csrf
-                   {{--                @dd($desks)--}}
-                   <div class="form-group">
-                       <label for="to_desk_select">Куда добавить:</label>
-                       <select class="form-control" name="to_desk" id="to_desk_select">
-                           @foreach($desks as $desk)
-                               @if(!$desk->is_closed)
-                                   <option value="{{ $desk->id }}">{{ $desk->user->name.'::'.$desk->code }}</option>
-                               @endif
-                           @endforeach
-                       </select>
-                   </div>
                    <div class="form-group">
                        <label for="from_desk_select">Откуда добавить: <span style="color:red">*</span></label>
                        <select class="form-control" name="from_desk" id="from_desk_select" required>
@@ -30,8 +19,23 @@
                    <div id="user_select" class="form-group">
 
                    </div>
+<<<<<<< Updated upstream
                    <button type="submit" title="{{ __('Поменять') }}"
                            class="btn n btn-success ">{{ __('Поменять') }}</button>
+=======
+                   <div class="form-group d-none" id="desk_select">
+                       <label for="to_desk_select">Куда добавить:</label>
+                       <select class="form-control" name="to_desk" id="to_desk_select">
+                           @foreach($desks as $desk)
+                               @if(!$desk->is_closed)
+                                   <option value="{{ $desk->id }}">{{ $desk->user->name.'::'.$desk->code }}</option>
+                               @endif
+                           @endforeach
+                       </select>
+                   </div>
+                   <button type="submit" id="replace-btn" title="{{ __('Поменять') }}"
+                           class="btn n btn-successs d-none">{{ __('Поменять') }}</button>
+>>>>>>> Stashed changes
                </form>
            </div>
        </div>
@@ -61,6 +65,18 @@
                     }
                 });
             }
+        })
+    </script>
+    <script>
+        $(document).on('change', '#user_select', function () {
+            let select = document.getElementById('desk_select');
+            select.classList.remove('d-none');
+        })
+    </script>
+    <script>
+        $(document).on('change', '#desk_select', function () {
+            let select = document.getElementById('replace-btn');
+            select.classList.remove('d-none');
         })
     </script>
 @endpush

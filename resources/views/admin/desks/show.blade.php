@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.dashboard')
 @section('content')
     <?php
     use Jenssegers\Agent\Agent;
@@ -15,7 +15,7 @@
                         <p class="justify-content-between d-flex"><span class="font-weight-bold">Ставка:</span><span
                                 class="text-muted">{{ $desk->program->cost }} $</span></p>
                         <p class="justify-content-between d-flex"><span
-                                class="font-weight-bold">Сумма Закрытия:</span><span
+                                class="font-weight-bold">Сумма выплаты:</span><span
                                 class="text-muted">{{ $desk->program->closing_amount }} $</span></p>
                         <p class="justify-content-between d-flex"><span
                                 class="font-weight-bold">Дата открытия стола:</span><span
@@ -25,7 +25,7 @@
                             <div class="col-6 border-right">
                                 <p class="font-weight-bold">Баланс:</p>
                                 <p class="font-weight-bold">Ставка:</p>
-                                <p class="font-weight-bold">Сумма Закрытия:</p>
+                                <p class="font-weight-bold">Сумма выплаты:</p>
                                 <p class="font-weight-bold">Дата открытия стола:</p>
                             </div>
                             <div class="col-6 border-left">
@@ -158,6 +158,9 @@
     </script>
     <script>
         function activation(desk) {
+            var preloader = document.getElementById('loader');
+            preloader.style.display = 'block';
+            document.body.style.overflow = "hidden";
             let id = desk.getAttribute("data-desk");
             $.ajax({
                 url: "{{ route('admin.desk.activation') }}",
@@ -167,7 +170,9 @@
                 },
                 success: function () {
                     $('#activation_btn').hide();
-                    alert('Стол активен!')
+                    location.reload();
+                    preloader.style.display = 'none';
+                    document.body.style.overflow = "visible";
                 }
             })
         }
