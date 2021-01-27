@@ -1,7 +1,7 @@
 @extends('admin.layouts.dashboard')
 
 @section('dashboard_content')
-    <div class="p-3 bg-form card-body-admin">
+    <div class="p-3 bg-form card-body-admin ">
         <div class="row">
             <div class="col-sm-12 table-responsive">
                 <table class="table table-striped display nowrap table-hover w-100" id="desks-table">

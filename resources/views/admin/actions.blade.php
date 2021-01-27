@@ -1,8 +1,8 @@
 <div class="row justify-content-center">
     <a class="btn btn-success ml-1" href="{{ route('admin.' . $type . '.show', $model) }}"><i
-<<<<<<< Updated upstream
+
                 class="fas fa-eye"></i></a>
-=======
+
             class="fas fa-eye"></i></a>
     @if($model->is_active == false)
         <form id="form-{{ $model->id }}" name="delete-form" method="POST"
@@ -15,7 +15,7 @@
             </button>
         </form>
     @endif
->>>>>>> Stashed changes
+
 </div>
 
 

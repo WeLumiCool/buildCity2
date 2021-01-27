@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <div class="container mt-2">
+    <div class="container my-5">
         @yield('dashboard_content')
     </div>
     {{--<div class="container-for-admin">--}}

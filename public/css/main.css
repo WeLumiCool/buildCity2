@@ -300,6 +300,21 @@ transform: rotate(90deg);
 .fa-angle-right:before {
     content: "\f105";
 }
+
+a.nav-link{
+    color: #3c3c3c;
+    text-decoration: none;
+
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size .6s;
+}
+a.nav-link:hover, a.nav-link:focus {
+    background-size: 100% 2px;
+}
+
 @media screen and (max-width: 769px) {
     .tf-tree {
         overflow: auto!important;
