@@ -351,9 +351,7 @@
         });
     </script>
     <script>
-        function preLoaderHandler(){
 
-        }
         function activation(user) {
             var preloader = document.getElementById('loader');
             preloader.style.display = 'block';

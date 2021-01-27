@@ -6,6 +6,7 @@ use App\Program;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Telegram\Bot\Api;
 
 class Desk extends Model
 {
@@ -38,6 +39,9 @@ class Desk extends Model
         $desk->is_active = $active;
         $desk->parent_id = $parent_id;
         $desk->save();
+
+        return $desk;
+
     }
 
     public static function get_code()

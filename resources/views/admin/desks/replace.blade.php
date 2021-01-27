@@ -19,10 +19,6 @@
                    <div id="user_select" class="form-group">
 
                    </div>
-<<<<<<< Updated upstream
-                   <button type="submit" title="{{ __('Поменять') }}"
-                           class="btn n btn-success ">{{ __('Поменять') }}</button>
-=======
                    <div class="form-group d-none" id="desk_select">
                        <label for="to_desk_select">Куда добавить:</label>
                        <select class="form-control" name="to_desk" id="to_desk_select">
@@ -34,8 +30,8 @@
                        </select>
                    </div>
                    <button type="submit" id="replace-btn" title="{{ __('Поменять') }}"
-                           class="btn n btn-successs d-none">{{ __('Поменять') }}</button>
->>>>>>> Stashed changes
+                           class="btn n btn-success d-none">{{ __('Поменять') }}</button>
+
                </form>
            </div>
        </div>
@@ -70,6 +66,12 @@
     <script>
         $(document).on('change', '#user_select', function () {
             let select = document.getElementById('desk_select');
+            select.classList.remove('d-none');
+        })
+    </script>
+    <script>
+        $(document).on('change', '#desk_select', function () {
+            let select = document.getElementById('replace-btn');
             select.classList.remove('d-none');
         })
     </script>

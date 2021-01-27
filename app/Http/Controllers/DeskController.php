@@ -89,7 +89,12 @@ class DeskController extends Controller
             Desk::public_store($id, $user_id, $active = true, 0);
         }
         else{
-            Desk::public_store($id, $user_id, $active = false, 0);
+
+            $desk = Desk::public_store($id, $user_id, $active = false, 0);
+            $telegram = new Api('1511098073:AAHi-7hA7JkRoQYWL71KVEwcmDLBjDr7MDY');
+            $text = "Создан новый стол!\nИмя владельца: " . $desk->user->name . ",\nКод стола: " . $desk->code ."";
+            $telegram->sendMessage(['chat_id' => '533372516', 'text' => $text]);
+
         }
         return redirect()->route('cabinet');
     }
@@ -258,11 +263,6 @@ class DeskController extends Controller
         ];
         Mail::to($desk->user->email)->send(new DeskCity($details));
 
-        $telegram = new Api('1511098073:AAHi-7hA7JkRoQYWL71KVEwcmDLBjDr7MDY');
-        $text = "Создан новый стол!\nИмя владельца: " . $desk->user->name . ",\nКод стола: " . $desk->code ."";
-        $telegram->sendMessage(['chat_id' => '533372516', 'text' => $text]);
-        return response()->json([
-            'desk' => $desk,
-        ]);
+
     }
 }

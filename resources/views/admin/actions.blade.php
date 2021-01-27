@@ -3,7 +3,7 @@
 
                 class="fas fa-eye"></i></a>
 
-            class="fas fa-eye"></i></a>
+            </a>
     @if($model->is_active == false)
         <form id="form-{{ $model->id }}" name="delete-form" method="POST"
               action="{{ route('admin.'.$type.'.destroy', $model) }}">

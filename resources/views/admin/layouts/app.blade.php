@@ -17,12 +17,15 @@
 
 </head>
 
-<body style="background: #eeeeee">
+<body style="background: #ffffff">
+
+
 <div id="app">
+    <div id="loader"></div>
     <header class="container-fluid bg-white shadow-sm px-0">
         <div class="container px-0">
-            <nav class="navbar navbar-expand-lg navbar-light" >
-                <a class="navbar-brand" href="{{ url('/') }}" >
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('img/logo2.png') }}" class="logo" alt="" style="width:96px; height:auto;">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -35,27 +38,27 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item text btns-header">
+                        <li class="nav-item text">
                             <a href="{{ route('admin.desks.replace') }}"
-                               class="nav-link btn-header {{ request()->is('admin/replace*') ? 'active' : '' }}">
+                               class="nav-link {{ request()->is('admin/replace*') ? 'active' : '' }}">
                                 {{ __('Поменять пользователя') }}</a>
                         </li>
-                        <li class="nav-item btns-header">
+                        <li class="nav-item">
                             <a href="{{ route('admin.users.index') }}"
-                               class="nav-link btn-header {{ request()->is('admin/user*') ? 'active' : '' }}">
+                               class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
                                 {{ __('Пользователи') }}</a>
                         </li>
-                        <li class="nav-item btns-header mr-5">
+                        <li class="nav-item mr-5">
                             <a href="{{ route('admin.desks.index') }}"
-                               class="nav-link btn-header  {{ request()->is('admin/desk*') ? 'active' : '' }}">
+                               class="nav-link  {{ request()->is('admin/desk*') ? 'active' : '' }}">
                                 {{ __('Столы') }}</a>
                         </li>
 
                     </ul>
                     <ul class="navbar-nav">
                         @if(Auth::check())
-                            <li class="nav-item btns-exit">
-                                <a class="nav-link btn-header-exit" href="{{ route('logout') }}"
+                            <li class="nav-item">
+                                <a class="nav-link " href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                    if(confirm('вы действительно хотите выйти?')){
                                        document.getElementById('logout-form').submit();
@@ -75,8 +78,8 @@
     </header>
     @yield('content')
 </div>
-<script src="https://api-maps.yandex.ru/2.1/?apikey=a2435f91-837f-4a88-87c0-7ac7813eb317&lang=ru_RU"
-        type="text/javascript"></script>
+
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -90,7 +93,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script>
-
     var preloader = document.getElementById('loader');
     function preLoaderHandler(){
         preloader.style.display = 'none';

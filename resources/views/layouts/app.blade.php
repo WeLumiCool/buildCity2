@@ -27,7 +27,6 @@
     @stack('styles')
 </head>
 <body>
-
 <div id="app">
     <header class="container-fluid bg-white shadow-sm px-0">
         <div class="container px-0">
@@ -60,23 +59,19 @@
                                        href="{{ route('cabinet') }}">{{ __('Личный кабинет') }}</a>
                                 </li>
                             @endif
-                                @if(Auth::user()->is_active)
-                                    <li class="nav-item d-flex" style="color: #7f7f7f">
-                                        <p class="pt-2">Баланс:&nbsp;</p>
-                                        <p class="pt-2">{{ Auth::user()->balance }} $</p>
-                                    </li>
-                                @endif
+                            @if(Auth::user()->is_active)
+                                <li class="nav-item d-flex" style="color: #7f7f7f">
+                                    <p class="pt-2">Баланс:&nbsp;</p>
+                                    <p class="pt-2">{{ Auth::user()->balance }} $</p>
+                                </li>
+                            @endif
 
 
                         @endif
-
-                        <li class="nav-item mr-3">
-
                     </ul>
                     @if(Auth::check())
                     <ul class="navbar-nav">
                         <li class="nav-item mr-3 pb-2">
-
                             <a class="nav-link text-dark" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      if(confirm('вы действительно хотите выйти?')){
@@ -89,23 +84,12 @@
                                 @csrf
                             </form>
                         </li>
-                        @if(Auth::user()->is_active)
-                            <li class="nav-item d-flex" style="color: #7f7f7f">
-                                <p class="pt-2">Баланс:&nbsp;</p>
-                                <p class="pt-2">{{ Auth::user()->balance }} $</p>
-                            </li>
-                        @endif
-                    @endif
-                </ul>
-            </div>
-
                     </ul>
                     @endif
                 </div>
             </nav>
-
         </div>
-    </nav>
+    </header>
 
 
     <main class="py-5">
