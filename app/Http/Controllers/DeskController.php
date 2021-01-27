@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Desk;
+use App\Mail\DeskCity;
 use App\Program;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
 
 class DeskController extends Controller
@@ -83,10 +85,10 @@ class DeskController extends Controller
         $user_id = Auth::user()->id;
         if (Auth::user()->role == 1)
         {
-            Desk::public_store($id, $user_id, $active = true);
+            Desk::public_store($id, $user_id, $active = true, 0);
         }
         else{
-            Desk::public_store($id, $user_id, $active = false);
+            Desk::public_store($id, $user_id, $active = false, 0);
         }
         return redirect()->route('cabinet');
     }
@@ -249,5 +251,10 @@ class DeskController extends Controller
         $desk = Desk::find($request->id);
         $desk->is_active = true;
         $desk->save();
+        $details =[
+            'owner' => $desk->user->name,
+            'desk' => $desk->code,
+        ];
+        Mail::to($desk->user->email)->send(new DeskCity($details));
     }
 }

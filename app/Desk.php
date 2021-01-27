@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class Desk extends Model
 {
 
-    protected $fillable = ['user_id', 'program_id', 'balance', 'is_closed'];
+    protected $fillable = ['user_id', 'program_id', 'balance', 'is_closed', 'parent_id'];
 
     public function users()
     {
@@ -28,7 +28,7 @@ class Desk extends Model
     }
 
 
-    public static function public_store($program_id, $user_id, $active)
+    public static function public_store($program_id, $user_id, $active, $parent_id)
     {
         $desk = new Desk();
         $desk->program_id = $program_id;
@@ -36,6 +36,7 @@ class Desk extends Model
         $desk->code = self::get_code();
         $desk->is_closed = false;
         $desk->is_active = $active;
+        $desk->parent_id = $parent_id;
         $desk->save();
     }
 
@@ -49,5 +50,13 @@ class Desk extends Model
             }
         } while (Desk::where('code', $str)->exists());
         return $str;
+    }
+    public function parent()
+    {
+        return $this->belongsTo(Desk::class,'parent_id');
+    }
+    public function children()
+    {
+        return $this->hasMany(Desk::class,'parent_id');
     }
 }
