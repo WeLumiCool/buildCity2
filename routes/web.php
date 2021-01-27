@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BuildCityMail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,5 +59,10 @@ Route::prefix('admin')->name('admin.')->middleware('admin')
         Route::post('can_replace', 'DeskController@change_desk')->name('desks.make.replace');
         Route::get('get_users_for_replace', 'DeskController@get_users')->name('get_users.replace');
     });
+
+Route::get('send-mail', function () {
+
+
+});
 
 

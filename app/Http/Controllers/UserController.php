@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Desk;
+use App\Mail\BuildCityMail;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
@@ -38,7 +40,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -64,7 +66,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User $user
+     * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -77,16 +79,42 @@ class UserController extends Controller
     public function activation(Request $request)
     {
         $user = User::find($request->id);
+        $admin = User::where('role', 1)->first();
+        Mail::to($user->email)->send(new BuildCityMail());
         $user->is_active = true;
         $user->save();
         foreach ($user->desks as $desk) {
-            $desk->balance += $desk->program->cost;
-            if ($desk->balance == $desk->program->closing_amount) {
-                $desk->is_closed = true;
+            if ($desk->users->count() == 1) {
+                $user->parent->balance += $desk->program->cost;
+                $user->parent->save();
+            }
+            else {
+                if ($desk->parent == null) {
+                    $admin->balance += $desk->program->cost;
+                    $admin->save();
+                }
+                else{
+                    $desk->parent->balance += $desk->program->cost;
+                    $desk->parent->save();
+                }
+            }
+            if ($desk->parent->balance == $desk->program->closing_amount) {
+                $desk->parent->is_closed = true;
+                $desk->parent->save();
+                $user = $desk->parent->user;
+                if ($user->role == 1) {
+                    $admin->balance += $desk->program->closing_amount;
+                    $admin->save();
+                }
+                else{
+                    $user->balance += ($desk->program->closing_amount - $desk->program->cost);
+                    $user->save();
+                    $admin->balance += $desk->program->cost;
+                    $admin->save();
+                }
             }
             $desk->save();
-
-            Desk::public_store($desk->program->id, $user->id, $active = true);
+            Desk::public_store($desk->program->id, $user->id, $active = true, $desk->id);
         }
 
 
@@ -95,7 +123,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -106,7 +134,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @param User $user
      * @return void
      */
