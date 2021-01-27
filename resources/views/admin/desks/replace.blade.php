@@ -31,7 +31,7 @@
 
                    </div>
                    <button type="submit" title="{{ __('Поменять') }}"
-                           class="btn n btn-success ">{{ __('Поменять') }}</button>
+                           class="btn n btn-successs ">{{ __('Поменять') }}</button>
                </form>
            </div>
        </div>

@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <a class="btn btn-success ml-1" href="{{ route('admin.' . $type . '.show', $model) }}"><i
+    <a class="btn btn-successs ml-1" href="{{ route('admin.' . $type . '.show', $model) }}"><i
                 class="fas fa-eye"></i></a>
 </div>
 

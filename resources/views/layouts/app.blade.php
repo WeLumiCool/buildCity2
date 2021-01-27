@@ -44,7 +44,7 @@
                 @endif
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav mx-auto">
                         <!-- Authentication Links -->
                         @if(Auth::check())
                             @if(Auth::user()->is_active)
@@ -54,31 +54,35 @@
                                            href="{{ route('admin.desks.index') }}">{{ __('Админ. панель') }}</a>
                                     </li>
                                 @endif
-                                <li class="nav-item mr-5">
+                                <li class="nav-item mr-3">
                                     <a class="nav-link text-dark"
                                        href="{{ route('cabinet') }}">{{ __('Личный кабинет') }}</a>
                                 </li>
                             @endif
-                            <li class="nav-item mr-3">
-                                <a class="nav-link text-dark" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
+                                @if(Auth::user()->is_active)
+                                    <li class="nav-item d-flex" style="color: #7f7f7f">
+                                        <p class="pt-2">Баланс:&nbsp;</p>
+                                        <p class="pt-2">{{ Auth::user()->balance }} $</p>
+                                    </li>
+                                @endif
+
+
+                        @endif
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item mr-3 pb-2">
+                            <a class="nav-link text-dark" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
                                                      if(confirm('вы действительно хотите выйти?')){
                                        document.getElementById('logout-form').submit();
                                    }">
-                                    {{ __('Выход') }}
-                                </a>
+                                {{ __('Выход') }}
+                            </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </li>
-                            @if(Auth::user()->is_active)
-                                <li class="nav-item d-flex" style="color: #7f7f7f">
-                                    <p class="pt-2">Баланс:&nbsp;</p>
-                                    <p class="pt-2">{{ Auth::user()->balance }} $</p>
-                                </li>
-                            @endif
-                        @endif
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -86,7 +90,7 @@
     </header>
 
 
-    <main class="py-4">
+    <main class="py-5">
         @yield('content')
     </main>
 </div>

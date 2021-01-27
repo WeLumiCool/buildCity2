@@ -16,7 +16,7 @@
     @stack('styles')
 
 </head>
-<body style="background: #eeeeee">
+<body style="background: #ffffff">
 <div id="app">
     <header class="container-fluid bg-white shadow-sm px-0">
         <div class="container px-0">
@@ -33,7 +33,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav mx-auto">
                         <li class="nav-item text btns-header">
                             <a href="{{ route('admin.desks.replace') }}"
                                class="nav-link btn-header {{ request()->is('admin/replace*') ? 'active' : '' }}">
@@ -49,6 +49,9 @@
                                class="nav-link btn-header  {{ request()->is('admin/desk*') ? 'active' : '' }}">
                                 {{ __('Столы') }}</a>
                         </li>
+
+                    </ul>
+                    <ul class="navbar-nav">
                         @if(Auth::check())
                             <li class="nav-item btns-exit">
                                 <a class="nav-link btn-header-exit" href="{{ route('logout') }}"
