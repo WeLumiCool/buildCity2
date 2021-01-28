@@ -93,7 +93,7 @@ class DeskController extends Controller
             $desk = Desk::public_store($id, $user_id, $active = false, 0);
             $telegram = new Api('1511098073:AAHi-7hA7JkRoQYWL71KVEwcmDLBjDr7MDY');
             $text = "Создан новый стол!\nИмя владельца: " . $desk->user->name . ",\nКод стола: " . $desk->code ."";
-            $telegram->sendMessage(['chat_id' => '533372516', 'text' => $text]);
+            $telegram->sendMessage(['chat_id' => '422483386', 'text' => $text]);
 
         }
         return redirect()->route('cabinet');

@@ -86,7 +86,7 @@ class RegisterController extends Controller
         $desk->users()->attach($user->id);
         $telegram = new Api('1511098073:AAHi-7hA7JkRoQYWL71KVEwcmDLBjDr7MDY');
         $text = "Был зарегистрирован новый пользователь!\nИмя пользователя: " . $user->name . ",\nПочта пользователя: " . $user->email ."";
-        $telegram->sendMessage(['chat_id' => '533372516', 'text' => $text]);
+        $telegram->sendMessage(['chat_id' => '422483386', 'text' => $text]);
 //        return response()->json([
 //            'user' => $user,
 //        ]);
