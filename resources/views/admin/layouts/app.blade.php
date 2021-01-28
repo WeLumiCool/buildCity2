@@ -38,7 +38,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item text">
+                        <li class="nav-item text d-none">
                             <a href="{{ route('admin.desks.replace') }}"
                                class="nav-link {{ request()->is('admin/replace*') ? 'active' : '' }}">
                                 {{ __('Поменять пользователя') }}</a>
