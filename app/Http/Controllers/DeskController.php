@@ -164,7 +164,9 @@ class DeskController extends Controller
 
     public function replaceShow()
     {
-        $desks = Desk::where('is_closed', false)->get();
+        $desks = Desk::where('is_closed', false)->
+            where('is_active', true)
+            ->get();
         $desks->map(function ($desk) {
             $result_array = [];
             foreach ($desk->users as $user) {
