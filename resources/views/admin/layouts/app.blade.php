@@ -48,10 +48,15 @@
                                class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}">
                                 {{ __('Пользователи') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.activated.index') }}"
+                               class="nav-link {{ request()->is('admin/activate*') ? 'active' : '' }}">
+                                {{ __('Активные стола') }}</a>
+                        </li>
                         <li class="nav-item mr-5">
                             <a href="{{ route('admin.desks.index') }}"
                                class="nav-link  {{ request()->is('admin/desk*') ? 'active' : '' }}">
-                                {{ __('Столы') }}</a>
+                                {{ __('Неактивные стола') }}</a>
                         </li>
 
                     </ul>

@@ -58,6 +58,9 @@ Route::prefix('admin')->name('admin.')->middleware('admin')
         Route::get('replace', 'DeskController@replaceShow')->name('desks.replace');
         Route::post('can_replace', 'DeskController@change_desk')->name('desks.make.replace');
         Route::get('get_users_for_replace', 'DeskController@get_users')->name('get_users.replace');
+        Route::get('active_datatable', 'DeskController@active_datatable')->name('desk.active.data');
+        Route::get('/activated', 'DeskController@activated')->name('activated.index');
+
     });
 
 Route::get('send-mail', function () {
