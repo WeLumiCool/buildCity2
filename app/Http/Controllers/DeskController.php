@@ -200,7 +200,69 @@ class DeskController extends Controller
 
     public function datatableData()
     {
-        return DataTables::of(Desk::query())
+        $desks = Desk::where('is_active', false)->get();
+        return DataTables::of($desks)
+            ->editColumn('user_id', function (Desk $desk) {
+                return $desk->user->name;
+            })
+            ->editColumn('balance',function (Desk $desk){
+                return $desk->balance.' $';
+            })
+            ->addColumn('cost', function (Desk $desk) {
+                return $desk->program->cost.' $';
+            })
+            ->addColumn('Teilnehmers', function (Desk $desk) {
+                $counter_active_users = 0;
+                foreach ($desk->users as $user) {
+                    if ($user->is_active) {
+                        $counter_active_users++;
+                    }
+                }
+                if (!$counter_active_users) {
+                    return 'Отсутствуют';
+                } else {
+                    $html_text = '<ul>';
+                    foreach ($desk->users as $user) {
+                        if ($user->is_active) {
+                            $html_text .= '<li>' . $user->name . '</li>';
+                        }
+                    }
+                    $html_text .= '</ul>';
+                    return $html_text;
+                }
+            })
+            ->editColumn('is_closed', function (Desk $desk) {
+                if (!$desk->is_closed) {
+                    return 'Открытый';
+                } else {
+                    return 'Закрытый';
+                }
+            })
+            ->editColumn('created_at', function (Desk $desk) {
+                return Carbon::createFromFormat('Y-m-d H:i:s', $desk->created_at)->format('d-m-Y');
+            })
+            ->addColumn('actions', function (Desk $desk) {
+                if (!$desk->is_closed) {
+                    return '<a class="btn btn-success ml-1" href="' . route('admin.desks.show', $desk->id) . '"><i class="fas fa-eye"></i></a>' .
+                        '<button class="close_desk btn btn-danger ml-1" data-id="' . $desk->id . '"><i class="fas fa-external-link-alt"></i></button>';
+                } else {
+                    return '<a class="btn btn-success ml-1" href="' . route('admin.desks.show', $desk->id) . '"><i class="fas fa-eye"></i></a>';
+                }
+            })
+            ->rawColumns(['Teilnehmers', 'is_closed', 'actions'])
+            ->make(true);
+    }
+
+
+    public function activated()
+    { //Список объектов добавленные сотрудниками Центрального аппарата
+
+        return view('admin.desks.activated');
+    }
+    public function active_datatable()
+    {
+        $desks = Desk::where('is_active', true)->get();
+        return DataTables::of($desks)
             ->editColumn('user_id', function (Desk $desk) {
                 return $desk->user->name;
             })

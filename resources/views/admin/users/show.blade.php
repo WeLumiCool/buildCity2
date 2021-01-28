@@ -264,6 +264,7 @@
                                                                     </a>
                                                                     <ul class="active">
                                                                         @foreach($desk->users as $value)
+                                                                            @if($user->is_active)
                                                                             <li>
                                                                                 <a href="javascript:void(0);">
                                                                                     <div class="member-view-box">
@@ -281,6 +282,7 @@
                                                                                     </div>
                                                                                 </a>
                                                                             </li>
+                                                                            @endif
                                                                         @endforeach
                                                                     </ul>
                                                                 </li>

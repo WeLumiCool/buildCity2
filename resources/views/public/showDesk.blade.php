@@ -84,7 +84,8 @@
                                                 <img src="{{ asset('img/owner.svg') }}"
                                                      alt="Member">
                                                 <div class="member-details ">
-                                                    <h6 class="pt-2" style="white-space: normal;">{{ $desk->user->name }}</h6>
+                                                    <h6 class="pt-2"
+                                                        style="white-space: normal;">{{ $desk->user->name }}</h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,11 +101,34 @@
                                                                     src="{{ asset('img/person.svg') }}"
                                                                     alt="Member">
                                                                 <div class="member-details ">
-                                                                    <h6 class="pt-2" style="white-space: normal;">{{ $user->name }}</h6>
+                                                                    <h6 class="pt-2"
+                                                                        style="white-space: normal;">{{ $user->name }}</h6>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </a>
+
+                                                    <ul class="active">
+                                                        @foreach($user->children as $item)
+                                                            @if($item->is_active)
+                                                                <li>
+                                                                    <a href="javascript:void(0);">
+                                                                        <div class="member-view-box">
+                                                                            <div class="member-image">
+                                                                                <img
+                                                                                    src="{{ asset('img/person.svg') }}"
+                                                                                    alt="Member">
+                                                                                <div class="member-details ">
+                                                                                    <h6 class="pt-2"
+                                                                                        style="white-space: normal;">{{ $item->name }}</h6>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                            @endif
+                                                        @endforeach
+                                                    </ul>
                                                 </li>
                                             @endif
                                         @endforeach
