@@ -72,43 +72,46 @@
                     </div>
                 </div>
             @elseif($agent->isDesktop())
-                <div class="body genealogy-body genealogy-scroll d-flex justify-content-center">
-                    <div class="genealogy-tree">
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0);">
-                                    <div class="member-view-box">
-                                        <div class="member-image">
-                                            <img src="{{ asset('img/owner.svg') }}"
-                                                 alt="Member">
-                                            <div class="member-details ">
-                                                <h6 class="pt-2" style="white-space: normal;">{{ $desk->user->name }}</h6>
+
+                <div class="col-12">
+                    <div class="body genealogy-body genealogy-scroll d-flex justify-content-center">
+                        <div class="genealogy-tree">
+                            <ul>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <div class="member-view-box">
+                                            <div class="member-image">
+                                                <img src="{{ asset('img/owner.svg') }}"
+                                                     alt="Member">
+                                                <div class="member-details ">
+                                                    <h6 class="pt-2" style="white-space: normal;">{{ $desk->user->name }}</h6>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                                <ul class="active">
-                                    @foreach($desk->users as $user)
-                                        @if($user->is_active)
-                                            <li>
-                                                <a href="javascript:void(0);">
-                                                    <div class="member-view-box">
-                                                        <div class="member-image">
-                                                            <img
-                                                                src="{{ asset('img/person.svg') }}"
-                                                                alt="Member">
-                                                            <div class="member-details ">
-                                                                <h6 class="pt-2" style="white-space: normal;">{{ $user->name }}</h6>
+                                    </a>
+                                    <ul class="active">
+                                        @foreach($desk->users as $user)
+                                            @if($user->is_active)
+                                                <li>
+                                                    <a href="javascript:void(0);">
+                                                        <div class="member-view-box">
+                                                            <div class="member-image">
+                                                                <img
+                                                                    src="{{ asset('img/person.svg') }}"
+                                                                    alt="Member">
+                                                                <div class="member-details ">
+                                                                    <h6 class="pt-2" style="white-space: normal;">{{ $user->name }}</h6>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        @endif
-                                    @endforeach
-                                </ul>
-                            </li>
-                        </ul>
+                                                    </a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             @endif

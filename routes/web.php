@@ -15,7 +15,7 @@ use App\Mail\BuildCityMail;
 */
 
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false, 'verify' => true]);
 Route::get('register/{code}', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register')->name('register.post');
 Route::get('check_code', 'DeskController@checkExistCode')->name('check.code');

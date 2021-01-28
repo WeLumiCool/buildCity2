@@ -75,7 +75,6 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
-            'email_verified_at'=>Carbon::now()->format('Y-m-d H:i:s'),
         ]);
     }
 
@@ -85,7 +84,6 @@ class RegisterController extends Controller
         $user->parent_id = $desk->user_id;
         $user->save();
         $desk->users()->attach($user->id);
-
         $telegram = new Api('1511098073:AAHi-7hA7JkRoQYWL71KVEwcmDLBjDr7MDY');
         $text = "Был зарегистрирован новый пользователь!\nИмя пользователя: " . $user->name . ",\nПочта пользователя: " . $user->email ."";
         $telegram->sendMessage(['chat_id' => '533372516', 'text' => $text]);
