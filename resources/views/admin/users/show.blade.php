@@ -31,29 +31,26 @@
                                 <p class="text-muted">{{ $user->email }} </p>
                                 <p class="text-muted">{{ $user->phone }} </p>
                                 <p class="text-muted">{{ $user->balance }} $</p>
+
                             </div>
                         </div>
                     @endif
-                        @if($user->is_active == false)
-                            <button type="submit" title="{{ __('Активировать') }}"
-                                    class="btn n btn-success" id="activation_btn" data-user="{{$user->id }}"
-                                    onclick="activation(this)">{{ __('Активировать пользователя') }}</button>
-                        @endif
+                    @if($user->is_active == false)
+                        <button type="submit" title="{{ __('Активировать') }}"
+                                class="btn n btn-success" id="activation_btn" data-user="{{$user->id }}"
+                                onclick="activation(this)">{{ __('Активировать пользователя') }}</button>
+                    @endif
 
                 </div>
             </div>
         </div>
         <h3 class="text-center font-weight-bold">Столы</h3>
+        {{--        //////Столы Участник--}}
         <div class="row justify-content-center mt-4 mb-2 ">
-            <div class="col-lg-9 col-12">
+            <div class="col-lg-12 col-12">
                 <div id="main">
                     <div class="accordion md-accordion accordion-blocks border-0" id="accordionStages" role="tablist"
                          aria-multiselectable="true">
-                        @if(!$user->desks == null)
-                            <span>Участники:</span>
-                        @else
-
-                        @endif
                         @foreach($user->desks as $desk)
                             <div class="card" style="margin-bottom: 0.4rem;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
@@ -68,11 +65,11 @@
                                    aria-expanded="true"
                                    aria-controls="user-{{ $desk->user_id }}desk-{{ $desk->id }}">
                                     <div class="card-header d-flex justify-content-between align-items-center border-0"
-                                         style="background: white"
+                                         style="background: {{ $desk->is_closed ? "#ef4f4f" : "#00b300" }}; color: white; "
                                          role="tab" id="Desk-{{ $desk->id }}">
                                         <div>
                                             <div
-                                                class="p-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
+                                                class="p-2 text-white rounded-lg text-center">
                                                 <h6 class="mt-1 mb-0">
                                                     <span
                                                         style="white-space:nowrap;">Программа: {{ $desk->program->cost }}</span>
@@ -132,14 +129,13 @@
                                                         <div class="genealogy-tree">
                                                             <ul>
                                                                 <li>
-                                                                    <a href="javascript:void(0);">
+                                                                    <a href="{{ route('admin.users.edit', $desk->user) }}">
                                                                         <div class="member-view-box">
                                                                             <div class="member-image">
-                                                                                <img
-                                                                                    src="{{ asset('img/owner.svg') }}"
-                                                                                    alt="Owner">
+                                                                                <img src="{{ asset('img/owner.svg') }}"
+                                                                                     alt="Member">
                                                                                 <div class="member-details ">
-                                                                                    <h6 {{ $desk->user->name == $user->name ? "colored" : "" }} class="pt-2"
+                                                                                    <h6 class="pt-2"
                                                                                         style="white-space: normal;">{{ $desk->user->name }}</h6>
                                                                                 </div>
                                                                             </div>
@@ -147,28 +143,56 @@
                                                                     </a>
                                                                     <ul class="active">
                                                                         @foreach($desk->users as $value)
-                                                                            <li>
-                                                                                <a href="javascript:void(0);">
-                                                                                    <div class="member-view-box">
-                                                                                        <div class="member-image">
-                                                                                            <img
-                                                                                                src="{{ asset('img/person.svg') }}"
-                                                                                                alt="Member">
-                                                                                            <div
-                                                                                                class="member-details ">
-                                                                                                <h6 {{ $value->name === $user->name ? "colored" : "" }} class="pt-2"
-                                                                                                    style="white-space: normal;">{{ $value->name }}</h6>
+                                                                            @if($value->is_active)
+                                                                                <li>
+                                                                                    <a href="{{ route('admin.users.edit', $value) }}">
+                                                                                        <div class="member-view-box">
+                                                                                            <div class="member-image" >
+                                                                                                <img
+                                                                                                    src="{{ asset('img/person.svg') }}"
+                                                                                                    alt="Member" style="background-color: {{ $user->id == $value->id ? "limegreen" : "" }}">
+                                                                                                <div
+                                                                                                    class="member-details ">
+                                                                                                    <h6 class="pt-2"
+                                                                                                        style="white-space: normal;">{{ $value->name }}</h6>
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
+                                                                                    </a>
+
+                                                                                    <ul class="active">
+                                                                                        @foreach($value->children as $item)
+                                                                                            @if($item->is_active)
+                                                                                                <li>
+                                                                                                    <a href="{{ route('admin.users.edit', $item) }}">
+                                                                                                        <div
+                                                                                                            class="member-view-box">
+                                                                                                            <div
+                                                                                                                class="member-image">
+                                                                                                                <img
+                                                                                                                    src="{{ asset('img/person.svg') }}"
+                                                                                                                    alt="Member">
+                                                                                                                <div
+                                                                                                                    class="member-details ">
+                                                                                                                    <h6 class="pt-2"
+                                                                                                                        style="white-space: normal;">{{ $item->name }}</h6>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                            @endif
+                                                                                        @endforeach
+                                                                                    </ul>
+                                                                                </li>
+                                                                            @endif
                                                                         @endforeach
                                                                     </ul>
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                     </div>
+
                                                 @endif
                                             @endif
                                         </div>
@@ -176,11 +200,9 @@
                                 </div>
                             </div>
                         @endforeach
-                        @if(!$user->owners == null)
-                            <span>Владелец:</span>
-                        @endif
-                        @foreach($user->owners as $desk)
 
+                        {{--                        столы владелец--}}
+                        @foreach($user->owners as $desk)
                             <div class="card" style="margin-bottom: 0.4rem;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
@@ -188,18 +210,17 @@
     border-bottom: 0;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;">
-
                                 <a class="text-left collapsed text-decoration-none" data-toggle="collapse"
                                    data-parent="#accordionStages"
                                    href="#user-{{ $desk->user_id }}desk-{{ $desk->id }}"
                                    aria-expanded="true"
                                    aria-controls="user-{{ $desk->user_id }}desk-{{ $desk->id }}">
                                     <div class="card-header d-flex justify-content-between align-items-center border-0"
-                                         style="background: white"
+                                         style="background: {{ $desk->is_closed ? "#ef4f4f" : "#00b300" }}; color:white;"
                                          role="tab" id="Desk-{{ $desk->id }}">
                                         <div>
                                             <div
-                                                class="p-2 {{ $desk->is_closed ? "bg-danger" : "bg-success" }} text-white rounded-lg">
+                                                class="p-2 text-white rounded-lg">
                                                 <h6 class="mt-1 mb-0">
                                                     <span
                                                         style="white-space:nowrap;">Программа: {{ $desk->program->cost }}</span>
@@ -248,40 +269,62 @@
                                                         <div class="genealogy-tree">
                                                             <ul>
                                                                 <li>
-                                                                    <a href="javascript:void(0);">
+                                                                    <a href="{{ route('admin.users.edit', $desk->user) }}">
                                                                         <div class="member-view-box">
                                                                             <div class="member-image">
-                                                                                <img
-                                                                                    src="{{ asset('img/owner.svg') }}"
-                                                                                    alt="Member">
+                                                                                <img src="{{ asset('img/owner.svg') }}"
+                                                                                     alt="Member">
                                                                                 <div class="member-details ">
-                                                                                    <h6 {{ $desk->user->name == $user->name ? "colored" : "" }} rounded
-                                                                                        class="pt-2"
+                                                                                    <h6 class="pt-2"
                                                                                         style="white-space: normal;">{{ $desk->user->name }}</h6>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </a>
                                                                     <ul class="active">
-                                                                        @foreach($desk->users as $value)
+                                                                        @foreach($desk->users as $user)
                                                                             @if($user->is_active)
-                                                                            <li>
-                                                                                <a href="javascript:void(0);">
-                                                                                    <div class="member-view-box">
-                                                                                        <div class="member-image">
-                                                                                            <img
-                                                                                                src="{{ asset('img/person.svg') }}"
-                                                                                                alt="Member">
-                                                                                            <div
-                                                                                                class="member-details ">
-                                                                                                <h6 {{ $value->name === $user->name ? "colored" : "" }} class="pt-2"
-                                                                                                    for="{{ $value->id }}"
-                                                                                                    style="white-space: normal;">{{ $value->name }}</h6>
+                                                                                <li>
+                                                                                    <a href="{{ route('admin.users.edit', $user) }}">
+                                                                                        <div class="member-view-box">
+                                                                                            <div class="member-image">
+                                                                                                <img
+                                                                                                    src="{{ asset('img/person.svg') }}"
+                                                                                                    alt="Member">
+                                                                                                <div
+                                                                                                    class="member-details ">
+                                                                                                    <h6 class="pt-2"
+                                                                                                        style="white-space: normal;">{{ $user->name }}</h6>
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
+                                                                                    </a>
+
+                                                                                    <ul class="active">
+                                                                                        @foreach($user->children as $item)
+                                                                                            @if($item->is_active)
+                                                                                                <li>
+                                                                                                    <a href="{{ route('admin.users.edit', $item) }}">
+                                                                                                        <div
+                                                                                                            class="member-view-box">
+                                                                                                            <div
+                                                                                                                class="member-image">
+                                                                                                                <img
+                                                                                                                    src="{{ asset('img/person.svg') }}"
+                                                                                                                    alt="Member">
+                                                                                                                <div
+                                                                                                                    class="member-details ">
+                                                                                                                    <h6 class="pt-2"
+                                                                                                                        style="white-space: normal;">{{ $item->name }}</h6>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                            @endif
+                                                                                        @endforeach
+                                                                                    </ul>
+                                                                                </li>
                                                                             @endif
                                                                         @endforeach
                                                                     </ul>
@@ -374,17 +417,5 @@
             })
         }
     </script>
-    <script>
-        $(function () {
-            $('.genealogy-tree ul').hide();
-            $('.genealogy-tree>ul').show();
-            $('.genealogy-tree ul.active').show();
-            $('.genealogy-tree li').on('click', function (e) {
-                var children = $(this).find('> ul');
-                if (children.is(":visible")) children.hide('fast').removeClass('active');
-                else children.show('fast').addClass('active');
-                e.stopPropagation();
-            });
-        });
-    </script>
+
 @endpush

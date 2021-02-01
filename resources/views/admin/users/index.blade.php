@@ -37,8 +37,8 @@
         .control.dtr-control:before {
             top: 50%;
             left: 5px;
-            height: 1em;
-            width: 1em;
+            height: 14px;
+            width: 14px;
             margin-top: -9px;
             display: block;
             position: absolute;

@@ -39,7 +39,6 @@ class Desk extends Model
         $desk->is_active = $active;
         $desk->parent_id = $parent_id;
         $desk->save();
-
         return $desk;
 
     }

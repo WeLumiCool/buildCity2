@@ -10,6 +10,8 @@
             <div class="col-12 col-lg-5 mb-5 pt-3">
                 <div class="border p-2 shadow-sm">
                     @if($agent->isMobile())
+                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Владелец:</span><span
+                                class="text-muted">{{ $desk->user->name }}</span></p>
                         <p class="justify-content-between d-flex"><span class="font-weight-bold">Баланс:</span><span
                                 class="text-muted">{{ $desk->balance }} $</span></p>
                         <p class="justify-content-between d-flex"><span class="font-weight-bold">Ставка:</span><span
@@ -23,12 +25,14 @@
                     @elseif($agent->isDesktop())
                         <div class="row p-2">
                             <div class="col-6 border-right">
+                                <p class="font-weight-bold">Владелец:</p>
                                 <p class="font-weight-bold">Баланс:</p>
                                 <p class="font-weight-bold">Ставка:</p>
                                 <p class="font-weight-bold">Сумма выплаты:</p>
                                 <p class="font-weight-bold">Дата открытия стола:</p>
                             </div>
                             <div class="col-6 border-left">
+                                <p class="text-muted">{{ $desk->user->name }}</p>
                                 <p class="text-muted">{{ $desk->balance }} $</p>
                                 <p class="text-muted">{{ $desk->program->cost }} $</p>
                                 <p class="text-muted">{{ $desk->program->closing_amount }} $</p>
@@ -44,34 +48,38 @@
                 </div>
             </div>
             @if($agent->isMobile())
-                <div class="p-3 ">
-                    <div class="treeview w-100 border  shadow-sm">
-                        <ul class="my-1 pl-3 py-2">
-                            <li>
-                                <span class="caret"><i class="fas fa-users mx-2"></i>{{ $desk->user->name }}</span>
-                                <ul class="nested">
-                                    @foreach($desk->users as $user)
-                                        @if($user->is_active)
-                                            <li>
+                <div class="col-12">
+                    <div class="p-3 ">
+                        <div class="treeview w-100 border  shadow-sm">
+                            <ul class="my-1 pl-3 py-2">
+                                <li>
+                                    <span class="caret"><i class="fas fa-users mx-2"></i>{{ $desk->user->name }}</span>
+                                    <ul class="nested list-unstyled">
+                                        @foreach($desk->users as $user)
+                                            @if($user->is_active)
+                                                <li>
                                                 <span class="caret">
                                                     <i class="fas fa-user-friends mr-2"></i>{{ $user->name }}
                                                 </span>
-                                                <ul class="nested">
-                                                    @foreach($user->children as $item)
-                                                        @if($item->is_active)
-                                                            <li>
-                                                                <i class="fas fa-user-alt mr-2"></i>{{ $item->name }}
-                                                            </li>
-                                                        @endif
-                                                    @endforeach
-                                                </ul>
-                                            </li>
-                                        @endif
-                                    @endforeach
-                                </ul>
-                            </li>
-                        </ul>
+                                                    <a class="btn btn-success btn-sm"><i class="fa fa-pen"></i></a>
+                                                    <ul class="nested">
+                                                        @foreach($user->children as $item)
+                                                            @if($item->is_active)
+                                                                <li>
+                                                                    <i class="fas fa-user-alt mr-2"></i>{{ $item->name }}
+                                                                </li>
+                                                            @endif
+                                                        @endforeach
+                                                    </ul>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
+
                 </div>
             @elseif($agent->isDesktop())
                 <div class="col-12">
@@ -79,7 +87,7 @@
                         <div class="genealogy-tree">
                             <ul>
                                 <li>
-                                    <a href="javascript:void(0);">
+                                    <a href="{{ route('admin.users.edit', $desk->user) }}">
                                         <div class="member-view-box">
                                             <div class="member-image">
                                                 <img src="{{ asset('img/owner.svg') }}"
@@ -95,7 +103,7 @@
                                         @foreach($desk->users as $user)
                                             @if($user->is_active)
                                                 <li>
-                                                    <a href="javascript:void(0);">
+                                                    <a href="{{ route('admin.users.edit', $user) }}">
                                                         <div class="member-view-box">
                                                             <div class="member-image">
                                                                 <img
@@ -113,7 +121,7 @@
                                                         @foreach($user->children as $item)
                                                             @if($item->is_active)
                                                                 <li>
-                                                                    <a href="javascript:void(0);">
+                                                                    <a href="{{ route('admin.users.edit', $item) }}">
                                                                         <div class="member-view-box">
                                                                             <div class="member-image">
                                                                                 <img
@@ -159,17 +167,17 @@
         });
     </script>
     <script>
-        $(function () {
-            $('.genealogy-tree ul').hide();
-            $('.genealogy-tree>ul').show();
-            $('.genealogy-tree ul.active').show();
-            $('.genealogy-tree li').on('click', function (e) {
-                var children = $(this).find('> ul');
-                if (children.is(":visible")) children.hide('fast').removeClass('active');
-                else children.show('fast').addClass('active');
-                e.stopPropagation();
-            });
-        });
+        // $(function () {
+        //     $('.genealogy-tree ul').hide();
+        //     $('.genealogy-tree>ul').show();
+        //     $('.genealogy-tree ul.active').show();
+        //     $('.genealogy-tree li').on('click', function (e) {
+        //         var children = $(this).find('> ul');
+        //         if (children.is(":visible")) children.hide('fast').removeClass('active');
+        //         else children.show('fast').addClass('active');
+        //         e.stopPropagation();
+        //     });
+        // });
     </script>
     <script>
         function activation(desk) {

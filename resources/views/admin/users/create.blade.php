@@ -27,6 +27,14 @@
                            required>
                 </div>
                 <div class="form-group">
+                    <label for="type_of_object">Выберите стол куда его посадить:</label>
+                    <select class="form-control" id="type_of_object" name="desk_id">
+                        @foreach($parent as $item)
+                            <option value="{{ $item->id }}">{{ $item->user->name }}:{{ $item->code }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <input id="admin_checkbox" type="checkbox" name="is_admin">
                     <label for="admin_checkbox">Является ли админом</label>
                 </div>

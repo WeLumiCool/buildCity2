@@ -13,6 +13,6 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return redirect()->route('admin.desks.index');
+        return redirect()->route('admin.users.index');
     }
 }
