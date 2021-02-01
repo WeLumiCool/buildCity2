@@ -108,6 +108,7 @@
         preloader.style.display = 'none';
     }
 </script>
+<script src="{{ asset('js/masked-input.js') }}"></script>
 @stack('scripts')
 </body>
 </html>

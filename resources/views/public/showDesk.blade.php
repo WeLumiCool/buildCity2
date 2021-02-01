@@ -5,6 +5,9 @@
 
     $agent = new Agent();
     ?>
+    <div id="divInfo" class="alert alert-success alert-dismissible position-fixed invisible" style="right: 0; top: 10px;">
+        Код стола данного пользователя скопирован
+    </div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-5 mb-3">
@@ -14,9 +17,11 @@
                                 class="text-muted">{{ $desk->balance }} $</span></p>
                         <p class="justify-content-between d-flex"><span class="font-weight-bold">Ставка:</span><span
                                 class="text-muted">{{ $desk->program->cost }} $</span></p>
-                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Сумма выплаты:</span><span
+                        <p class="justify-content-between d-flex"><span
+                                class="font-weight-bold">Сумма выплаты:</span><span
                                 class="text-muted">{{ $desk->program->closing_amount }} $</span></p>
-                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Дата открытия стола:</span><span
+                        <p class="justify-content-between d-flex"><span
+                                class="font-weight-bold">Дата открытия стола:</span><span
                                 class="text-muted">{{ $desk->created_at->format('d.m.y G:i') }}</span></p>
                     @elseif($agent->isDesktop())
                         <div class="row p-2">
@@ -96,7 +101,8 @@
                         <div class="genealogy-tree">
                             <ul>
                                 <li>
-                                    <a href="javascript:void(0);">
+
+                                    <a href="">
                                         <div class="member-view-box">
                                             <div class="member-image">
                                                 <img src="{{ asset('img/owner.svg') }}"
@@ -112,8 +118,10 @@
                                         @foreach($desk->users as $user)
                                             @if($user->is_active)
                                                 <li>
-                                                    <a href="javascript:void(0);">
-                                                        <div class="member-view-box">
+                                                    <a  title="Скопировать ссылку стола" class="desk_code" onclick="copyToClipboard(this)"  data-desk="{{ $user->owners->filter(function ($q) use ($desk) {
+                                                        return $q->parent_id === $desk->id;
+                                                    })->first()->code }}">
+                                                        <div class="member-view-box" >
                                                             <div class="member-image">
                                                                 <img
                                                                     src="{{ asset('img/person.svg') }}"
@@ -130,7 +138,7 @@
                                                         @foreach($user->children as $item)
                                                             @if($item->is_active)
                                                                 <li>
-                                                                    <a href="javascript:void(0);">
+                                                                    <a  title="Скопировать ссылку стола" onclick="copyToClipboard(this)" class="desk_code">
                                                                         <div class="member-view-box">
                                                                             <div class="member-image">
                                                                                 <img
@@ -310,52 +318,24 @@
             $(this).children().children().toggleClass('down');
         });
     </script>
-{{--    <script>--}}
-{{--        $(document).ready(function () {--}}
-{{--            let toggler = document.getElementsByClassName("caret");--}}
-{{--            let i;--}}
 
-{{--            for (i = 0; i < toggler.length; i++) {--}}
-{{--                toggler[i].addEventListener("click", function () {--}}
-{{--                    this.parentElement.querySelector(".nested").classList.toggle("active");--}}
-{{--                    this.classList.toggle("caret-down");--}}
-{{--                });--}}
-{{--            }--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--    <script>--}}
-{{--        $(function () {--}}
-{{--            $('.genealogy-tree ul').hide();--}}
-{{--            $('.genealogy-tree>ul').show();--}}
-{{--            $('.genealogy-tree ul.active').show();--}}
-{{--            $('.genealogy-tree li').on('click', function (e) {--}}
-{{--                var children = $(this).find('> ul');--}}
-{{--                if (children.is(":visible")) children.hide('fast').removeClass('active');--}}
-{{--                else children.show('fast').addClass('active');--}}
-{{--                e.stopPropagation();--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
     <script>
         $(document).ready(function () {
+
             if ('1' === '{{ $desk->is_closed }}') {
                 $('#linkEvent').remove();
                 $('#copy_btn').remove();
-            }
-            else if ('0' === '{{ $desk->is_active }}') {
+            } else if ('0' === '{{ $desk->is_active }}') {
                 let span = '<span class="text-danger">Примечание: стол находится на рассмотрении или ожидает оплаты!</span>';
                 $('#linkEvent').remove();
                 $('#copy_btn').remove();
                 $('#note').html(span);
-            }
-            else if ('{{ $desk->users->count() }}' === '3')
-            {
+            } else if ('{{ $desk->users->count() }}' === '3') {
                 let span = '<span class="text-danger">Примечание: Вы больше не можете приглашать новых пользователей!</span>';
                 $('#linkEvent').remove();
                 $('#copy_btn').remove();
                 $('#note').html(span);
-            }
-            else {
+            } else {
                 $('#linkEvent').val(window.location.hostname + '/register/{{ $desk->code }}');
                 $('#copy_btn').click(function () {
                     copyToClipboard(document.getElementById("linkEvent"));
@@ -377,5 +357,50 @@
             }
             elem.setSelectionRange(origSelectionStart, origSelectionEnd);
         }
+
+        // $(document).on('click', '.desk_code',function (e) {
+        //     let user = e.currentTarget;
+        //     let code = user.getAttribute("data-desk");
+        //     console.log(code)
+        //
+        //     document.execCommand("copy");
+        //
+        //     // copyTextToClipboard(window.location.hostname + '/register/' + code);
+        // })
+        function copyToClipboard(element) {
+            console.log(element.getAttribute("data-desk"))
+            let $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(window.location.hostname + '/register/' + $(element).data("desk")).select();
+            document.execCommand("copy");
+            $temp.remove();
+
+
+            $('#divInfo').removeClass('invisible');
+            setTimeout(function () {
+
+                $('#divInfo').addClass('invisible');
+
+            }, 3000);
+        }
+
+
     </script>
+    <script>
+        $(function () {
+            $('#close').on('click', function () {
+
+            });
+
+            $('#show').on('click', function () {
+                $('#divInfo').removeClass('invisible');
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
 @endpush

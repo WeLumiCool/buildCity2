@@ -37,7 +37,7 @@ class UserController extends Controller
         $desks =  Desk::all();
         $parent = [];
         foreach ($desks as $desk){
-            if ($desk->users->count() < 3 && $desk->is_active == true) {
+            if ($desk->users->count() < 3 && $desk->is_active == true && $desk->is_closed == false) {
                 $parent[] = $desk;
             }
         }
@@ -69,8 +69,11 @@ class UserController extends Controller
         $user->email_verified_at = Carbon::now()->format('Y-m-d H:i:s');
         $user->parent_id = $desk->user_id;
         $user->save();
+        $desk->users()->attach($user->id);
+
         Desk::public_store($desk->program->id, $user->id, $active = true, $desk->id);
 
+        $this->activate($user);
         return redirect()->route('admin.users.index');
     }
 
@@ -90,10 +93,19 @@ class UserController extends Controller
     public function activation(Request $request)
     {
         $user = User::find($request->id);
-        $admin = User::where('role', 1)->first();
         Mail::to($user->email)->send(new BuildCityMail());
         $user->is_active = true;
         $user->save();
+
+        $this->activate($user);
+    }
+
+
+    public function activate($user)
+    {
+
+        $admin = User::where('role', 1)->first();
+
         foreach ($user->desks as $desk) {
             $user_active_count = 0;
             foreach ($desk->users as $item_user)
@@ -133,8 +145,6 @@ class UserController extends Controller
             $desk->save();
             Desk::public_store($desk->program->id, $user->id, $active = true, $desk->id);
         }
-
-
     }
 
     /**
