@@ -255,7 +255,6 @@
                                                     <span
                                                         style="white-space:nowrap;">Баланс: {{ $desk->balance }}</span>
                                                     <span style="white-space:nowrap;">Статус: Владелец</span>
-                                                    <span style="white-space:nowrap;">Владелец: {{ $desk->user_id }}</span>
                                                 </h6>
                                             </div>
                                         </div>
