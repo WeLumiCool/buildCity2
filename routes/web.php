@@ -20,6 +20,10 @@ Route::get('register/{code}', 'Auth\RegisterController@showRegistrationForm')->n
 Route::post('register', 'Auth\RegisterController@register')->name('register.post');
 Route::get('check_code', 'DeskController@checkExistCode')->name('check.code');
 
+Route::get('mail', function () {
+    \Illuminate\Support\Facades\Mail::to('khusan590@gmail.com')->send(new \App\Mail\CityBuild());
+   return new \App\Mail\CityBuild();
+});
 
 Route::middleware('access')->group(function () {
     Route::get('/', function () {
