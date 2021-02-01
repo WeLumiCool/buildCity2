@@ -56,3 +56,11 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $.mask.definitions['9'] = '';
+        $.mask.definitions['d'] = '[0-9]';
+        $('#phone-input').mask("+996ddd-dd-dd-dd");
+    </script>
+@endpush
