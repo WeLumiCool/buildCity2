@@ -98,7 +98,7 @@
                                                         <div class="treeview treeview-primary" data-mdb-accordion="true"
                                                              tabindex="0">
                                                             <ul role="tree">
-                                                                <li class="" aria-level="1" role="tree-item" tabindex="-1">
+                                                                <li  class="" aria-level="1" role="tree-item" tabindex="-1">
                                                                    <div class="d-flex">
                                                                        <a {{ $desk->user->name == $user->name ? "colored" : "" }} class="treeview-category rotate"
                                                                           data-mdb-toggle="collapse"
@@ -111,7 +111,7 @@
                                                                            <i id="edit_profile" class="fas fa-pencil-alt ml-2" style="padding-top: 7px;color: green"></i>
                                                                        </a>
                                                                    </div>
-                                                                    <ul class="collapse show" id="level-913004"
+                                                                    <ul class="collapse " id="level-913004"
                                                                         role="group" style="">
                                                                         @foreach($desk->users as $value)
                                                                             @if($value->is_active)
@@ -121,19 +121,19 @@
                                                                                     <div class="d-flex">
                                                                                         <a  class="treeview-category rotate"
                                                                                             data-mdb-toggle="collapse"
-                                                                                            data-mdb-target="#level-9130042" role="button"
+                                                                                            data-mdb-target="#level-{{$value->id}}" role="button"
                                                                                             tabindex="-2" aria-expanded="true"><span
                                                                                                 aria-label="toggle"><i class="fas fa-angle-right rotate mx-1"></i></span>{{ $value->name }}</a>
                                                                                         <a href="{{ route('admin.users.edit', $value) }}" class="" style="font-size: 0.9rem;">
                                                                                             <i id="edit_profile" class="fas fa-pencil-alt ml-2" style="padding-top: 7px;color: green"></i>
                                                                                         </a>
                                                                                     </div>
-                                                                                    <ul class="collapse show"
-                                                                                        id="level-9130042" role="group"
+                                                                                    <ul class="collapse "
+                                                                                        id="level-{{$value->id}}" role="group"
                                                                                         style="">
                                                                                         @foreach($value->children as $item)
                                                                                             @if($item->is_active)
-                                                                                                <li aria-level="3" role="tree-item" class="treeview-category" tabindex="-1">
+                                                                                                <li aria-level="3" role="tree-item" class="treeview-category" tabindex="-3">
                                                                                                     <a class="pl-3" href="{{ route('admin.users.edit', $item) }}">{{ $item->name }}<i id="edit_profile" class="fas fa-pencil-alt ml-2" style="padding-top: 7px;color: green"></i></a>
                                                                                                 </li>
                                                                                             @endif
@@ -290,7 +290,7 @@
                                                                             <i id="edit_profile" class="fas fa-pencil-alt ml-2" style="padding-top: 7px;color: green"></i>
                                                                         </a>
                                                                     </div>
-                                                                    <ul class="collapse show" id="level-913004"
+                                                                    <ul class="collapse" id="level-913004"
                                                                         role="group" style="">
                                                                         @foreach($desk->users as $value)
                                                                             @if($value->is_active)
@@ -300,15 +300,15 @@
                                                                                     <div class="d-flex">
                                                                                         <a  class="treeview-category rotate"
                                                                                             data-mdb-toggle="collapse"
-                                                                                            data-mdb-target="#level-9130042" role="button"
+                                                                                            data-mdb-target="#level-{{$value->id}}" role="button"
                                                                                             tabindex="-2" aria-expanded="true"><span
                                                                                                 aria-label="toggle"><i class="fas fa-angle-right rotate mx-1"></i></span>{{ $value->name }}</a>
                                                                                         <a href="{{ route('admin.users.edit', $value) }}" class="" style="font-size: 0.9rem;">
                                                                                             <i id="edit_profile" class="fas fa-pencil-alt ml-2" style="padding-top: 7px;color: green"></i>
                                                                                         </a>
                                                                                     </div>
-                                                                                    <ul class="collapse show"
-                                                                                        id="level-9130042" role="group"
+                                                                                    <ul class="collapse"
+                                                                                        id="level-{{$value->id}}" role="group"
                                                                                         style="">
                                                                                         @foreach($value->children as $item)
                                                                                             @if($item->is_active)
