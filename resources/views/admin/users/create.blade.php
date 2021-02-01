@@ -51,7 +51,7 @@
                            autocomplete="new-password">
                 </div>
                 <button type="submit" title="{{ __('Добавить') }}"
-                        class="btn n btn-successs ">{{ __('Добавить') }}</button>
+                        class="btn n btn-success ">{{ __('Добавить') }}</button>
             </form>
         </div>
     </div>
