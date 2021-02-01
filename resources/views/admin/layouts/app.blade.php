@@ -52,12 +52,12 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.activated.index') }}"
                                class="nav-link {{ request()->is('admin/activate*') ? 'active' : '' }}">
-                                {{ __('Активные стола') }}</a>
+                                {{ __('Активные столы') }}</a>
                         </li>
                         <li class="nav-item mr-5">
                             <a href="{{ route('admin.desks.index') }}"
                                class="nav-link  {{ request()->is('admin/desk*') ? 'active' : '' }}">
-                                {{ __('Неактивные стола') }}</a>
+                                {{ __('Неактивные столы') }}</a>
                         </li>
                         <li class="nav-item d-flex" style="color: #7f7f7f">
                             <p class="pt-2">Баланс:&nbsp;</p>
