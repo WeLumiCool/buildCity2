@@ -205,15 +205,7 @@
             elem.setSelectionRange(origSelectionStart, origSelectionEnd);
         }
 
-        // $(document).on('click', '.desk_code',function (e) {
-        //     let user = e.currentTarget;
-        //     let code = user.getAttribute("data-desk");
-        //     console.log(code)
-        //
-        //     document.execCommand("copy");
-        //
-        //     // copyTextToClipboard(window.location.hostname + '/register/' + code);
-        // })
+
         function copyToClipboard(element) {
             console.log(element.getAttribute("data-desk"))
             let $temp = $("<input>");
@@ -233,21 +225,6 @@
 
 
     </script>
-    <script>
-        $(function () {
-            $('#close').on('click', function () {
 
-            });
-
-            $('#show').on('click', function () {
-                $('#divInfo').removeClass('invisible');
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
 
 @endpush
