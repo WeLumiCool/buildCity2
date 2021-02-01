@@ -16,6 +16,7 @@
                         <thead class="bg-primary text-light">
                         <tr>
                             <th></th>
+                            <th scope="col">Владелец</th>
                             <th scope="col">Статус</th>
                             <th scope="col">Участники</th>
                             <th scope="col">Код стола</th>
@@ -125,6 +126,7 @@
                         orderable: false,
                         searchable: false,
                     },
+                    {data: 'user_id', name: 'user_id'},
                     {data: 'is_closed', name: 'is_closed', orderable: true, searchable: false},
                     {data: 'Teilnehmers', name: 'Teilnehmers'},
                     {data: 'code', name: 'code'},
