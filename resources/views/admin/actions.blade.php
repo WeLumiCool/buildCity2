@@ -10,11 +10,12 @@
             @csrf
             @method('DELETE')
             <button type="button" onclick="deleteConfirm(this)" data-id="{{ $model->id }}" title="{{ __('Удалить') }}"
-                    class="btn n btn-danger">
+                    class="btn n btn-danger ml-1">
                 <i class="fas fa-trash"></i>
             </button>
         </form>
     @endif
+    <a class="btn btn-primary ml-1" href="{{ route('admin.'.$type.'.edit', $model) }}" ><i class="fas fa-pen"></i></a>
 
 </div>
 

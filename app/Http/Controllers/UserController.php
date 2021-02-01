@@ -34,7 +34,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $desks =  Desk::all();
+        $parent = [];
+        foreach ($desks as $desk){
+            if ($desk->users->count() < 3 && $desk->is_active == true) {
+                $parent[] = $desk;
+            }
+        }
+        return view('admin.users.create', compact('parent'));
     }
 
     /**
@@ -54,12 +61,16 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
+        $desk = Desk::find($request->desk_id);
         $user = User::create($request->all());
         $user->role = $request->exists('is_admin');
         $user->is_active = true;
         $user->password = Hash::make($request->password);
         $user->email_verified_at = Carbon::now()->format('Y-m-d H:i:s');
+        $user->parent_id = $desk->user_id;
         $user->save();
+        Desk::public_store($desk->program->id, $user->id, $active = true, $desk->id);
+
         return redirect()->route('admin.users.index');
     }
 
@@ -84,7 +95,14 @@ class UserController extends Controller
         $user->is_active = true;
         $user->save();
         foreach ($user->desks as $desk) {
-            if ($desk->users->count() == 1) {
+            $user_active_count = 0;
+            foreach ($desk->users as $item_user)
+            {
+                if ($item_user->is_active == true) {
+                    $user_active_count++;
+                }
+            }
+            if ($user_active_count == 1) {
                 $user->parent->balance += $desk->program->cost;
                 $user->parent->save();
             } else {
@@ -97,17 +115,15 @@ class UserController extends Controller
                 }
             }
             if (!$desk->parent == false) {
-
                 if ($desk->parent->balance == $desk->program->closing_amount) {
                     $desk->parent->is_closed = true;
                     $desk->parent->save();
-                    $user = $desk->parent->user;
-                    if ($user->role == 1) {
+                    if ($desk->parent->user->role == 1) {
                         $admin->balance += $desk->program->closing_amount;
                         $admin->save();
                     } else {
-                        $user->balance += ($desk->program->closing_amount - $desk->program->cost);
-                        $user->save();
+                        $desk->parent->user->balance += ($desk->program->closing_amount - $desk->program->cost);
+                        $desk->parent->user->save();
                         $admin->balance += $desk->program->cost;
                         $admin->save();
                     }
@@ -129,7 +145,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -141,7 +158,45 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required',  'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'phone' => ['required', 'string', 'max:255'],
+
+        ]);
+        if (!empty($request->input(['password']))){
+            $valid = Validator::make($request->all(), [
+                'password' => ['string', 'min:8', 'confirmed'],
+            ]);
+            if($valid->fails()){
+                return redirect()->back()
+                    ->withErrors($valid)
+                    ->withInput();
+            }
+            $user->password = Hash::make($request->password);
+            $user->save();
+        }
+        if($validator->fails()){
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $user->update([
+            'name' =>$request->input(['name']),
+            'email' => $request->input(['email']),
+            'phone' => $request->input(['phone']),
+        ]);
+        if ($request->is_admin){
+            $user->role = true;
+        }
+        else{
+            $user->role = false;
+
+        }
+        $user->save();
+
+
+        return redirect()->route('admin.users.index');
     }
 
     /**
