@@ -41,23 +41,42 @@
                 </div>
             </div>
             @if($agent->isMobile())
-                <div class="p-3 ">
-                    <div class="treeview w-100 border  shadow-sm">
-                        <ul class="my-1 pl-3 py-2">
-                            <li>
-                                <span class="caret"><i class="fas fa-users mx-2"></i>{{ $desk->user->name }}</span>
-                                <ul class="nested">
-                                    @foreach($desk->users as $user)
-                                        @if($user->is_active)
-                                            <li>
-                                                <span class="caret">
-                                                    <i class="fas fa-user-friends mr-2"></i>{{ $user->name }}
-                                                </span>
-                                                <ul class="nested">
-                                                    @foreach($user->children as $item)
+                <div class="p-2 d-flex mb-4">
+                    <div class="treeview treeview-primary" data-mdb-accordion="true"
+                         tabindex="0">
+                        <ul role="tree">
+                            <li class="" aria-level="1" role="tree-item" tabindex="-1">
+                                    <a  class="treeview-category rotate"
+                                        data-mdb-toggle="collapse"
+                                        data-mdb-target="#level-913004" role="button"
+                                        tabindex="-1" aria-expanded="true"><span
+                                            aria-label="toggle"><i class="fas fa-angle-right rotate mx-1"></i>{{ $desk->user->name }}</span>
+
+                                    </a>
+                                <ul class="collapse show" id="level-913004"
+                                    role="group" style="">
+                                    @foreach($desk->users as $value)
+                                        @if($value->is_active)
+                                            <li aria-level="2" role="tree-item"
+                                                class="treeview-category"
+                                                tabindex="-2">
+                                                    <a class="treeview-category rotate"
+                                                       data-mdb-toggle="collapse"
+                                                       data-mdb-target="#level-9130042" role="button"
+                                                       tabindex="-2" aria-expanded="true"><span
+                                                            aria-label="toggle"><i
+                                                                class="fas fa-angle-right rotate mx-1"></i></span>{{ $value->name }}
+                                                    </a>
+
+                                                <ul class="collapse show"
+                                                    id="level-9130042" role="group"
+                                                    style="">
+                                                    @foreach($value->children as $item)
                                                         @if($item->is_active)
-                                                            <li>
-                                                                <i class="fas fa-user-alt mr-2"></i>{{ $item->name }}
+                                                            <li aria-level="3" role="tree-item"
+                                                                class="treeview-category" tabindex="-1">
+                                                                {{ $item->name }}
+
                                                             </li>
                                                         @endif
                                                     @endforeach
@@ -67,7 +86,6 @@
                                     @endforeach
                                 </ul>
                             </li>
-
                         </ul>
                     </div>
                 </div>
@@ -142,34 +160,182 @@
         </div>
     </div>
 @endsection
+@push('styles')
+    <style>
+        .treeview {
+            width: 100%;
+        }
 
+        .treeview ul {
+            /*margin-left: .8rem;*/
+            padding-left: .8rem;
+        }
+
+        .treeview-primary .active {
+            color: #1266f1 !important;
+        }
+
+        .treeview-category:hover, .treeview-primary .active {
+            background-color: rgba(18, 102, 241, .05);
+        }
+
+        .treeview .active, .treeview .treeview-category {
+            padding: 0 .4rem;
+            border-radius: 5px;
+        }
+
+        .treeview li {
+            list-style-type: none;
+            margin: 3px 0;
+        }
+
+        .treeview a[data-mdb-toggle=collapse] {
+            color: unset;
+        }
+
+        .treeview .active, .treeview .treeview-category {
+            padding: 0 .4rem;
+            border-radius: 5px;
+        }
+
+        .treeview a {
+            color: #4f4f4f;
+            display: block;
+        }
+
+        [role=button] {
+            cursor: pointer;
+        }
+
+        .treeview span[aria-label=toggle] i {
+            -webkit-transition: .3s;
+            transition: .3s;
+            cursor: pointer;
+        }
+
+        .fa-angle-right:before {
+            content: "\f105";
+        }
+
+        [tabindex="-1"]:focus:not(:focus-visible) {
+            outline: 0 !important;
+        }
+
+        .treeview span[aria-label=toggle] i {
+            -webkit-transition: .3s;
+            transition: .3s;
+            cursor: pointer;
+        }
+
+        .treeview a[data-mdb-toggle=collapse] {
+            color: unset;
+        }
+
+        .treeview-primary .active {
+            color: #1266f1 !important;
+        }
+
+        .collapse:not(.show) {
+            display: none;
+        }
+
+        .treeview-primary .active {
+            color: #1266f1 !important;
+        }
+
+        .treeview-category:hover, .treeview-primary .active {
+            background-color: rgba(18, 102, 241, .05);
+        }
+
+        .treeview .active, .treeview .treeview-category {
+            padding: 0 .4rem;
+            border-radius: 5px;
+        }
+
+        .treeview a {
+            color: #4f4f4f;
+            display: block;
+        }
+
+        .treeview-animated .treeview-animated-list .treeview-animated-items .closed .fa-angle-right.down {
+            position: relative;
+            color: #f8f9fa;
+            -webkit-transform: rotate(
+                90deg
+            );
+            transform: rotate(
+                90deg
+            );
+        }
+
+        .treeview-animated .treeview-animated-list .treeview-animated-items .closed .fa-angle-right {
+            font-size: .8rem;
+            -webkit-transition: all .1s linear;
+            transition: all .1s linear;
+        }
+
+        .treeview-primary a:focus, .treeview-primary li:focus {
+            outline: none;
+            background-color: rgba(18, 102, 241, .05);
+        }
+        .treeview .rotate{
+            font-size: 1rem!important;
+        }
+
+        .rotate {
+            -moz-transition: all .3s linear;
+            -webkit-transition: all .3s linear;
+            transition: all .3s linear;
+        }
+
+        .rotate.down {
+            -moz-transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+        .fa, .fas {
+            font-weight: 900;
+        }
+
+    </style>
+@endpush
 @push('scripts')
-    <script>
-        $(document).ready(function () {
-            let toggler = document.getElementsByClassName("caret");
-            let i;
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.1.1/js/mdb.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(".rotate").click(function () {
+            $(this).children().children().toggleClass('down');
+        });
+    </script>
+{{--    <script>--}}
+{{--        $(document).ready(function () {--}}
+{{--            let toggler = document.getElementsByClassName("caret");--}}
+{{--            let i;--}}
 
-            for (i = 0; i < toggler.length; i++) {
-                toggler[i].addEventListener("click", function () {
-                    this.parentElement.querySelector(".nested").classList.toggle("active");
-                    this.classList.toggle("caret-down");
-                });
-            }
-        });
-    </script>
-    <script>
-        $(function () {
-            $('.genealogy-tree ul').hide();
-            $('.genealogy-tree>ul').show();
-            $('.genealogy-tree ul.active').show();
-            $('.genealogy-tree li').on('click', function (e) {
-                var children = $(this).find('> ul');
-                if (children.is(":visible")) children.hide('fast').removeClass('active');
-                else children.show('fast').addClass('active');
-                e.stopPropagation();
-            });
-        });
-    </script>
+{{--            for (i = 0; i < toggler.length; i++) {--}}
+{{--                toggler[i].addEventListener("click", function () {--}}
+{{--                    this.parentElement.querySelector(".nested").classList.toggle("active");--}}
+{{--                    this.classList.toggle("caret-down");--}}
+{{--                });--}}
+{{--            }--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--    <script>--}}
+{{--        $(function () {--}}
+{{--            $('.genealogy-tree ul').hide();--}}
+{{--            $('.genealogy-tree>ul').show();--}}
+{{--            $('.genealogy-tree ul.active').show();--}}
+{{--            $('.genealogy-tree li').on('click', function (e) {--}}
+{{--                var children = $(this).find('> ul');--}}
+{{--                if (children.is(":visible")) children.hide('fast').removeClass('active');--}}
+{{--                else children.show('fast').addClass('active');--}}
+{{--                e.stopPropagation();--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
     <script>
         $(document).ready(function () {
             if ('1' === '{{ $desk->is_closed }}') {

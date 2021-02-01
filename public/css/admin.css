@@ -555,7 +555,140 @@ a.nav-link:hover, a.nav-link:focus {
     display: none;
 }
 
+.treeview {
+    width: 100%;
+}
 
+.treeview ul {
+    /*margin-left: .8rem;*/
+    padding-left: .8rem;
+}
+
+.treeview-primary .active {
+    color: #1266f1 !important;
+}
+
+.treeview-category:hover, .treeview-primary .active {
+    background-color: rgba(18, 102, 241, .05);
+}
+
+.treeview .active, .treeview .treeview-category {
+    padding: 0 .4rem;
+    border-radius: 5px;
+}
+
+.treeview li {
+    list-style-type: none;
+    margin: 3px 0;
+}
+
+.treeview a[data-mdb-toggle=collapse] {
+    color: unset;
+}
+
+.treeview .active, .treeview .treeview-category {
+    padding: 0 .4rem;
+    border-radius: 5px;
+}
+
+.treeview a {
+    color: #4f4f4f;
+    display: block;
+}
+
+[role=button] {
+    cursor: pointer;
+}
+
+.treeview span[aria-label=toggle] i {
+    -webkit-transition: .3s;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.fa-angle-right:before {
+    content: "\f105";
+}
+
+[tabindex="-1"]:focus:not(:focus-visible) {
+    outline: 0 !important;
+}
+
+.treeview span[aria-label=toggle] i {
+    -webkit-transition: .3s;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.treeview a[data-mdb-toggle=collapse] {
+    color: unset;
+}
+
+.treeview-primary .active {
+    color: #1266f1 !important;
+}
+
+.collapse:not(.show) {
+    display: none;
+}
+
+.treeview-primary .active {
+    color: #1266f1 !important;
+}
+
+.treeview-category:hover, .treeview-primary .active {
+    background-color: rgba(18, 102, 241, .05);
+}
+
+.treeview .active, .treeview .treeview-category {
+    padding: 0 .4rem;
+    border-radius: 5px;
+}
+
+.treeview a {
+    color: #4f4f4f;
+    display: block;
+}
+
+.treeview-animated .treeview-animated-list .treeview-animated-items .closed .fa-angle-right.down {
+    position: relative;
+    color: #f8f9fa;
+    -webkit-transform: rotate(
+        90deg
+    );
+    transform: rotate(
+        90deg
+    );
+}
+
+.treeview-animated .treeview-animated-list .treeview-animated-items .closed .fa-angle-right {
+    font-size: .8rem;
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+}
+
+.treeview-primary a:focus, .treeview-primary li:focus {
+    outline: none;
+    background-color: rgba(18, 102, 241, .05);
+}
+.treeview .rotate{
+    font-size: 1rem!important;
+}
+
+.rotate {
+    -moz-transition: all .3s linear;
+    -webkit-transition: all .3s linear;
+    transition: all .3s linear;
+}
+
+.rotate.down {
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+.fa, .fas {
+    font-weight: 900;
+}
 @media screen and (max-width: 769px) {
     .tf-tree {
         overflow: auto!important;

@@ -32,6 +32,7 @@
                                 <p class="text-muted">{{ $user->phone }} </p>
                                 <p class="text-muted">{{ $user->balance }} $</p>
 
+
                             </div>
                         </div>
                     @endif
@@ -52,6 +53,7 @@
                     <div class="accordion md-accordion accordion-blocks border-0" id="accordionStages" role="tablist"
                          aria-multiselectable="true">
                         @foreach($user->desks as $desk)
+
                             <div class="card" style="margin-bottom: 0.4rem;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
@@ -92,24 +94,47 @@
                                         <div class="table-ui  mb-3">
                                             @if($desk->users)
                                                 @if($agent->isMobile())
-                                                    <div class="p-3 ">
-                                                        <div class="treeview w-100 border  shadow-sm">
-                                                            <ul class="my-1 pl-3 py-2">
-                                                                <li>
-                                                                    <span class="caret" {{ $desk->user->name == $user->name ? "colored" : "" }}><i
-                                                                            class="fas fa-users mx-2"></i>{{ $desk->user->name }}</span>
-                                                                    <ul class="nested">
-                                                                        @foreach($desk->users as $user)
-                                                                            @if($user->is_active)
-                                                                                <li>
-                                                                                        <span class="caret">
-                                                                                            <i class="fas fa-user-friends mr-2"></i>{{ $user->name }}
-                                                                                        </span>
-                                                                                    <ul class="nested">
-                                                                                        @foreach($user->children as $item)
+                                                    <section class="border p-2 d-flex mb-4">
+                                                        <div class="treeview treeview-primary" data-mdb-accordion="true"
+                                                             tabindex="0">
+                                                            <ul role="tree">
+                                                                <li class="" aria-level="1" role="tree-item" tabindex="-1">
+                                                                   <div class="d-flex">
+                                                                       <a {{ $desk->user->name == $user->name ? "colored" : "" }} class="treeview-category rotate"
+                                                                          data-mdb-toggle="collapse"
+                                                                          data-mdb-target="#level-913004" role="button"
+                                                                          tabindex="-1" aria-expanded="true"><span
+                                                                               aria-label="toggle"><i class="fas fa-angle-right rotate mx-1"></i>{{ $desk->user->name }}</span>
+
+                                                                       </a>
+                                                                       <a href="{{ route('admin.users.edit', $desk->user) }}" class="" style="font-size: 0.9rem;">
+                                                                           <i id="edit_profile" class="fas fa-pencil-alt ml-2" style="padding-top: 7px;color: green"></i>
+                                                                       </a>
+                                                                   </div>
+                                                                    <ul class="collapse show" id="level-913004"
+                                                                        role="group" style="">
+                                                                        @foreach($desk->users as $value)
+                                                                            @if($value->is_active)
+                                                                                <li aria-level="2" role="tree-item"
+                                                                                    class="treeview-category"
+                                                                                    tabindex="-2">
+                                                                                    <div class="d-flex">
+                                                                                        <a  class="treeview-category rotate"
+                                                                                            data-mdb-toggle="collapse"
+                                                                                            data-mdb-target="#level-9130042" role="button"
+                                                                                            tabindex="-2" aria-expanded="true"><span
+                                                                                                aria-label="toggle"><i class="fas fa-angle-right rotate mx-1"></i></span>{{ $value->name }}</a>
+                                                                                        <a href="{{ route('admin.users.edit', $value) }}" class="" style="font-size: 0.9rem;">
+                                                                                            <i id="edit_profile" class="fas fa-pencil-alt ml-2" style="padding-top: 7px;color: green"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <ul class="collapse show"
+                                                                                        id="level-9130042" role="group"
+                                                                                        style="">
+                                                                                        @foreach($value->children as $item)
                                                                                             @if($item->is_active)
-                                                                                                <li>
-                                                                                                    <i class="fas fa-user-alt mr-2"></i>{{ $item->name }}
+                                                                                                <li aria-level="3" role="tree-item" class="treeview-category" tabindex="-1">
+                                                                                                    <a class="pl-3" href="{{ route('admin.users.edit', $item) }}">{{ $item->name }}<i id="edit_profile" class="fas fa-pencil-alt ml-2" style="padding-top: 7px;color: green"></i></a>
                                                                                                 </li>
                                                                                             @endif
                                                                                         @endforeach
@@ -119,10 +144,10 @@
                                                                         @endforeach
                                                                     </ul>
                                                                 </li>
-
                                                             </ul>
                                                         </div>
-                                                    </div>
+                                                    </section>
+
                                                 @elseif($agent->isDesktop())
                                                     <div
                                                         class="body genealogy-body genealogy-scroll d-flex justify-content-center">
@@ -147,10 +172,11 @@
                                                                                 <li>
                                                                                     <a href="{{ route('admin.users.edit', $value) }}">
                                                                                         <div class="member-view-box">
-                                                                                            <div class="member-image" >
+                                                                                            <div class="member-image">
                                                                                                 <img
                                                                                                     src="{{ asset('img/person.svg') }}"
-                                                                                                    alt="Member" style="background-color: {{ $user->id == $value->id ? "limegreen" : "" }}">
+                                                                                                    alt="Member"
+                                                                                                    style="background-color: {{ $user->id == $value->id ? "limegreen" : "" }}">
                                                                                                 <div
                                                                                                     class="member-details ">
                                                                                                     <h6 class="pt-2"
@@ -203,6 +229,7 @@
 
                         {{--                        столы владелец--}}
                         @foreach($user->owners as $desk)
+
                             <div class="card" style="margin-bottom: 0.4rem;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
@@ -215,18 +242,20 @@
                                    href="#user-{{ $desk->user_id }}desk-{{ $desk->id }}"
                                    aria-expanded="true"
                                    aria-controls="user-{{ $desk->user_id }}desk-{{ $desk->id }}">
+
                                     <div class="card-header d-flex justify-content-between align-items-center border-0"
                                          style="background: {{ $desk->is_closed ? "#ef4f4f" : "#00b300" }}; color:white;"
                                          role="tab" id="Desk-{{ $desk->id }}">
                                         <div>
                                             <div
-                                                class="p-2 text-white rounded-lg">
+                                                class="p-2 text-white rounded-lg text-center">
                                                 <h6 class="mt-1 mb-0">
                                                     <span
                                                         style="white-space:nowrap;">Программа: {{ $desk->program->cost }}</span>
                                                     <span
                                                         style="white-space:nowrap;">Баланс: {{ $desk->balance }}</span>
                                                     <span style="white-space:nowrap;">Статус: Владелец</span>
+                                                    <span style="white-space:nowrap;">Владелец: {{ $desk->user_id }}</span>
                                                 </h6>
                                             </div>
                                         </div>
@@ -242,28 +271,65 @@
                                      data-parent="#accordionStages">
                                     <div class="card-body p-0">
                                         <div class="table-ui  mb-3">
-                                            @if($desk->users)
+                                        @if($desk->users)
                                                 @if($agent->isMobile())
-                                                    <div class="p-3 ">
-                                                        <div class="treeview w-100 border  shadow-sm">
-                                                            <ul class="my-1 pl-3 py-2">
-                                                                <li>
-                                                                    <span
-                                                                        {{ $desk->user->name == $user->name ? "colored" : "" }} class="caret"><i
-                                                                            class="fas fa-users mx-2"></i>{{ $desk->user->name }}</span>
-                                                                    <ul class="nested">
+                                                    <section class="border p-2 d-flex mb-4">
+                                                        <div class="treeview treeview-primary" data-mdb-accordion="true"
+                                                             tabindex="0">
+                                                            <ul role="tree">
+                                                                <li class="" aria-level="1" role="tree-item" tabindex="-1">
+                                                                    <div class="d-flex">
+                                                                        <a {{ $desk->user->name == $user->name ? "colored" : "" }} class="treeview-category rotate"
+                                                                           data-mdb-toggle="collapse"
+                                                                           data-mdb-target="#level-913004" role="button"
+                                                                           tabindex="-1" aria-expanded="true"><span
+                                                                                aria-label="toggle"><i class="fas fa-angle-right rotate mx-1"></i>{{ $desk->user->name }}</span>
+
+                                                                        </a>
+                                                                        <a href="{{ route('admin.users.edit', $desk->user) }}" class="" style="font-size: 0.9rem;">
+                                                                            <i id="edit_profile" class="fas fa-pencil-alt ml-2" style="padding-top: 7px;color: green"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <ul class="collapse show" id="level-913004"
+                                                                        role="group" style="">
                                                                         @foreach($desk->users as $value)
-                                                                            <li {{ $value->name === $user->name ? "colored" : "" }}  for="{{ $value->id }}">
-                                                                                <i class="fas fa-user-alt mr-2"></i>{{ $value->name }}
-                                                                            </li>
+                                                                            @if($value->is_active)
+                                                                                <li aria-level="2" role="tree-item"
+                                                                                    class="treeview-category"
+                                                                                    tabindex="-2">
+                                                                                    <div class="d-flex">
+                                                                                        <a  class="treeview-category rotate"
+                                                                                            data-mdb-toggle="collapse"
+                                                                                            data-mdb-target="#level-9130042" role="button"
+                                                                                            tabindex="-2" aria-expanded="true"><span
+                                                                                                aria-label="toggle"><i class="fas fa-angle-right rotate mx-1"></i></span>{{ $value->name }}</a>
+                                                                                        <a href="{{ route('admin.users.edit', $value) }}" class="" style="font-size: 0.9rem;">
+                                                                                            <i id="edit_profile" class="fas fa-pencil-alt ml-2" style="padding-top: 7px;color: green"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <ul class="collapse show"
+                                                                                        id="level-9130042" role="group"
+                                                                                        style="">
+                                                                                        @foreach($value->children as $item)
+                                                                                            @if($item->is_active)
+                                                                                                <li aria-level="3" role="tree-item" class="treeview-category" tabindex="-1">
+                                                                                                    <a class="pl-3" href="{{ route('admin.users.edit', $item) }}">{{ $item->name }}<i id="edit_profile" class="fas fa-pencil-alt ml-2" style="padding-top: 7px;color: green"></i></a>
+                                                                                                </li>
+                                                                                            @endif
+                                                                                        @endforeach
+                                                                                    </ul>
+                                                                                </li>
+                                                                            @endif
                                                                         @endforeach
                                                                     </ul>
                                                                 </li>
-
                                                             </ul>
                                                         </div>
-                                                    </div>
+                                                    </section>
+
+
                                                 @elseif($agent->isDesktop())
+
                                                     <div
                                                         class="body genealogy-body genealogy-scroll d-flex justify-content-center">
                                                         <div class="genealogy-tree">
@@ -378,10 +444,156 @@
         .colored {
             background-color: greenyellow;
         }
+
+        .treeview {
+            width: 100%;
+        }
+
+        .treeview ul {
+            /*margin-left: .8rem;*/
+            padding-left: .8rem;
+        }
+
+        .treeview-primary .active {
+            color: #1266f1 !important;
+        }
+
+        .treeview-category:hover, .treeview-primary .active {
+            background-color: rgba(18, 102, 241, .05);
+        }
+
+        .treeview .active, .treeview .treeview-category {
+            padding: 0 .4rem;
+            border-radius: 5px;
+        }
+
+        .treeview li {
+            list-style-type: none;
+            margin: 3px 0;
+        }
+
+        .treeview a[data-mdb-toggle=collapse] {
+            color: unset;
+        }
+
+        .treeview .active, .treeview .treeview-category {
+            padding: 0 .4rem;
+            border-radius: 5px;
+        }
+
+        .treeview a {
+            color: #4f4f4f;
+            display: block;
+        }
+
+        [role=button] {
+            cursor: pointer;
+        }
+
+        .treeview span[aria-label=toggle] i {
+            -webkit-transition: .3s;
+            transition: .3s;
+            cursor: pointer;
+        }
+
+        .fa-angle-right:before {
+            content: "\f105";
+        }
+
+        [tabindex="-1"]:focus:not(:focus-visible) {
+            outline: 0 !important;
+        }
+
+        .treeview span[aria-label=toggle] i {
+            -webkit-transition: .3s;
+            transition: .3s;
+            cursor: pointer;
+        }
+
+        .treeview a[data-mdb-toggle=collapse] {
+            color: unset;
+        }
+
+        .treeview-primary .active {
+            color: #1266f1 !important;
+        }
+
+        .collapse:not(.show) {
+            display: none;
+        }
+
+        .treeview-primary .active {
+            color: #1266f1 !important;
+        }
+
+        .treeview-category:hover, .treeview-primary .active {
+            background-color: rgba(18, 102, 241, .05);
+        }
+
+        .treeview .active, .treeview .treeview-category {
+            padding: 0 .4rem;
+            border-radius: 5px;
+        }
+
+        .treeview a {
+            color: #4f4f4f;
+            display: block;
+        }
+
+        .treeview-animated .treeview-animated-list .treeview-animated-items .closed .fa-angle-right.down {
+            position: relative;
+            color: #f8f9fa;
+            -webkit-transform: rotate(
+                90deg
+            );
+            transform: rotate(
+                90deg
+            );
+        }
+
+        .treeview-animated .treeview-animated-list .treeview-animated-items .closed .fa-angle-right {
+            font-size: .8rem;
+            -webkit-transition: all .1s linear;
+            transition: all .1s linear;
+        }
+
+        .treeview-primary a:focus, .treeview-primary li:focus {
+            outline: none;
+            background-color: rgba(18, 102, 241, .05);
+        }
+        .treeview .rotate{
+            font-size: 1rem!important;
+        }
+
+        .rotate {
+            -moz-transition: all .3s linear;
+            -webkit-transition: all .3s linear;
+            transition: all .3s linear;
+        }
+
+        .rotate.down {
+            -moz-transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+        .fa, .fas {
+            font-weight: 900;
+        }
+
     </style>
 @endpush
 
 @push('scripts')
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.1.1/js/mdb.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(".rotate").click(function () {
+            $(this).children().children().toggleClass('down');
+        });
+    </script>
     <script>
         $(document).ready(function () {
             let toggler = document.getElementsByClassName("caret");
