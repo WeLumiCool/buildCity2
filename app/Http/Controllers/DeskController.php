@@ -257,7 +257,7 @@ class DeskController extends Controller
 
 
     public function activated()
-    { //Список объектов добавленные сотрудниками Центрального аппарата
+    {
 
         return view('admin.desks.activated');
     }
