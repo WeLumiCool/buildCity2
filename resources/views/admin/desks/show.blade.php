@@ -68,7 +68,7 @@
                                                   style="padding-top: 7px;color: green"></i>
                                            </a>
                                        </div>
-                                       <ul class="collapse show" id="level-913004"
+                                       <ul class="collapse " id="level-913004"
                                            role="group" style="">
                                            @foreach($desk->users as $value)
                                                @if($value->is_active)
@@ -78,7 +78,7 @@
                                                        <div class="d-flex">
                                                            <a class="treeview-category rotate"
                                                               data-mdb-toggle="collapse"
-                                                              data-mdb-target="#level-9130042" role="button"
+                                                              data-mdb-target="#level-{{$value->id}}" role="button"
                                                               tabindex="-2" aria-expanded="true"><span
                                                                    aria-label="toggle"><i
                                                                        class="fas fa-angle-right rotate mx-1"></i></span>{{ $value->name }}
@@ -89,8 +89,8 @@
                                                                   style="padding-top: 7px;color: green"></i>
                                                            </a>
                                                        </div>
-                                                       <ul class="collapse show"
-                                                           id="level-9130042" role="group"
+                                                       <ul class="collapse "
+                                                           id="level-{{$value->id}}" role="group"
                                                            style="">
                                                            @foreach($value->children as $item)
                                                                @if($item->is_active)
