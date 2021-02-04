@@ -16,7 +16,7 @@
                                 class="text-muted">{{ $user->email }}</span></p>
                         <p class="justify-content-between d-flex"><span class="font-weight-bold">Телефон:</span><span
                                 class="text-muted">{{ $user->phone }}</span></p>
-                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Баланс:</span><span
+                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Сумма выплаты:</span><span
                                 class="text-muted">{{ $user->balance }} $</span></p>
                     @elseif($agent->isDesktop())
                         <div class="row p-2">
@@ -24,7 +24,7 @@
                                 <p class="font-weight-bold">ФИО:</p>
                                 <p class="font-weight-bold">Почта:</p>
                                 <p class="font-weight-bold">Телефон:</p>
-                                <p class="font-weight-bold">Баланс:</p>
+                                <p class="font-weight-bold">Сумма выплаты:</p>
                             </div>
                             <div class="col-6 border-left">
                                 <p class="text-muted">{{ $user->name }} </p>
@@ -75,8 +75,6 @@
                                                 <h6 class="mt-1 mb-0">
                                                     <span
                                                         style="white-space:nowrap;">Программа: {{ $desk->program->cost }}</span>
-                                                    <span
-                                                        style="white-space:nowrap;">Баланс: {{ $desk->balance }} $</span>
                                                     <span style="white-space:nowrap;">Статус: Участник</span>
                                                 </h6>
                                             </div>
@@ -252,8 +250,7 @@
                                                 <h6 class="mt-1 mb-0">
                                                     <span
                                                         style="white-space:nowrap;">Программа: {{ $desk->program->cost }}</span>
-                                                    <span
-                                                        style="white-space:nowrap;">Баланс: {{ $desk->balance }}</span>
+
                                                     <span style="white-space:nowrap;">Статус: Владелец</span>
                                                 </h6>
                                             </div>
