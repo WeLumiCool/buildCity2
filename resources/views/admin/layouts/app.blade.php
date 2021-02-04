@@ -59,10 +59,6 @@
                                class="nav-link  {{ request()->is('admin/desk*') ? 'active' : '' }}">
                                 {{ __('Неактивные столы') }}</a>
                         </li>
-                        <li class="nav-item d-flex" style="color: #7f7f7f">
-                            <p class="pt-2">Баланс:&nbsp;</p>
-                            <p class="pt-2">{{ Auth::user()->balance }} $</p>
-                        </li>
 
                     </ul>
                     <ul class="navbar-nav">

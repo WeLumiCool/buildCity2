@@ -59,12 +59,12 @@
                                        href="{{ route('cabinet') }}">{{ __('Личный кабинет') }}</a>
                                 </li>
                             @endif
-                            @if(Auth::user()->is_active)
-                                <li class="nav-item d-flex" style="color: #7f7f7f">
-                                    <p class="pt-2">Баланс:&nbsp;</p>
-                                    <p class="pt-2">{{ Auth::user()->balance }} $</p>
-                                </li>
-                            @endif
+{{--                            @if(Auth::user()->is_active)--}}
+{{--                                <li class="nav-item d-flex" style="color: #7f7f7f">--}}
+{{--                                    <p class="pt-2">Баланс:&nbsp;</p>--}}
+{{--                                    <p class="pt-2">{{ Auth::user()->balance }} $</p>--}}
+{{--                                </li>--}}
+{{--                            @endif--}}
 
 
                         @endif
