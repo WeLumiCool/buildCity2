@@ -12,13 +12,12 @@
                     @if($agent->isMobile())
                         <p class="justify-content-between d-flex"><span class="font-weight-bold">Владелец:</span><span
                                 class="text-muted">{{ $desk->user->name }}</span></p>
-                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Баланс:</span><span
-                                class="text-muted">{{ $desk->balance }} $</span></p>
+
                         <p class="justify-content-between d-flex"><span class="font-weight-bold">Ставка:</span><span
                                 class="text-muted">{{ $desk->program->cost }} $</span></p>
                         <p class="justify-content-between d-flex"><span
                                 class="font-weight-bold">Сумма выплаты:</span><span
-                                class="text-muted">{{ $desk->program->closing_amount }} $</span></p>
+                                class="text-muted">{{ $desk->program->amount_payment }} $</span></p>
                         <p class="justify-content-between d-flex"><span
                                 class="font-weight-bold">Дата открытия стола:</span><span
                                 class="text-muted">{{ $desk->created_at->format('d.m.y G:i') }}</span></p>
@@ -26,16 +25,14 @@
                         <div class="row p-2">
                             <div class="col-6 border-right">
                                 <p class="font-weight-bold">Владелец:</p>
-                                <p class="font-weight-bold">Баланс:</p>
                                 <p class="font-weight-bold">Ставка:</p>
                                 <p class="font-weight-bold">Сумма выплаты:</p>
                                 <p class="font-weight-bold">Дата открытия стола:</p>
                             </div>
                             <div class="col-6 border-left">
                                 <p class="text-muted">{{ $desk->user->name }}</p>
-                                <p class="text-muted">{{ $desk->balance }} $</p>
                                 <p class="text-muted">{{ $desk->program->cost }} $</p>
-                                <p class="text-muted">{{ $desk->program->closing_amount }} $</p>
+                                <p class="text-muted">{{ $desk->program->amount_payment }} $</p>
                                 <p class="text-muted">{{ $desk->created_at->format('d.m.y G:i') }}</p>
                             </div>
                         </div>

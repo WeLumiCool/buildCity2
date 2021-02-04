@@ -17,20 +17,18 @@
                         <p class="justify-content-between d-flex"><span class="font-weight-bold">Телефон:</span><span
                                 class="text-muted">{{ $user->phone }}</span></p>
                         <p class="justify-content-between d-flex"><span class="font-weight-bold">Сумма выплаты:</span><span
-                                class="text-muted">{{ $user->balance }} $</span></p>
+                                class="text-muted">{{ $user->program->amount_payment }} $</span></p>
                     @elseif($agent->isDesktop())
                         <div class="row p-2">
                             <div class="col-6 border-right">
                                 <p class="font-weight-bold">ФИО:</p>
                                 <p class="font-weight-bold">Почта:</p>
                                 <p class="font-weight-bold">Телефон:</p>
-                                <p class="font-weight-bold">Сумма выплаты:</p>
                             </div>
                             <div class="col-6 border-left">
                                 <p class="text-muted">{{ $user->name }} </p>
                                 <p class="text-muted">{{ $user->email }} </p>
                                 <p class="text-muted">{{ $user->phone }} </p>
-                                <p class="text-muted">{{ $user->balance }} $</p>
 
 
                             </div>
