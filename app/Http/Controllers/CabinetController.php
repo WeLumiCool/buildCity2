@@ -29,7 +29,7 @@ class CabinetController extends Controller
                 return $desk->program->cost.' $';
             })
             ->addColumn('closing_amount', function (Desk $desk) {
-                return $desk->program->closing_amount.' $';
+                return $desk->program->amount_payment.' $';
             })
             ->addColumn('Teilnehmers', function (Desk $desk) {
                 $counter_active_users = 0;
