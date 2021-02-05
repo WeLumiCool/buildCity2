@@ -21,7 +21,6 @@
                             <th scope="col">Участники</th>
                             <th scope="col">Код стола</th>
                             <th scope="col">Дата создания</th>
-                            <th scope="col">Баланс</th>
                             <th scope="col">Ставка</th>
                             <th scope="col">Сумма выплаты</th>
                         </tr>
@@ -131,7 +130,6 @@
                     {data: 'Teilnehmers', name: 'Teilnehmers'},
                     {data: 'code', name: 'code'},
                     {data: 'created_at', name: 'created_at'},
-                    {data: 'balance', name: 'balance'},
                     {data: 'cost', name: 'cost'},
                     {data: 'closing_amount', name: 'closing_amount'},
                 ],

@@ -16,8 +16,7 @@
                                 class="text-muted">{{ $user->email }}</span></p>
                         <p class="justify-content-between d-flex"><span class="font-weight-bold">Телефон:</span><span
                                 class="text-muted">{{ $user->phone }}</span></p>
-                        <p class="justify-content-between d-flex"><span class="font-weight-bold">Сумма выплаты:</span><span
-                                class="text-muted">{{ $user->program->amount_payment }} $</span></p>
+
                     @elseif($agent->isDesktop())
                         <div class="row p-2">
                             <div class="col-6 border-right">
@@ -29,14 +28,12 @@
                                 <p class="text-muted">{{ $user->name }} </p>
                                 <p class="text-muted">{{ $user->email }} </p>
                                 <p class="text-muted">{{ $user->phone }} </p>
-
-
                             </div>
                         </div>
                     @endif
                     @if($user->is_active == false)
                         <button type="submit" title="{{ __('Активировать') }}"
-                                class="btn n btn-success" id="activation_btn" data-user="{{$user->id }}"
+                                class="pr-admin-btn" id="activation_btn" data-user="{{$user->id }}"
                                 onclick="activation(this)">{{ __('Активировать пользователя') }}</button>
                     @endif
 
@@ -45,13 +42,13 @@
         </div>
         <h3 class="text-center font-weight-bold">Столы</h3>
         {{--        //////Столы Участник--}}
+
         <div class="row justify-content-center mt-4 mb-2 ">
             <div class="col-lg-12 col-12">
                 <div id="main">
                     <div class="accordion md-accordion accordion-blocks border-0" id="accordionStages" role="tablist"
                          aria-multiselectable="true">
                         @foreach($user->desks as $desk)
-
                             <div class="card" style="margin-bottom: 0.4rem;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
@@ -89,7 +86,9 @@
                                     <div class="card-body p-0">
                                         <div class="table-ui  mb-3">
                                             @if($desk->users)
-                                                @if($agent->isMobile())
+                                            @if($agent->isMobile())
+
+
                                                     <section class="border p-2 d-flex mb-4">
                                                         <div class="treeview treeview-primary" data-mdb-accordion="true"
                                                              tabindex="0">
@@ -292,7 +291,8 @@
                                                                     <ul class="collapse" id="level-913004"
                                                                         role="group" style="">
                                                                         @foreach($desk->users as $value)
-                                                                            @if($value->is_active)
+
+                                                                        @if($value->is_active)
                                                                                 <li aria-level="2" role="tree-item"
                                                                                     class="treeview-category"
                                                                                     tabindex="-2">
@@ -309,7 +309,7 @@
                                                                                     <ul class="collapse"
                                                                                         id="level-{{$value->id}}" role="group"
                                                                                         style="">
-                                                                                        @foreach($value->children as $item)
+                                                                                    @foreach($value->children as $item)
                                                                                             @if($item->is_active)
                                                                                                 <li aria-level="3"
                                                                                                     role="tree-item"
@@ -421,6 +421,14 @@
 @push('styles')
     <link rel="stylesheet" href="https://unpkg.com/treeflex/dist/css/treeflex.css">
     <style>
+        .pr-admin-btn{
+            padding: .375rem .75rem;
+            border-radius: 5px;
+            outline: none;
+            border: 0 solid #28a745;
+            color: #fff;
+            background-color: #28a745;
+        }
         #show_articles .col-2, #show_articles .col-10 {
             padding-top: 2rem;
             padding-bottom: 2rem;
@@ -589,12 +597,14 @@
         }
 
     </style>
+
 @endpush
 
 @push('scripts')
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.js"></script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.1.1/js/mdb.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script type="text/javascript">

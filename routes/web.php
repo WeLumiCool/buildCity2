@@ -67,7 +67,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')
 
     });
 
-Route::get('send-mail', function () {
+        Route::get('send-mail', function () {
 
 
 });

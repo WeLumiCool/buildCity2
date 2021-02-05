@@ -21,6 +21,10 @@
                         <p class="justify-content-between d-flex"><span
                                 class="font-weight-bold">Дата открытия стола:</span><span
                                 class="text-muted">{{ $desk->created_at->format('d.m.y G:i') }}</span></p>
+                        <div class="form-group" id="note">
+                            <button class="pr-admin-btn" id="copy_btn">Скопировать ссыклу</button>
+                            <input class="form-control" id="linkEvent" type="text" readonly>
+                        </div>
                     @elseif($agent->isDesktop())
                         <div class="row p-2">
                             <div class="col-6 border-right">
@@ -34,7 +38,7 @@
                                 <p class="text-muted">{{ $desk->created_at->format('d.m.y G:i') }}</p>
                             </div>
                             <div class="form-group" id="note">
-                                <button class="btn btn-secondary mb-3" id="copy_btn">Скопировать ссыклу</button>
+                                <button class="pr-admin-btn" id="copy_btn">Скопировать ссыклу</button>
                                 <input class="form-control" id="linkEvent" type="text" readonly>
                             </div>
                         </div>
@@ -64,10 +68,16 @@
                                                     <a class="treeview-category rotate"
                                                        data-mdb-toggle="collapse"
                                                        data-mdb-target="#level-{{$value->id}}" role="button"
-                                                       tabindex="-2" aria-expanded="true"><span
+                                                       tabindex="-2" aria-expanded="true" ><span
                                                             aria-label="toggle"><i
                                                                 class="fas fa-angle-right rotate mx-1"></i></span>{{ $value->name }}
+                                                        <i id="edit_profile"
+                                                           class="fas fa-copy ml-2" onclick="copyCode_mobile(this)"
+                                                           style="padding-top: 7px;color: green" data-desk="{{ $value->owners->filter(function ($q) use ($desk) {
+                                                        return $q->parent_id === $desk->id;
+                                                    })->first()->code }}"></i>
                                                     </a>
+
 
                                                 <ul class="collapse "
                                                     id="level-{{$value->id}}" role="group"
@@ -114,7 +124,7 @@
                                         @foreach($desk->users as $user)
                                             @if($user->is_active)
                                                 <li>
-                                                    <a  title="Скопировать ссылку стола" class="desk_code" onclick="copyToClipboard(this)"  data-desk="{{ $user->owners->filter(function ($q) use ($desk) {
+                                                    <a  title="Скопировать ссылку стола" class="desk_code" onclick="copyCode(this)"  data-desk="{{ $user->owners->filter(function ($q) use ($desk) {
                                                         return $q->parent_id === $desk->id;
                                                     })->first()->code }}">
                                                         <div class="member-view-box" >
@@ -134,7 +144,7 @@
                                                         @foreach($user->children as $item)
                                                             @if($item->is_active)
                                                                 <li>
-                                                                    <a  title="Скопировать ссылку стола" onclick="copyToClipboard(this)" class="desk_code">
+                                                                    <a  title="Скопировать ссылку стола"  class="desk_code">
                                                                         <div class="member-view-box">
                                                                             <div class="member-image">
                                                                                 <img
@@ -166,6 +176,16 @@
 @endsection
 @push('styles')
     <style>
+        .pr-admin-btn{
+            padding: .375rem .75rem;
+            border-radius: 5px;
+            outline: none;
+            border: 0 solid #6c757d;
+            color: #fff;
+            background-color: #6c757d;
+            margin-bottom: 15px;
+        }
+        .pr-admin-btn : focus
         .treeview {
             width: 100%;
         }
@@ -317,15 +337,16 @@
 
     <script>
         $(document).ready(function () {
-
             if ('1' === '{{ $desk->is_closed }}') {
                 $('#linkEvent').remove();
                 $('#copy_btn').remove();
+                $('#note').html(span);
             } else if ('0' === '{{ $desk->is_active }}') {
                 let span = '<span class="text-danger">Примечание: стол находится на рассмотрении или ожидает оплаты!</span>';
                 $('#linkEvent').remove();
                 $('#copy_btn').remove();
                 $('#note').html(span);
+                console.log('12wesf')
             } else if ('{{ $desk->users->count() }}' === '3') {
                 let span = '<span class="text-danger">Примечание: Вы больше не можете приглашать новых пользователей!</span>';
                 $('#linkEvent').remove();
@@ -342,8 +363,8 @@
         function copyToClipboard(elem) {
             let origSelectionStart, origSelectionEnd;
             target = elem;
-            origSelectionStart = elem.selectionStart;
-            origSelectionEnd = elem.selectionEnd;
+            // origSelectionStart = elem.selectionStart;
+            // origSelectionEnd = elem.selectionEnd;
             let currentFocus = document.activeElement;
             target.focus();
             target.setSelectionRange(0, target.value.length);
@@ -355,8 +376,13 @@
         }
 
 
-        function copyToClipboard(element) {
-            console.log(element.getAttribute("data-desk"))
+
+
+    </script>
+
+    <script>
+        function copyCode(element) {
+            console.log('asdasdasd')
             let $temp = $("<input>");
             $("body").append($temp);
             $temp.val(window.location.hostname + '/register/' + $(element).data("desk")).select();
@@ -371,9 +397,23 @@
 
             }, 3000);
         }
-
-
     </script>
+    <script>
+        function copyCode_mobile(element) {
+            console.log('asdasdasd')
+            let $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(window.location.hostname + '/register/' + $(element).data("desk")).select();
+            document.execCommand("copy");
+            $temp.remove();
 
 
+            $('#divInfo').removeClass('invisible');
+            setTimeout(function () {
+
+                $('#divInfo').addClass('invisible');
+
+            }, 3000);
+        }
+    </script>
 @endpush

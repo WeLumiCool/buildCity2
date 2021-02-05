@@ -39,7 +39,7 @@
                     @endif
                     @if($desk->is_active == false)
                         <button type="submit" title="{{ __('Активировать стол') }}"
-                                class="btn n btn-success" id="activation_btn" data-desk="{{$desk->id }}"
+                                class="pr-admin-btn" id="activation_btn" data-desk="{{$desk->id }}"
                                 onclick="activation(this)">{{ __('Активировать стол') }}</button>
                     @endif
                 </div>
@@ -182,6 +182,14 @@
 @endsection
 @push('styles')
     <style>
+        .pr-admin-btn{
+            padding: .375rem .75rem;
+            border-radius: 5px;
+            outline: none;
+            border: 0 solid #28a745;
+            color: #fff;
+            background-color: #28a745;
+        }
         .treeview {
             width: 100%;
         }
