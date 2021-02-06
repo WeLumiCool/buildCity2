@@ -262,6 +262,10 @@ class UserController extends Controller
     {
 
         return DataTables::of(User::query())
+            ->editColumn('name', function(User $user) {
+                $name = str_replace(' ', '<br>', $user->name);
+                return $name;
+            })
             ->addColumn('actions', function (User $user) {
                 return view('admin.actions', ['type' => 'users', 'model' => $user]);
             })
@@ -272,6 +276,8 @@ class UserController extends Controller
                     return 'Нет';
                 }
             })
+            ->rawColumns(['name'])
             ->make(true);
     }
 }
+

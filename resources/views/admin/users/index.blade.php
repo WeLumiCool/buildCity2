@@ -71,7 +71,53 @@
     <script src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js" defer></script>
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     <script>
+        // $(document).ready(function () {
+            // $('#users-table').on('click', 'tbody td:not(.child)', function () {
+            //     if (this.classList.contains('opened')) {
+            //         this.classList.remove('opened');
+            //     }
+            //     else {
+            //         this.classList.add('opened');
+            //     }
+            // });
+        {{--    $('#users-table').DataTable({--}}
+        {{--        responsive: true,--}}
+        {{--        processing: true,--}}
+        {{--        serverSide: true,--}}
+        {{--        ajax: '{!! route('admin.user.datatable.data') !!}',--}}
+        {{--        columns: [--}}
+        {{--            {   // Responsive control column--}}
+        {{--                data: null,--}}
+        {{--                defaultContent: '',--}}
+        {{--                className: 'control',--}}
+        {{--                orderable: false,--}}
+        {{--                searchable: false,--}}
+        {{--            },--}}
+        {{--            {data: 'name', name: 'name'},--}}
+        {{--            {data: 'email', name: 'email'},--}}
+        {{--            {data: 'phone', name: 'phone'},--}}
+        {{--            {data: 'is_active', name: 'is_active'},--}}
+        {{--            {data: 'actions', name: 'actions', searchable: false, orderable: false},--}}
+        {{--        ],--}}
+        {{--        "order": [[4, "asc"]],--}}
+        {{--        "language": {--}}
+        {{--            "url": "//cdn.datatables.net/plug-ins/1.10.18/i18n/Russian.json"--}}
+        {{--        },--}}
+        {{--    });--}}
+        {{--});--}}
+
+
+        // --------------------------------------------------
+
         $(document).ready(function () {
+            $('#users-table').on('click', 'tbody td:not(.child)', function () {
+                if (this.classList.contains('opened')) {
+                    this.classList.remove('opened');
+                }
+                else {
+                    this.classList.add('opened');
+                }
+            });
             $('#users-table').DataTable({
                 responsive: true,
                 processing: true,
@@ -96,14 +142,6 @@
                     "url": "//cdn.datatables.net/plug-ins/1.10.18/i18n/Russian.json"
                 },
             });
-            $('#users-table').on('click', 'tbody td:not(.child)', function () {
-                if (this.classList.contains('opened')) {
-                    this.classList.remove('opened');
-                }
-                else {
-                    this.classList.add('opened');
-                }
-            });
-        });
+        })
     </script>
 @endpush

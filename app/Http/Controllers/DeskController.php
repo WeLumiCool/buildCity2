@@ -205,7 +205,8 @@ class DeskController extends Controller
         $desks = Desk::where('is_active', false)->get();
         return DataTables::of($desks)
             ->editColumn('user_id', function (Desk $desk) {
-                return $desk->user->name;
+                $name = str_replace(' ', '<br>', $desk->user->name);
+                return $name;
             })
             ->editColumn('balance',function (Desk $desk){
                 return $desk->balance.' $';
@@ -251,7 +252,7 @@ class DeskController extends Controller
                     return '<a class="btn btn-success ml-1" href="' . route('admin.desks.show', $desk->id) . '"><i class="fas fa-eye"></i></a>';
                 }
             })
-            ->rawColumns(['Teilnehmers', 'is_closed', 'actions'])
+            ->rawColumns(['Teilnehmers', 'is_closed', 'actions', 'user_id'])
             ->make(true);
     }
 
@@ -266,7 +267,8 @@ class DeskController extends Controller
         $desks = Desk::where('is_active', true)->get();
         return DataTables::of($desks)
             ->editColumn('user_id', function (Desk $desk) {
-                return $desk->user->name;
+                $name = str_replace(' ', '<br>', $desk->user->name);
+                return $name;
             })
             ->editColumn('balance',function (Desk $desk){
                 return $desk->balance.' $';
@@ -312,7 +314,7 @@ class DeskController extends Controller
                     return '<a class="btn btn-success ml-1" href="' . route('admin.desks.show', $desk->id) . '"><i class="fas fa-eye"></i></a>';
                 }
             })
-            ->rawColumns(['Teilnehmers', 'is_closed', 'actions'])
+            ->rawColumns(['Teilnehmers', 'is_closed', 'actions', 'user_id'])
             ->make(true);
     }
 

@@ -67,8 +67,16 @@
     <script src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js" defer></script>
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     <script>
-        $(function () {
-            $('#desks-table').DataTable({
+        $(document).ready(function () {
+            $('#desks-table').on('click', 'tbody td:not(.child)', function () {
+                if (this.classList.contains('opened')) {
+                    this.classList.remove('opened');
+                }
+                else {
+                    this.classList.add('opened');
+                }
+            });
+            let table = $('#desks-table').DataTable({
                 responsive: true,
                 processing: true,
                 serverSide: true,
@@ -93,16 +101,9 @@
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.18/i18n/Russian.json"
                 },
+
             });
-            $('#desks-table').on('click', 'tbody td:not(.child)', function () {
-                if (this.classList.contains('opened')) {
-                    this.classList.remove('opened');
-                }
-                else {
-                    this.classList.add('opened');
-                }
-            });
-        });
+        })
     </script>
     <script>
         $(document).on('click', '.close_desk', function () {
