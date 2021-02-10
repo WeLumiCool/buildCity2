@@ -24,11 +24,13 @@ Route::get('mail', function () {
     \Illuminate\Support\Facades\Mail::to('khusan590@gmail.com')->send(new \App\Mail\CityBuild());
    return new \App\Mail\CityBuild();
 });
-
+Route::get('/', function () {
+    return view('public.home');
+})->name('main');
 Route::middleware('access')->group(function () {
-    Route::get('/', function () {
-        return view('public.home');
-    })->name('main');
+//    Route::get('/', function () {
+//        return view('public.home');
+//    })->name('main');
     Route::get('cabinet', 'CabinetController@get_page')->name('cabinet');
     Route::get('profile-settings', 'UserController@profile')->name('profile.settings');
     Route::post('update_profile', 'UserController@change_profile')->name('update.profile');

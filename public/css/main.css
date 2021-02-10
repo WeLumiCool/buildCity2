@@ -1,6 +1,73 @@
-body {
-    font-family: 'Roboto', sans-serif !important;
+html, body
+{
+    font-family: 'Inter', sans-serif;
 }
+.font-weight-medium
+{
+    font-weight: 600!important;
+}
+.font-weight-extra
+{
+    font-weight: 800!important;
+}
+.font-size-10 {
+    font-size: 10px!important;
+}
+.font-size-12 {
+    font-size: 12px!important;
+}
+.font-size-14 {
+    font-size: 14px!important;
+}
+.font-size-16 {
+    font-size: 16px!important;
+}
+.font-size-18 {
+    font-size: 18px!important;
+}
+.font-size-20 {
+    font-size: 20px!important;
+}
+.font-size-22 {
+    font-size: 22px!important;
+}
+.font-size-24 {
+    font-size: 24px!important;
+}
+.font-size-26 {
+    font-size: 26px!important;
+}
+.font-size-28 {
+    font-size: 28px!important;
+}
+.line-height-100 {
+    line-height: 100%;
+}
+.line-height-110 {
+    line-height: 110%;
+}
+.line-height-120 {
+    line-height: 120%;
+}
+.line-height-130 {
+    line-height: 130%;
+}
+.line-height-140 {
+    line-height: 140%;
+}
+.line-height-150 {
+    line-height: 150%;
+}
+.line-height-160 {
+    line-height: 160%;
+}
+.line-height-170 {
+    line-height: 170%;
+}
+.line-height-180 {
+    line-height: 180%;
+}
+
 .logo{
     width: 40%;
     height: 40%;

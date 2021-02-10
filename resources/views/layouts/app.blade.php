@@ -7,16 +7,16 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name') }}</title>
+    <title>BuildCity</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     {{--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">--}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -33,6 +33,10 @@
             <nav class="navbar navbar-expand-lg navbar-light ">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('img/logo2.png') }}" alt="" style="width:96px; height:auto;">
+                </a>
+
+                <a class="d-lg-none d-block" href="{{ route('login') }}">
+                    <button class="btn text-white" style="background: #dfcaa4"><i class="fas fa-user mr-2"></i>Войти</button>
                 </a>
                 @if(Auth::check())
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -85,6 +89,10 @@
                             </form>
                         </li>
                     </ul>
+                    @elseif(!str_contains(url()->current(), '/login'))
+                        <a href="{{ route('login') }}">
+                            <button class="btn text-white" style="background: #dfcaa4"><i class="fas fa-user mr-2"></i>Войти</button>
+                        </a>
                     @endif
                 </div>
             </nav>
@@ -92,9 +100,10 @@
     </header>
 
 
-    <main class="py-5">
+    <main class="pt-5">
         @yield('content')
     </main>
+    @include('layouts.footer')
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
