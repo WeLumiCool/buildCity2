@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
+    <div class="container"  style="min-height: 80vh;">
         <div class="p-lg-3 bg-form card-body-admin">
             <div class="row mx-1">
                 <div class="mb-3 d-lg-flex justify-content-lg-between text-center">

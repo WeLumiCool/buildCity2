@@ -100,7 +100,7 @@
     </header>
 
 
-    <main class="pt-5">
+    <main class="pt-5" style="min-height: 80vh;">
         @yield('content')
     </main>
     @include('layouts.footer')

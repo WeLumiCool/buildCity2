@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
+    <div class="container" style="min-height: 80vh;">
         <div class="bg-form card-body p-5">
             <div class="row">
                 <form method="POST" action="{{ route('update.profile') }}">

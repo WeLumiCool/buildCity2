@@ -8,7 +8,7 @@
     <div id="divInfo" class="alert alert-success alert-dismissible position-fixed invisible" style="right: 0; top: 10px;">
         Код стола данного пользователя скопирован
     </div>
-    <div class="container">
+    <div class="container" style="min-height: 80vh;">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-5 mb-3">
                 <div class="border p-2 shadow-sm">
