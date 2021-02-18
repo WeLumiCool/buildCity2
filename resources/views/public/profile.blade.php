@@ -6,49 +6,7 @@
                 <form method="POST" action="{{ route('update.profile') }}">
                     @csrf
                     <input type="hidden" value="{{ Auth::user()->id }}">
-                    <div class="form-group row">
-                        <label for="name_field" class="col-2 col-form-label font-weight-bold">ФИО:</label>
-                        <div class="col-12 col-lg-10">
-                            <input id="name_field" type="text" class="form-control @error('name') is-invalid @enderror"
-                                   value="{{ old('name', Auth::user()->name) }}"
-                                   name="name"
-                                   required>
-                            @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="mail_field" class="col-2 col-form-label font-weight-bold">Email:</label>
-                        <div class="col-12 col-lg-10">
-                            <input id="mail_field" type="text" class="form-control @error('email') is-invalid @enderror"
-                                   value="{{old('email', Auth::user()->email) }}"
-                                   name="email"
-                                   required>
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="phone_field" class="col-2 col-form-label font-weight-bold">Телефон:</label>
-                        <div class="col-12 col-lg-10">
-                            <input id="phone_field" type="text"
-                                   class="form-control @error('phone') is-invalid @enderror"
-                                   value="{{ old('phone', Auth::user()->phone) }}"
-                                   name="phone"
-                                   required>
-                            @error('phone')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
+
                     <div class="form-group row">
                         <label for="current_pwd_field" class="col-lg-2 col-12 col-form-label font-weight-bold">Текущий
                             пароль:</label>

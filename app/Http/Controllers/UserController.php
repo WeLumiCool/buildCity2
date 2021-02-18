@@ -230,20 +230,20 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'phone' => ['required', 'max:25', Rule::unique('users')->ignore($user->id)],
+//            'name' => ['required', 'string', 'max:255'],
+//            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+//            'phone' => ['required', 'max:25', Rule::unique('users')->ignore($user->id)],
             'password' => ['confirmed'],
         ]);
 
         if ($validator->fails()) {
             return back()->withInput()->withErrors($validator->errors());
         }
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
+//        $user->name = $request->name;
+//        $user->email = $request->email;
+//        $user->phone = $request->phone;
         if ($request->current_password != null) {
-            if ($user->password == Hash::make($request->current_password)) {
+            if (Hash::check($request->current_password, $user->password)) {
                 $user->password = Hash::make($request->password);
             } else {
                 return back()->withInput()->withErrors(['current_password' => ['Пароль не верен']]);
