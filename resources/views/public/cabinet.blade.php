@@ -4,9 +4,9 @@
         <div class="p-lg-3 bg-form card-body-admin">
             <div class="row mx-1">
                 <div class="mb-3 d-lg-flex justify-content-lg-between text-center">
-                    <div class="py-2">
-                        <a href="{{ route('create.desk') }}" class="btn btn-success" style="width: 100%;">Добавить стол</a>
-                    </div>
+                    {{--<div class="py-2">--}}
+                        {{--<a href="{{ route('create.desk') }}" class="btn btn-success" style="width: 100%;">Добавить стол</a>--}}
+                    {{--</div>--}}
                     <div class="py-2">
                         <a href="{{ route('profile.settings') }}" class="btn btn-dark ml-auto" style="width: 100%;">Изменить профиль</a>
                     </div>
