@@ -66,6 +66,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')
         Route::get('get_users_for_replace', 'DeskController@get_users')->name('get_users.replace');
         Route::get('active_datatable', 'DeskController@active_datatable')->name('desk.active.data');
         Route::get('/activated', 'DeskController@activated')->name('activated.index');
+        Route::get('/desk_delete/{id}', 'DeskController@destroy')->name('desk_delete');
 
     });
 

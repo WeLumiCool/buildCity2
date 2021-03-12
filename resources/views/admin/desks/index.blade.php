@@ -110,6 +110,13 @@
             if (confirm('Вы дествительно хотите закрыть стол')) {
                 window.location.href = 'http://' + window.location.hostname + '/admin/close-desk/' + id;
             }
+        });
+
+        $(document).on('click', '.delete_desk', function () {
+            let id = $(this).data('id');
+            if (confirm('Вы действительно хотите удалить стол?')) {
+                window.location.href = 'http://' + window.location.hostname + '/admin/desk_delete/' + id;
+            }
         })
     </script>
 @endpush

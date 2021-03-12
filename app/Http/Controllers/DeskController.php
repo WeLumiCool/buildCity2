@@ -159,7 +159,10 @@ class DeskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $desk = Desk::find($id);
+        $desk->delete();
+
+        return back();
     }
 
     public function replaceShow()
@@ -246,11 +249,20 @@ class DeskController extends Controller
             })
             ->addColumn('actions', function (Desk $desk) {
                 if (!$desk->is_closed) {
+                    if (!count($desk->users)){
                     return '<a class="btn btn-success ml-1" href="' . route('admin.desks.show', $desk->id) . '"><i class="fas fa-eye"></i></a>' .
-                        '<button class="close_desk btn btn-danger ml-1" data-id="' . $desk->id . '"><i class="fas fa-external-link-alt"></i></button>';
+                        '<button class="close_desk btn btn-danger ml-1" data-id="' . $desk->id . '"><i class="fas fa-external-link-alt"></i></button>' .
+                        '<button class="btn btn-danger ml-1 delete_desk" data-id="' . $desk->id . '"><i class="fas fa-times"></i></button>';
+                    }
+                    else
+                    {
+                        return '<a class="btn btn-success ml-1" href="' . route('admin.desks.show', $desk->id) . '"><i class="fas fa-eye"></i></a>' .
+                            '<button class="close_desk btn btn-danger ml-1" data-id="' . $desk->id . '"><i class="fas fa-external-link-alt"></i></button>';
+                    }
                 } else {
                     return '<a class="btn btn-success ml-1" href="' . route('admin.desks.show', $desk->id) . '"><i class="fas fa-eye"></i></a>';
                 }
+
             })
             ->rawColumns(['Teilnehmers', 'is_closed', 'actions', 'user_id'])
             ->make(true);
