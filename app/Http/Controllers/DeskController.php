@@ -260,8 +260,14 @@ class DeskController extends Controller
                             '<button class="close_desk btn btn-danger ml-1" data-id="' . $desk->id . '"><i class="fas fa-external-link-alt"></i></button>';
                     }
                 } else {
-                    return '<a class="btn btn-success ml-1" href="' . route('admin.desks.show', $desk->id) . '"><i class="fas fa-eye"></i></a>' .
-                        '<button class="btn btn-danger ml-1 delete_desk" data-id="' . $desk->id . '"><i class="fas fa-times"></i></button>';
+                    if (!count($desk->users)) {
+                        return '<a class="btn btn-success ml-1" href="' . route('admin.desks.show', $desk->id) . '"><i class="fas fa-eye"></i></a>' .
+                            '<button class="btn btn-danger ml-1 delete_desk" data-id="' . $desk->id . '"><i class="fas fa-times"></i></button>';
+                    }
+                    else
+                    {
+                        return '<a class="btn btn-success ml-1" href="' . route('admin.desks.show', $desk->id) . '"><i class="fas fa-eye"></i></a>';
+                    }
                 }
 
             })
