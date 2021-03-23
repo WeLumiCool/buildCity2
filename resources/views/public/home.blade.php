@@ -10,7 +10,7 @@
                 </h1>
                     <div class="col-12 px-0">
                 <p class="font-weight-normal font-size-16 line-height-140">
-                    Строительная компания Билдинг Сити. <br>Строительство эко-домов в Бишкеке!
+                    Строительная компания Билдинг Сити. <br>Строительство эко-домов в Кыргызстане!
                 </p>
                     </div>
                 </div>
@@ -24,10 +24,10 @@
 <div class="container-fluid py-4 mt-4" style="background-color: #f8f9fa">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-12 order-lg-first order-last px-lg-5 px-0">
+            <div class="col-lg-6 col-12 order-lg-first order-last px-lg-5 px-0 d-flex align-items-center ">
                 <img class="img-fluid" src="{{ asset('img/pic2.png') }}" alt="">
             </div>
-            <div class="col-lg-6 col-12 d-flex align-items-center px-lg-5 px-2">
+            <div class="col-lg-6 col-12px-lg-5 px-2">
                 <div>
                     <h2 class="font-weight-medium mb-3" style="font-size: 36px;">О нас</h2>
                 <p class="font-weight-normal font-size-16 line-height-140 mb-3">
@@ -40,10 +40,27 @@
                             Компания Билдинг Сити создавалась для строительства эко городков на территории КР.
                         </p>
                 </div>
+                <div class="d-flex mt-3 mb-lg-0 mb-4">
+                    <a href="{{ asset('img/doc1.jpg') }}" data-fancybox="docs">
+                        <img style="width:110px; height: auto;" class="img-fluid" src="{{ asset('img/doc1.jpg') }}" alt="">
+                    </a>
+                    <a href="{{ asset('img/doc2.jpg') }}" data-fancybox="docs">
+                        <img style="width:110px; height: auto;" class="img-fluid" src="{{ asset('img/doc2.jpg') }}" alt="">
+                    </a>
+                    <a href="{{ asset('img/doc3.jpg') }}" data-fancybox="docs">
+                        <img style="width:110px; height: auto;" class="img-fluid" src="{{ asset('img/doc3.jpg') }}" alt="">
+                    </a>
+                    <a href="{{ asset('img/doc4.jpg') }}" data-fancybox="docs">
+                        <img style="width:110px; height: auto;"   class="img-fluid" src="{{ asset('img/doc4.jpg') }}" alt="">
+                    </a>
+                </div>
             </div>
+
         </div>
+
     </div>
 </div>
+
     <div class="container-fluid py-4 mt-4">
         <div class="container">
             <h2 class="font-weight-medium text-center mb-3" style="font-size: 36px;">Технология строительства</h2>
@@ -70,6 +87,48 @@
         </div>
     </div>
 <div class="container-fluid py-5" style="background-color: #f8f9fa">
+    <div class="container">
+        <h2 class="font-weight-medium text-center mt-5" style="font-size: 36px;">Планировки</h2>
+        <div class="row mt-5">
+            <div class="col-lg-4 col-12 px-4 mb-lg-0 mb-4">
+                <img class="img-fluid w-100" src="{{ asset('img/plan2.png') }}" alt="">
+                <p class="font-weight-medium text-center font-size-18 line-height-140 mt-3">
+                    Дом 2 этажа 110кв.м
+                </p>
+                <p class="text-center">
+                    <a href="{{ asset('img/plan21.png') }}"  data-fancybox="plan2">
+                        Посмотреть планировку
+                    </a>
+                    <a class="d-none" href="{{ asset('img/plan22.png') }}" data-fancybox="plan2"></a>
+                </p>
+            </div>
+            <div class="col-lg-4 col-12 px-4 mb-lg-0 mb-4">
+                <img class="img-fluid w-100" src="{{ asset('img/plan1.png') }}" alt="">
+                <p class="font-weight-medium text-center font-size-18 line-height-140 mt-3">
+                    Дом 1 этаж 65кв.м
+                </p>
+                <p class="text-center">
+                    <a href="{{ asset('img/plan_1.png') }}"  data-fancybox="plan1">
+                        Посмотреть планировку
+                    </a>
+                </p>
+            </div>
+            <div class="col-lg-4 col-12 px-4 mb-lg-0 mb-4">
+                <img class="img-fluid w-100" src="{{ asset('img/plan3.png') }}" alt="">
+                <p class="font-weight-medium text-center font-size-18 line-height-140 mt-3">
+                    Дом 2 этажа 140,5кв.м
+                </p>
+                <p class="text-center">
+                    <a href="{{ asset('img/plan31.png') }}"  data-fancybox="plan3">
+                        Посмотреть планировку
+                    </a>
+                    <a class="d-none" href="{{ asset('img/plan32.png') }}" data-fancybox="plan3"></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid py-5" style="background-color: #fefefe">
     <div class="container">
             <h2 class="font-weight-medium text-center mt-5" style="font-size: 36px;">Преимущества</h2>
         <div class="row mt-5 pt-5">
