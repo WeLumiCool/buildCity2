@@ -90,8 +90,12 @@
     <div class="container">
         <h2 class="font-weight-medium text-center mt-5" style="font-size: 36px;">Планировки</h2>
         <div class="row mt-5">
-            <div class="col-lg-4 col-12 px-4 mb-lg-0 mb-4">
-                <img class="img-fluid w-100" src="{{ asset('img/plan2.png') }}" alt="">
+            <div class="col-lg-6 col-12 px-4 mb-lg-0 mb-4">
+                <div class="d-flex">
+                    <img class="img-fluid w-50 mr-4" src="{{ asset('img/plan2.png') }}" alt="">
+                    <img class="img-fluid w-50" src="{{ asset('img/plan2_1.png') }}" alt="">
+                </div>
+
                 <p class="font-weight-medium text-center font-size-18 line-height-140 mt-3">
                     Дом 2 этажа 110кв.м
                 </p>
@@ -102,7 +106,8 @@
                     <a class="d-none" href="{{ asset('img/plan22.png') }}" data-fancybox="plan2"></a>
                 </p>
             </div>
-            <div class="col-lg-4 col-12 px-4 mb-lg-0 mb-4">
+
+            <div class="col-lg-3 col-12 px-4 mb-lg-0 mb-4">
                 <img class="img-fluid w-100" src="{{ asset('img/plan1.png') }}" alt="">
                 <p class="font-weight-medium text-center font-size-18 line-height-140 mt-3">
                     Дом 1 этаж 65кв.м
@@ -113,7 +118,7 @@
                     </a>
                 </p>
             </div>
-            <div class="col-lg-4 col-12 px-4 mb-lg-0 mb-4">
+            <div class="col-lg-3 col-12 px-4 mb-lg-0 mb-4">
                 <img class="img-fluid w-100" src="{{ asset('img/plan3.png') }}" alt="">
                 <p class="font-weight-medium text-center font-size-18 line-height-140 mt-3">
                     Дом 2 этажа 140,5кв.м
@@ -125,6 +130,7 @@
                     <a class="d-none" href="{{ asset('img/plan32.png') }}" data-fancybox="plan3"></a>
                 </p>
             </div>
+
         </div>
     </div>
 </div>
