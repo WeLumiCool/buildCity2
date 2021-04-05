@@ -27,7 +27,7 @@
         <div class="container px-0">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('img/logo2.png') }}" class="logo" alt="" style="width:96px; height:auto;">
+                    <img src="{{ asset('img/logo2.png') }}" class="logo" alt="" style="width:65px; height:auto;">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent"

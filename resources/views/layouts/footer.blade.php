@@ -9,7 +9,7 @@
                     Адрес: <br><span class="font-weight-normal">г.Бишкек, Мкр Улан 2 дом 2/28</span>
                 </p>
                 <p class="font-weight-light">
-                    Email: <br><span class="font-weight-normal">buildingsity312@gmail.com</span>
+                    Email: <br><span class="font-weight-normal">building.city.kg@gmail.com</span>
                 </p>
                 <p class="font-weight-light">
                     Номер телефона: <br>
