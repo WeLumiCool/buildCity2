@@ -93,7 +93,7 @@ class UserController extends Controller
     public function activation(Request $request)
     {
         $user = User::find($request->id);
-        Mail::to($user->email)->send(new BuildCityMail());
+        // Mail::to($user->email)->send(new BuildCityMail());
         $user->is_active = true;
         $user->save();
 

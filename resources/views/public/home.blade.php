@@ -40,7 +40,7 @@
                             Компания Билдинг Сити создавалась для строительства эко городков на территории КР.
                         </p>
                 </div>
-                <div class="d-flex mt-3 mb-lg-0 mb-4">
+                <div class="d-flex mt-3 mb-lg-0">
                     <a href="{{ asset('img/doc1.jpg') }}" data-fancybox="docs">
                         <img style="width:110px; height: auto;" class="img-fluid" src="{{ asset('img/doc1.jpg') }}" alt="">
                     </a>
@@ -53,6 +53,23 @@
                     <a href="{{ asset('img/doc4.jpg') }}" data-fancybox="docs">
                         <img style="width:110px; height: auto;"   class="img-fluid" src="{{ asset('img/doc4.jpg') }}" alt="">
                     </a>
+                </div>
+                <div class="mt-4">
+                    <h2 class="font-weight-medium mb-3" style="font-size: 30px;">Бизнес программа</h2>
+                    <div class="d-flex mt-3 mb-lg-0 mb-4">
+                        <a href="{{ asset('img/bp1.jpg') }}" data-fancybox="bp">
+                            <img style="width:110px; height: auto;" class="img-fluid" src="{{ asset('img/bp1.jpg') }}" alt="">
+                        </a>
+                        <a href="{{ asset('img/bp2.jpg') }}" data-fancybox="bp">
+                            <img style="width:110px; height: auto;" class="img-fluid" src="{{ asset('img/bp2.jpg') }}" alt="">
+                        </a>
+                        <a href="{{ asset('img/bp3.jpg') }}" data-fancybox="bp">
+                            <img style="width:110px; height: auto;" class="img-fluid" src="{{ asset('img/bp3.jpg') }}" alt="">
+                        </a>
+                        <a href="{{ asset('img/bp4.jpg') }}" data-fancybox="bp">
+                            <img style="width:110px; height: auto;"   class="img-fluid" src="{{ asset('img/bp4.jpg') }}" alt="">
+                        </a>
+                    </div>
                 </div>
             </div>
 
